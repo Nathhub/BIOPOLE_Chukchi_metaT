@@ -54,10 +54,12 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#rrna-removal-sortmerna" id="toc-rrna-removal-sortmerna" class="nav-link" data-scroll-target="#rrna-removal-sortmerna">rRNA Removal – <strong>SortMeRNA</strong></a></li>
   <li><a href="#de-novo-assembly-megahit" id="toc-de-novo-assembly-megahit" class="nav-link" data-scroll-target="#de-novo-assembly-megahit">De Novo Assembly – <strong>MEGAHIT</strong></a></li>
-  <li><a href="#read-mapping-bowtie2-and-samtools" id="toc-read-mapping-bowtie2-and-samtools" class="nav-link" data-scroll-target="#read-mapping-bowtie2-and-samtools">Read Mapping – Bowtie2 and Samtools</a></li>
+  <li><a href="#read-mapping-bowtie2-and-samtools" id="toc-read-mapping-bowtie2-and-samtools" class="nav-link" data-scroll-target="#read-mapping-bowtie2-and-samtools">Read Mapping – <strong>Bowtie2</strong> and <strong>Samtools</strong></a></li>
   <li><a href="#creating-anvio-databases" id="toc-creating-anvio-databases" class="nav-link" data-scroll-target="#creating-anvio-databases">Creating anvi’o Databases</a></li>
   <li><a href="#functional-annotation-of-genes" id="toc-functional-annotation-of-genes" class="nav-link" data-scroll-target="#functional-annotation-of-genes">🔍 Functional Annotation of genes</a></li>
   <li><a href="#metabolic-reconstruction-and-pathway-visualisation" id="toc-metabolic-reconstruction-and-pathway-visualisation" class="nav-link" data-scroll-target="#metabolic-reconstruction-and-pathway-visualisation">🔬 Metabolic Reconstruction and Pathway Visualisation</a></li>
+  <li><a href="#kegg-module-m00529-denitrification-nitrate-nitrogen" id="toc-kegg-module-m00529-denitrification-nitrate-nitrogen" class="nav-link" data-scroll-target="#kegg-module-m00529-denitrification-nitrate-nitrogen">KEGG Module M00529 — Denitrification (nitrate → nitrogen)</a></li>
+  <li><a href="#kegg-map-of-nitrogen-pathways" id="toc-kegg-map-of-nitrogen-pathways" class="nav-link" data-scroll-target="#kegg-map-of-nitrogen-pathways">KEGG Map of Nitrogen Pathways</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -299,7 +301,7 @@ sortmerna \
 <p>These statistics indicate a highly fragmented but deep assembly, typical of complex marine microbial metatranscriptomes, with contigs ≥500 bp retained for downstream analyses.</p>
 </section>
 <section id="read-mapping-bowtie2-and-samtools" class="level2">
-<h2 class="anchored" data-anchor-id="read-mapping-bowtie2-and-samtools">Read Mapping – Bowtie2 and Samtools</h2>
+<h2 class="anchored" data-anchor-id="read-mapping-bowtie2-and-samtools">Read Mapping – <strong>Bowtie2</strong> and <strong>Samtools</strong></h2>
 <p>To quantify transcript coverage across assembled contigs, we mapped the rRNA-depleted reads back to the MEGAHIT assembly using Bowtie2, followed by BAM processing with Samtools.</p>
 <p>First, we built a Bowtie2 index from the fixed assembly:</p>
 <pre class="{bash}"><code>bowtie2-build St1_assembly-fixed.fa St1_assembly-fixed</code></pre>
@@ -382,6 +384,61 @@ samtools index "${OUT}.bam"</code></pre>
 <pre class="{bash}"><code>anvi-draw-kegg</code></pre>
 <p>Renders KEGG metabolic pathway diagrams annotated with detected genes, enabling visual inspection of pathway completeness and highlighting which steps are supported by metatranscriptomic evidence.</p>
 <p>These tools collectively provide a pathway-level view of nitrogen cycling activity in the Chukchi Sea microbial community, enabling detailed interpretation of expression patterns associated with denitrification, nitrification, and anammox processes.</p>
+</section>
+<section id="kegg-module-m00529-denitrification-nitrate-nitrogen" class="level2">
+<h2 class="anchored" data-anchor-id="kegg-module-m00529-denitrification-nitrate-nitrogen">KEGG Module M00529 — Denitrification (nitrate → nitrogen)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BIOPOLE_Chukchi_metaT_files/KEGG_Module_Denitrification_M00529.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<figcaption>KEGG module M00529 (Denitrification, nitrate → nitrogen). Diagram from https://www.genome.jp/dbget-bin/www_bget?md:M00529</figcaption>
+</figure>
+</div>
+<p>From the output of anvi-estimate-metabolism, we can look for the KEGG module for Denitrification (M00529) and look at its completeness:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 22%">
+<col style="width: 28%">
+<col style="width: 24%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>KEGG Module</th>
+<th>Station</th>
+<th>stepwise_module_completeness</th>
+<th>pathwise_module_completeness</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>M00529</td>
+<td>Station_1</td>
+<td>1.00</td>
+<td>1.00</td>
+</tr>
+<tr class="even">
+<td>M00529</td>
+<td>Station_2</td>
+<td>1.00</td>
+<td>1.00</td>
+</tr>
+<tr class="odd">
+<td>M00529</td>
+<td>Station_3</td>
+<td>1.00</td>
+<td>1.00</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="kegg-map-of-nitrogen-pathways" class="level2">
+<h2 class="anchored" data-anchor-id="kegg-map-of-nitrogen-pathways">KEGG Map of Nitrogen Pathways</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BIOPOLE_Chukchi_metaT_files/Nitrogen_metabolism_St1_KEGG-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>KEGG map of Nitrogen metabolic pathways. Diagram from anvi’o and KEGG. In green are the genes present in anvio contig database for Station 1</figcaption>
+</figure>
+</div>
 </section>
 </section>
 

@@ -138,7 +138,7 @@ For example (St1 assembly):
 
 These statistics indicate a highly fragmented but deep assembly, typical of complex marine microbial metatranscriptomes, with contigs ≥500 bp retained for downstream analyses.
 
-## Read Mapping – Bowtie2 and Samtools
+## Read Mapping – **Bowtie2** and **Samtools**
 
 To quantify transcript coverage across assembled contigs, we mapped the rRNA-depleted reads back to the MEGAHIT assembly using Bowtie2, followed by BAM processing with Samtools.
 
@@ -259,3 +259,21 @@ anvi-draw-kegg
 Renders KEGG metabolic pathway diagrams annotated with detected genes, enabling visual inspection of pathway completeness and highlighting which steps are supported by metatranscriptomic evidence.
 
 These tools collectively provide a pathway-level view of nitrogen cycling activity in the Chukchi Sea microbial community, enabling detailed interpretation of expression patterns associated with denitrification, nitrification, and anammox processes.
+
+## KEGG Module M00529 — Denitrification (nitrate → nitrogen)
+
+![KEGG module M00529 (Denitrification, nitrate → nitrogen). Diagram from https://www.genome.jp/dbget-bin/www_bget?md:M00529](BIOPOLE_Chukchi_metaT_files/KEGG_Module_Denitrification_M00529.png){width=75%}
+
+From the output of anvi-estimate-metabolism, we can look for the KEGG module for Denitrification (M00529) and look at its completeness:
+
+| KEGG Module | Station   | stepwise_module_completeness | pathwise_module_completeness |
+|------------|-----------|--------------|------------|
+| M00529     | Station_1 | 1.00         | 1.00       |
+| M00529     | Station_2 | 1.00         | 1.00       |
+| M00529     | Station_3 | 1.00         | 1.00       |
+
+## KEGG Map of Nitrogen Pathways
+
+![KEGG map of Nitrogen metabolic pathways. Diagram from anvi'o and KEGG. In green are the genes present in anvio contig database for Station 1](BIOPOLE_Chukchi_metaT_files/Nitrogen_metabolism_St1_KEGG-1.png){width=100%}
+
+
