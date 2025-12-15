@@ -275,7 +275,8 @@ From the output of anvi-estimate-metabolism, we can look for the KEGG module for
 ## KEGG Map of Nitrogen Pathways
 
 ![KEGG map of Nitrogen metabolic pathways. Diagram from anvi'o and KEGG. In green are the genes present in anvio contig database for Station 1](BIOPOLE_Chukchi_metaT_files/Nitrogen_metabolism_St1_KEGG-1.png){width=100%}
-##  KEGG nitrogen cycle (map00910) – KO list
+
+##  KEGG nitrogen cycle (map00910)
 
 This is a standard, widely used KO set covering:
 
