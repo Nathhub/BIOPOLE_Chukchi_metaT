@@ -275,5 +275,53 @@ From the output of anvi-estimate-metabolism, we can look for the KEGG module for
 ## KEGG Map of Nitrogen Pathways
 
 ![KEGG map of Nitrogen metabolic pathways. Diagram from anvi'o and KEGG. In green are the genes present in anvio contig database for Station 1](BIOPOLE_Chukchi_metaT_files/Nitrogen_metabolism_St1_KEGG-1.png){width=100%}
+##  KEGG nitrogen cycle (map00910) – KO list
 
+This is a standard, widely used KO set covering:
+
+- Nitrification
+- Denitrification
+- DNRA
+- Anammox
+- Nitrogen fixation
+
+Assimilatory pathways
+
+###  ✅ Core nitrogen-cycle KOs (map00910)
+- Nitrogen fixation
+K02588  nifH
+K02591  nifD
+K02586  nifK
+
+- Nitrification
+K10944  amoA
+K10945  amoB
+K10946  amoC
+K10535  hao
+
+- Assimilatory nitrate reduction
+K00367  nasA
+K00360  nirA
+
+- Dissimilatory nitrate reduction (DNRA)
+K00362  napA
+K00363  napB
+K00370  narG
+K00371  narH
+K00374  narI
+K02567  nrfA
+K02568  nrfH
+
+- Denitrification
+K00368  nirK
+K15864  nirS
+K04561  norB
+K02305  norC
+K00376  nosZ
+
+- Anammox
+K20932  hzsA
+K20933  hzsB
+K20934  hzsC
+K20935  hdh
 

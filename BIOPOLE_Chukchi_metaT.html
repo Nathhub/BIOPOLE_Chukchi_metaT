@@ -59,7 +59,10 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#functional-annotation-of-genes" id="toc-functional-annotation-of-genes" class="nav-link" data-scroll-target="#functional-annotation-of-genes">🔍 Functional Annotation of genes</a></li>
   <li><a href="#metabolic-reconstruction-and-pathway-visualisation" id="toc-metabolic-reconstruction-and-pathway-visualisation" class="nav-link" data-scroll-target="#metabolic-reconstruction-and-pathway-visualisation">🔬 Metabolic Reconstruction and Pathway Visualisation</a></li>
   <li><a href="#kegg-module-m00529-denitrification-nitrate-nitrogen" id="toc-kegg-module-m00529-denitrification-nitrate-nitrogen" class="nav-link" data-scroll-target="#kegg-module-m00529-denitrification-nitrate-nitrogen">KEGG Module M00529 — Denitrification (nitrate → nitrogen)</a></li>
-  <li><a href="#kegg-map-of-nitrogen-pathways" id="toc-kegg-map-of-nitrogen-pathways" class="nav-link" data-scroll-target="#kegg-map-of-nitrogen-pathways">KEGG Map of Nitrogen Pathways</a></li>
+  <li><a href="#kegg-map-of-nitrogen-pathways" id="toc-kegg-map-of-nitrogen-pathways" class="nav-link" data-scroll-target="#kegg-map-of-nitrogen-pathways">KEGG Map of Nitrogen Pathways</a>
+  <ul class="collapse">
+  <li><a href="#core-nitrogen-cycle-kos-map00910" id="toc-core-nitrogen-cycle-kos-map00910" class="nav-link" data-scroll-target="#core-nitrogen-cycle-kos-map00910">✅ Core nitrogen-cycle KOs (map00910)</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -433,12 +436,27 @@ samtools index "${OUT}.bam"</code></pre>
 </section>
 <section id="kegg-map-of-nitrogen-pathways" class="level2">
 <h2 class="anchored" data-anchor-id="kegg-map-of-nitrogen-pathways">KEGG Map of Nitrogen Pathways</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="BIOPOLE_Chukchi_metaT_files/Nitrogen_metabolism_St1_KEGG-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>KEGG map of Nitrogen metabolic pathways. Diagram from anvi’o and KEGG. In green are the genes present in anvio contig database for Station 1</figcaption>
-</figure>
-</div>
+<p><img src="BIOPOLE_Chukchi_metaT_files/Nitrogen_metabolism_St1_KEGG-1.png" class="img-fluid" style="width:100.0%" alt="KEGG map of Nitrogen metabolic pathways. Diagram from anvi’o and KEGG. In green are the genes present in anvio contig database for Station 1"> ## KEGG nitrogen cycle (map00910) – KO list</p>
+<p>This is a standard, widely used KO set covering:</p>
+<ul>
+<li>Nitrification</li>
+<li>Denitrification</li>
+<li>DNRA</li>
+<li>Anammox</li>
+<li>Nitrogen fixation</li>
+</ul>
+<p>Assimilatory pathways</p>
+<section id="core-nitrogen-cycle-kos-map00910" class="level3">
+<h3 class="anchored" data-anchor-id="core-nitrogen-cycle-kos-map00910">✅ Core nitrogen-cycle KOs (map00910)</h3>
+<ul>
+<li><p>Nitrogen fixation K02588 nifH K02591 nifD K02586 nifK</p></li>
+<li><p>Nitrification K10944 amoA K10945 amoB K10946 amoC K10535 hao</p></li>
+<li><p>Assimilatory nitrate reduction K00367 nasA K00360 nirA</p></li>
+<li><p>Dissimilatory nitrate reduction (DNRA) K00362 napA K00363 napB K00370 narG K00371 narH K00374 narI K02567 nrfA K02568 nrfH</p></li>
+<li><p>Denitrification K00368 nirK K15864 nirS K04561 norB K02305 norC K00376 nosZ</p></li>
+<li><p>Anammox K20932 hzsA K20933 hzsB K20934 hzsC K20935 hdh</p></li>
+</ul>
+</section>
 </section>
 </section>
 
