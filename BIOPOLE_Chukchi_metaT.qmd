@@ -288,7 +288,7 @@ This is a standard, widely used KO set covering:
 
 Assimilatory pathways
 
-###  ✅ Core nitrogen-cycle KOs (map00910)
+###  Core nitrogen-cycle KOs (map00910)
 - Nitrogen fixation
 K02588  nifH
 K02591  nifD
