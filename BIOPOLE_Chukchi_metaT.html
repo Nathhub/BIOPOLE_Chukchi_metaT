@@ -59,10 +59,17 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#functional-annotation-of-genes" id="toc-functional-annotation-of-genes" class="nav-link" data-scroll-target="#functional-annotation-of-genes">🔍 Functional Annotation of genes</a></li>
   <li><a href="#metabolic-reconstruction-and-pathway-visualisation" id="toc-metabolic-reconstruction-and-pathway-visualisation" class="nav-link" data-scroll-target="#metabolic-reconstruction-and-pathway-visualisation">🔬 Metabolic Reconstruction and Pathway Visualisation</a></li>
   <li><a href="#kegg-module-m00529-denitrification-nitrate-nitrogen" id="toc-kegg-module-m00529-denitrification-nitrate-nitrogen" class="nav-link" data-scroll-target="#kegg-module-m00529-denitrification-nitrate-nitrogen">KEGG Module M00529 — Denitrification (nitrate → nitrogen)</a></li>
+  <li><a href="#anvio-interactive-plot---denitrification---nitrate-reductase---station-1" id="toc-anvio-interactive-plot---denitrification---nitrate-reductase---station-1" class="nav-link" data-scroll-target="#anvio-interactive-plot---denitrification---nitrate-reductase---station-1">anvi’o interactive plot - Denitrification - Nitrate reductase - Station 1</a></li>
   <li><a href="#kegg-map-of-nitrogen-pathways" id="toc-kegg-map-of-nitrogen-pathways" class="nav-link" data-scroll-target="#kegg-map-of-nitrogen-pathways">KEGG Map of Nitrogen Pathways</a></li>
   <li><a href="#kegg-nitrogen-cycle-map00910" id="toc-kegg-nitrogen-cycle-map00910" class="nav-link" data-scroll-target="#kegg-nitrogen-cycle-map00910">KEGG nitrogen cycle (map00910)</a>
   <ul class="collapse">
-  <li><a href="#core-nitrogen-cycle-kos-map00910" id="toc-core-nitrogen-cycle-kos-map00910" class="nav-link" data-scroll-target="#core-nitrogen-cycle-kos-map00910">✅ Core nitrogen-cycle KOs (map00910)</a></li>
+  <li><a href="#core-nitrogen-cycle-kos-map00910" id="toc-core-nitrogen-cycle-kos-map00910" class="nav-link" data-scroll-target="#core-nitrogen-cycle-kos-map00910">Core nitrogen-cycle KOs (map00910)</a></li>
+  </ul></li>
+  <li><a href="#tara-oceans-arctic-data-as-reference" id="toc-tara-oceans-arctic-data-as-reference" class="nav-link" data-scroll-target="#tara-oceans-arctic-data-as-reference">Tara Oceans Arctic data as reference</a>
+  <ul class="collapse">
+  <li><a href="#rationale-and-overview" id="toc-rationale-and-overview" class="nav-link" data-scroll-target="#rationale-and-overview">Rationale and overview</a></li>
+  <li><a href="#assembly-of-tara-oceans-arctic-metagenomes" id="toc-assembly-of-tara-oceans-arctic-metagenomes" class="nav-link" data-scroll-target="#assembly-of-tara-oceans-arctic-metagenomes">Assembly of Tara Oceans Arctic metagenomes</a></li>
+  <li><a href="#metatranscriptomic-read-processing-and-mapping" id="toc-metatranscriptomic-read-processing-and-mapping" class="nav-link" data-scroll-target="#metatranscriptomic-read-processing-and-mapping">Metatranscriptomic read processing and mapping</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -434,6 +441,33 @@ samtools index "${OUT}.bam"</code></pre>
 </tr>
 </tbody>
 </table>
+<p>So all the genes required for denitrification to occur seem to be detected at each of the stations.</p>
+<p>Let’s look at the denitrification pathway in more details using anvi-interactive, so we can see the coverage of the genes involved in denitrification across the 3 depths in the stations.</p>
+<p>First, we need to create an anvi’o collection that contains all the denitrification genes. Using <strong>anvi-export-functions</strong> we can get the <em>gene_callers_ids</em> matching your <em>KO IDs</em>, then we can get the contigs name using <strong>anvi-export-table –table genes_in_contigs</strong>. After that we need to use <em>join</em> to find the contigs that have the genes of interest and finally we need to add “_split_00001” to each contig name (because in this case each contig has only one split as these come from metaT assembly. We ad a column with the name of our bin and then can import that using <strong>anvi-import-collection</strong></p>
+<pre class="{bash}"><code>anvi-export-functions   -c St1_contigs.db   -o St1_gene_functions.tsv
+anvi-export-table --table genes_in_contigs -o St1_genes_in_contigs.tsv St1_contigs.db
+tail -n +2 St1_genes_in_contigs.tsv | cut -f1,2 &gt; gene_to_contig.tsv
+
+# KO list for denitrification (edit/add as needed)
+KOS='K00370|K00371|K00374|K02567|K02568|K04561|K02305'
+# Get unique gene_callers_id hits for those KOs
+awk -F'\t' -v kos="$KOS" '($3 ~ kos){print $1}' St1_gene_functions.tsv   | sort -u &gt; genes_of_interest.ids
+join -t $'\t' genes_of_interest.ids gene_to_contig.tsv   | cut -f2   | sort -u &gt; contigs_of_interest.txt
+awk '{print $1"_split_00001\tdenitrification"}' contigs_of_interest.txt   &gt; denitrification_splits_collection.tsv
+
+anvi-import-collection   -p St1_MERGED/PROFILE.db   -c St1_contigs.db   -C denitrification_splits denitrification_splits_collection.tsv</code></pre>
+<p>Now that we have an anvio collection, we need to “split” it from the main contigs and profile databases (we create a subset). This is because our initial contigs.be has too many splits (1,432,906 splits to be precise) and hierarchical clustering gets turned off.</p>
+<p>Once it is splitted we can find a directory called “denitrifications_splits” in which we find a contigs and profile database that we can now plot using anvi-interactive:</p>
+</section>
+<section id="anvio-interactive-plot---denitrification---nitrate-reductase---station-1" class="level2">
+<h2 class="anchored" data-anchor-id="anvio-interactive-plot---denitrification---nitrate-reductase---station-1">anvi’o interactive plot - Denitrification - Nitrate reductase - Station 1</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BIOPOLE_Chukchi_metaT_files/anvi_plot_dinitrification_nitrate_reductase.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Anvi’o interactive plot</figcaption>
+</figure>
+</div>
+<p>Now we can start looking for specific genes and creating bins for each so we can visualise them and see their coverage.</p>
 </section>
 <section id="kegg-map-of-nitrogen-pathways" class="level2">
 <h2 class="anchored" data-anchor-id="kegg-map-of-nitrogen-pathways">KEGG Map of Nitrogen Pathways</h2>
@@ -456,7 +490,7 @@ samtools index "${OUT}.bam"</code></pre>
 </ul>
 <p>Assimilatory pathways</p>
 <section id="core-nitrogen-cycle-kos-map00910" class="level3">
-<h3 class="anchored" data-anchor-id="core-nitrogen-cycle-kos-map00910">✅ Core nitrogen-cycle KOs (map00910)</h3>
+<h3 class="anchored" data-anchor-id="core-nitrogen-cycle-kos-map00910">Core nitrogen-cycle KOs (map00910)</h3>
 <ul>
 <li><p>Nitrogen fixation K02588 nifH K02591 nifD K02586 nifK</p></li>
 <li><p>Nitrification K10944 amoA K10945 amoB K10946 amoC K10535 hao</p></li>
@@ -465,6 +499,29 @@ samtools index "${OUT}.bam"</code></pre>
 <li><p>Denitrification K00368 nirK K15864 nirS K04561 norB K02305 norC K00376 nosZ</p></li>
 <li><p>Anammox K20932 hzsA K20933 hzsB K20934 hzsC K20935 hdh</p></li>
 </ul>
+</section>
+</section>
+<section id="tara-oceans-arctic-data-as-reference" class="level2">
+<h2 class="anchored" data-anchor-id="tara-oceans-arctic-data-as-reference">Tara Oceans Arctic data as reference</h2>
+<section id="rationale-and-overview" class="level3">
+<h3 class="anchored" data-anchor-id="rationale-and-overview">Rationale and overview</h3>
+<p>As no site-matched metagenomic data were available for these samples, a reference-based approach was adopted using publicly available metagenomic data from the Tara Oceans Arctic expedition (<strong>Station 194</strong>), representing the closest comparable marine Arctic microbial communities currently available.</p>
+<p>This strategy enables the detection and quantification of expressed genes that are conserved between Arctic marine microbial communities, while acknowledging that locally specific taxa or gene variants not present in the reference dataset may not be captured.</p>
+</section>
+<section id="assembly-of-tara-oceans-arctic-metagenomes" class="level3">
+<h3 class="anchored" data-anchor-id="assembly-of-tara-oceans-arctic-metagenomes">Assembly of Tara Oceans Arctic metagenomes</h3>
+<p>Raw metagenomic reads from the Tara Oceans Arctic expedition were assembled de novo using <strong>MEGAHIT</strong>, which is optimized for large and complex metagenomic datasets. The resulting assembly produced a set of contigs representing microbial genomic fragments present in Arctic marine surface waters.</p>
+<p>These contigs were subsequently used as a reference database for read mapping. While the Tara Oceans sampling locations do not overlap geographically with the Chukchi Sea, they provide a comprehensive representation of Arctic marine microbial diversity and metabolic potential, particularly for conserved biogeochemical pathways such as nitrogen cycling.</p>
+</section>
+<section id="metatranscriptomic-read-processing-and-mapping" class="level3">
+<h3 class="anchored" data-anchor-id="metatranscriptomic-read-processing-and-mapping">Metatranscriptomic read processing and mapping</h3>
+<p>Quality-filtered metatranscriptomic reads were mapped to the Tara Oceans Arctic contigs using <strong>Bowtie2</strong> with default end-to-end alignment settings. Mapping was performed in paired-end mode to improve alignment specificity. Both concordant and discordant alignments were reported, although downstream analyses focused on concordantly mapped read pairs.</p>
+<p><strong>Mapping performance and alignment statistics</strong></p>
+<p>Across samples, overall <strong>alignment rates ranged from 15.8% to 27.3%</strong> of paired-end reads mapping to the Tara Oceans Arctic contigs. The majority of reads aligned concordantly exactly once (11–18%), with a smaller proportion aligning to multiple locations (3–6%). Discordant alignments accounted for approximately 0.5–1% of read pairs.</p>
+<p>These mapping rates are consistent with expectations for metatranscriptomic datasets mapped to non-site-matched metagenomic references, particularly in polar marine systems where microbial communities exhibit strong spatial structure and strain-level diversity. The observed alignment patterns suggest that a substantial fraction of expressed genes in the Chukchi Sea microbial community are shared with, or closely related to, those represented in the Tara Oceans Arctic metagenomes.</p>
+<p><strong>Interpretation and limitations</strong></p>
+<p>This reference-based approach enables the identification and relative quantification of expressed genes that are conserved across Arctic marine microbial communities, including key genes involved in nitrogen cycling. However, transcripts derived from locally unique taxa or divergent gene variants absent from the Tara Oceans reference assembly are unlikely to be captured, resulting in an underestimation of total transcript diversity and expression.</p>
+<p>Consequently, analyses based on this approach focus on relative expression patterns of nitrogen-cycle gene families represented in the reference dataset, rather than absolute transcript abundances or the absence of specific metabolic pathways. Despite these limitations, the approach provides a robust framework for exploring nitrogen cycling activity in the Chukchi Sea in the absence of site-specific metagenomic data.</p>
 </section>
 </section>
 </section>

@@ -272,6 +272,36 @@ From the output of anvi-estimate-metabolism, we can look for the KEGG module for
 | M00529     | Station_2 | 1.00         | 1.00       |
 | M00529     | Station_3 | 1.00         | 1.00       |
 
+So all the genes required for denitrification to occur seem to be detected at each of the stations.
+
+Let's look at the denitrification pathway in more details using anvi-interactive, so we can see the coverage of the genes involved in denitrification across the 3 depths in the stations.
+
+First, we need to create an anvi'o collection that contains all the denitrification genes. Using **anvi-export-functions** we can get the *gene_callers_ids* matching your *KO IDs*, then we can get the contigs name using **anvi-export-table --table genes_in_contigs**. After that we need to use *join* to find the contigs that have the genes of interest and finally we need to add "_split_00001" to each contig name (because in this case each contig has only one split as these come from metaT assembly. We ad a column with the name of our bin and then can import that using **anvi-import-collection** 
+
+```{bash}
+anvi-export-functions   -c St1_contigs.db   -o St1_gene_functions.tsv
+anvi-export-table --table genes_in_contigs -o St1_genes_in_contigs.tsv St1_contigs.db
+tail -n +2 St1_genes_in_contigs.tsv | cut -f1,2 > gene_to_contig.tsv
+
+# KO list for denitrification (edit/add as needed)
+KOS='K00370|K00371|K00374|K02567|K02568|K04561|K02305'
+# Get unique gene_callers_id hits for those KOs
+awk -F'\t' -v kos="$KOS" '($3 ~ kos){print $1}' St1_gene_functions.tsv   | sort -u > genes_of_interest.ids
+join -t $'\t' genes_of_interest.ids gene_to_contig.tsv   | cut -f2   | sort -u > contigs_of_interest.txt
+awk '{print $1"_split_00001\tdenitrification"}' contigs_of_interest.txt   > denitrification_splits_collection.tsv
+
+anvi-import-collection   -p St1_MERGED/PROFILE.db   -c St1_contigs.db   -C denitrification_splits denitrification_splits_collection.tsv
+```
+Now that we have an anvio collection, we need to "split" it from the main contigs and profile databases (we create a subset). This is because our initial contigs.be has too many splits (1,432,906 splits to be precise) and hierarchical clustering gets turned off.
+
+Once it is splitted we can find a directory called "denitrifications_splits" in which we find a contigs and profile database that we can now plot using anvi-interactive:
+
+## anvi'o interactive plot - Denitrification - Nitrate reductase - Station 1
+
+![Anvi'o interactive plot](BIOPOLE_Chukchi_metaT_files/anvi_plot_dinitrification_nitrate_reductase.png){width=100%}
+
+Now we can start looking for specific genes and creating bins for each so we can visualise them and see their coverage.
+
 ## KEGG Map of Nitrogen Pathways
 
 ![KEGG map of Nitrogen metabolic pathways. Diagram from anvi'o and KEGG. In green are the genes present in anvio contig database for Station 1](BIOPOLE_Chukchi_metaT_files/Nitrogen_metabolism_St1_KEGG-1.png){width=100%}
@@ -326,3 +356,38 @@ K20933  hzsB
 K20934  hzsC
 K20935  hdh
 
+
+
+
+
+
+
+## Tara Oceans Arctic data as reference
+
+### Rationale and overview
+
+As no site-matched metagenomic data were available for these samples, a reference-based approach was adopted using publicly available metagenomic data from the Tara Oceans Arctic expedition (**Station 194**), representing the closest comparable marine Arctic microbial communities currently available.
+
+This strategy enables the detection and quantification of expressed genes that are conserved between Arctic marine microbial communities, while acknowledging that locally specific taxa or gene variants not present in the reference dataset may not be captured.
+
+### Assembly of Tara Oceans Arctic metagenomes
+
+Raw metagenomic reads from the Tara Oceans Arctic expedition were assembled de novo using **MEGAHIT**, which is optimized for large and complex metagenomic datasets. The resulting assembly produced a set of contigs representing microbial genomic fragments present in Arctic marine surface waters.
+
+These contigs were subsequently used as a reference database for read mapping. While the Tara Oceans sampling locations do not overlap geographically with the Chukchi Sea, they provide a comprehensive representation of Arctic marine microbial diversity and metabolic potential, particularly for conserved biogeochemical pathways such as nitrogen cycling.
+
+### Metatranscriptomic read processing and mapping
+
+Quality-filtered metatranscriptomic reads were mapped to the Tara Oceans Arctic contigs using **Bowtie2** with default end-to-end alignment settings. Mapping was performed in paired-end mode to improve alignment specificity. Both concordant and discordant alignments were reported, although downstream analyses focused on concordantly mapped read pairs.
+
+**Mapping performance and alignment statistics**
+
+Across samples, overall **alignment rates ranged from 15.8% to 27.3%** of paired-end reads mapping to the Tara Oceans Arctic contigs. The majority of reads aligned concordantly exactly once (11–18%), with a smaller proportion aligning to multiple locations (3–6%). Discordant alignments accounted for approximately 0.5–1% of read pairs.
+
+These mapping rates are consistent with expectations for metatranscriptomic datasets mapped to non-site-matched metagenomic references, particularly in polar marine systems where microbial communities exhibit strong spatial structure and strain-level diversity. The observed alignment patterns suggest that a substantial fraction of expressed genes in the Chukchi Sea microbial community are shared with, or closely related to, those represented in the Tara Oceans Arctic metagenomes.
+
+**Interpretation and limitations**
+
+This reference-based approach enables the identification and relative quantification of expressed genes that are conserved across Arctic marine microbial communities, including key genes involved in nitrogen cycling. However, transcripts derived from locally unique taxa or divergent gene variants absent from the Tara Oceans reference assembly are unlikely to be captured, resulting in an underestimation of total transcript diversity and expression.
+
+Consequently, analyses based on this approach focus on relative expression patterns of nitrogen-cycle gene families represented in the reference dataset, rather than absolute transcript abundances or the absence of specific metabolic pathways. Despite these limitations, the approach provides a robust framework for exploring nitrogen cycling activity in the Chukchi Sea in the absence of site-specific metagenomic data.
