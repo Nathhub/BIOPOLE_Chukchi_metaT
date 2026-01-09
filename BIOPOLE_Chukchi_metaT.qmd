@@ -284,7 +284,7 @@ anvi-export-table --table genes_in_contigs -o St1_genes_in_contigs.tsv St1_conti
 tail -n +2 St1_genes_in_contigs.tsv | cut -f1,2 > gene_to_contig.tsv
 
 # KO list for denitrification (edit/add as needed)
-KOS='K00370|K00371|K00374|K02567|K02568|K04561|K02305'
+KOS='K00370|K00371|K00374|K02567|K02568|K00368|K15864|K04561|K02305|K00376'
 # Get unique gene_callers_id hits for those KOs
 awk -F'\t' -v kos="$KOS" '($3 ~ kos){print $1}' St1_gene_functions.tsv   | sort -u > genes_of_interest.ids
 join -t $'\t' genes_of_interest.ids gene_to_contig.tsv   | cut -f2   | sort -u > contigs_of_interest.txt
@@ -299,6 +299,10 @@ Once it is splitted we can find a directory called "denitrifications_splits" in 
 ## anvi'o interactive plot - Denitrification - Nitrate reductase - Station 1
 
 ![Anvi'o interactive plot](BIOPOLE_Chukchi_metaT_files/anvi_plot_dinitrification_nitrate_reductase.png){width=100%}
+
+## anvi'o interactive plot - Denitrification - Nitrite reductase (nirK) - Station 1
+
+![Anvi'o interactive plot](BIOPOLE_Chukchi_metaT_files/anvi_plot_denitrification_nirK.png){width=100%}
 
 Now we can start looking for specific genes and creating bins for each so we can visualise them and see their coverage.
 
@@ -367,6 +371,25 @@ K20935  hdh
 ### Rationale and overview
 
 As no site-matched metagenomic data were available for these samples, a reference-based approach was adopted using publicly available metagenomic data from the Tara Oceans Arctic expedition (**Station 194**), representing the closest comparable marine Arctic microbial communities currently available.
+
+![Map of Station 194 of the Tara Oceans Polar Circle expedition in 2013](BIOPOLE_Chukchi_metaT_files/Tara_Ocean_Artic_St_194_map.png)
+2:45 AM on September 8, 2013 (UTC)
+
+### Station 194 - Tara Oceans Polar Circle expedition
+
+| Field | Value |
+|-------|-------|
+| BioSamples ID | SAMEA4397903 |
+| ENA Run ID | ERR3589571 |
+| Date/Time | 2013-09-12T03:59:00Z |
+| Latitude | 73.3275 |
+| Longitude | -168.8142 |
+| Depth | 35 |
+| Layer | DCM |
+| Size fraction | 0.22–3 |
+| Region | Arctic Ocean |
+
+
 
 This strategy enables the detection and quantification of expressed genes that are conserved between Arctic marine microbial communities, while acknowledging that locally specific taxa or gene variants not present in the reference dataset may not be captured.
 
