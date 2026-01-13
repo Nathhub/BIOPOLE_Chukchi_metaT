@@ -60,6 +60,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#metabolic-reconstruction-and-pathway-visualisation" id="toc-metabolic-reconstruction-and-pathway-visualisation" class="nav-link" data-scroll-target="#metabolic-reconstruction-and-pathway-visualisation">🔬 Metabolic Reconstruction and Pathway Visualisation</a></li>
   <li><a href="#kegg-module-m00529-denitrification-nitrate-nitrogen" id="toc-kegg-module-m00529-denitrification-nitrate-nitrogen" class="nav-link" data-scroll-target="#kegg-module-m00529-denitrification-nitrate-nitrogen">KEGG Module M00529 — Denitrification (nitrate → nitrogen)</a></li>
   <li><a href="#anvio-interactive-plot---denitrification---nitrate-reductase---station-1" id="toc-anvio-interactive-plot---denitrification---nitrate-reductase---station-1" class="nav-link" data-scroll-target="#anvio-interactive-plot---denitrification---nitrate-reductase---station-1">anvi’o interactive plot - Denitrification - Nitrate reductase - Station 1</a></li>
+  <li><a href="#anvio-interactive-plot---denitrification---nitrite-reductase-nirk---station-1" id="toc-anvio-interactive-plot---denitrification---nitrite-reductase-nirk---station-1" class="nav-link" data-scroll-target="#anvio-interactive-plot---denitrification---nitrite-reductase-nirk---station-1">anvi’o interactive plot - Denitrification - Nitrite reductase (nirK) - Station 1</a></li>
   <li><a href="#kegg-map-of-nitrogen-pathways" id="toc-kegg-map-of-nitrogen-pathways" class="nav-link" data-scroll-target="#kegg-map-of-nitrogen-pathways">KEGG Map of Nitrogen Pathways</a></li>
   <li><a href="#kegg-nitrogen-cycle-map00910" id="toc-kegg-nitrogen-cycle-map00910" class="nav-link" data-scroll-target="#kegg-nitrogen-cycle-map00910">KEGG nitrogen cycle (map00910)</a>
   <ul class="collapse">
@@ -68,6 +69,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#tara-oceans-arctic-data-as-reference" id="toc-tara-oceans-arctic-data-as-reference" class="nav-link" data-scroll-target="#tara-oceans-arctic-data-as-reference">Tara Oceans Arctic data as reference</a>
   <ul class="collapse">
   <li><a href="#rationale-and-overview" id="toc-rationale-and-overview" class="nav-link" data-scroll-target="#rationale-and-overview">Rationale and overview</a></li>
+  <li><a href="#station-194---tara-oceans-polar-circle-expedition" id="toc-station-194---tara-oceans-polar-circle-expedition" class="nav-link" data-scroll-target="#station-194---tara-oceans-polar-circle-expedition">Station 194 - Tara Oceans Polar Circle expedition</a></li>
   <li><a href="#assembly-of-tara-oceans-arctic-metagenomes" id="toc-assembly-of-tara-oceans-arctic-metagenomes" class="nav-link" data-scroll-target="#assembly-of-tara-oceans-arctic-metagenomes">Assembly of Tara Oceans Arctic metagenomes</a></li>
   <li><a href="#metatranscriptomic-read-processing-and-mapping" id="toc-metatranscriptomic-read-processing-and-mapping" class="nav-link" data-scroll-target="#metatranscriptomic-read-processing-and-mapping">Metatranscriptomic read processing and mapping</a></li>
   </ul></li>
@@ -449,7 +451,7 @@ anvi-export-table --table genes_in_contigs -o St1_genes_in_contigs.tsv St1_conti
 tail -n +2 St1_genes_in_contigs.tsv | cut -f1,2 &gt; gene_to_contig.tsv
 
 # KO list for denitrification (edit/add as needed)
-KOS='K00370|K00371|K00374|K02567|K02568|K04561|K02305'
+KOS='K00370|K00371|K00374|K02567|K02568|K00368|K15864|K04561|K02305|K00376'
 # Get unique gene_callers_id hits for those KOs
 awk -F'\t' -v kos="$KOS" '($3 ~ kos){print $1}' St1_gene_functions.tsv   | sort -u &gt; genes_of_interest.ids
 join -t $'\t' genes_of_interest.ids gene_to_contig.tsv   | cut -f2   | sort -u &gt; contigs_of_interest.txt
@@ -464,6 +466,15 @@ anvi-import-collection   -p St1_MERGED/PROFILE.db   -c St1_contigs.db   -C denit
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="BIOPOLE_Chukchi_metaT_files/anvi_plot_dinitrification_nitrate_reductase.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Anvi’o interactive plot</figcaption>
+</figure>
+</div>
+</section>
+<section id="anvio-interactive-plot---denitrification---nitrite-reductase-nirk---station-1" class="level2">
+<h2 class="anchored" data-anchor-id="anvio-interactive-plot---denitrification---nitrite-reductase-nirk---station-1">anvi’o interactive plot - Denitrification - Nitrite reductase (nirK) - Station 1</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BIOPOLE_Chukchi_metaT_files/anvi_plot_denitrification_nirK.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <figcaption>Anvi’o interactive plot</figcaption>
 </figure>
 </div>
@@ -506,6 +517,56 @@ anvi-import-collection   -p St1_MERGED/PROFILE.db   -c St1_contigs.db   -C denit
 <section id="rationale-and-overview" class="level3">
 <h3 class="anchored" data-anchor-id="rationale-and-overview">Rationale and overview</h3>
 <p>As no site-matched metagenomic data were available for these samples, a reference-based approach was adopted using publicly available metagenomic data from the Tara Oceans Arctic expedition (<strong>Station 194</strong>), representing the closest comparable marine Arctic microbial communities currently available.</p>
+<p><img src="BIOPOLE_Chukchi_metaT_files/Tara_Ocean_Artic_St_194_map.png" class="img-fluid" alt="Map of Station 194 of the Tara Oceans Polar Circle expedition in 2013"> 2:45 AM on September 8, 2013 (UTC)</p>
+</section>
+<section id="station-194---tara-oceans-polar-circle-expedition" class="level3">
+<h3 class="anchored" data-anchor-id="station-194---tara-oceans-polar-circle-expedition">Station 194 - Tara Oceans Polar Circle expedition</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>BioSamples ID</td>
+<td>SAMEA4397903</td>
+</tr>
+<tr class="even">
+<td>ENA Run ID</td>
+<td>ERR3589571</td>
+</tr>
+<tr class="odd">
+<td>Date/Time</td>
+<td>2013-09-12T03:59:00Z</td>
+</tr>
+<tr class="even">
+<td>Latitude</td>
+<td>73.3275</td>
+</tr>
+<tr class="odd">
+<td>Longitude</td>
+<td>-168.8142</td>
+</tr>
+<tr class="even">
+<td>Depth</td>
+<td>35</td>
+</tr>
+<tr class="odd">
+<td>Layer</td>
+<td>DCM</td>
+</tr>
+<tr class="even">
+<td>Size fraction</td>
+<td>0.22–3</td>
+</tr>
+<tr class="odd">
+<td>Region</td>
+<td>Arctic Ocean</td>
+</tr>
+</tbody>
+</table>
 <p>This strategy enables the detection and quantification of expressed genes that are conserved between Arctic marine microbial communities, while acknowledging that locally specific taxa or gene variants not present in the reference dataset may not be captured.</p>
 </section>
 <section id="assembly-of-tara-oceans-arctic-metagenomes" class="level3">
