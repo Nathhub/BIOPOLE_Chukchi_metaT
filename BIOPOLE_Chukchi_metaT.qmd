@@ -1,6 +1,7 @@
 ---
 title: "BIOPOLE - Chukchi Sea metatranscriptomics analysis report"
 author: "Nathan"
+output-file: index.html
 format:
   html:
     toc: true
