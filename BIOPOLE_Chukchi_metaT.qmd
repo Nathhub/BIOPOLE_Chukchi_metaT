@@ -263,7 +263,7 @@ These tools collectively provide a pathway-level view of nitrogen cycling activi
 
 ## KEGG Module M00529 — Denitrification (nitrate → nitrogen)
 
-![KEGG module M00529 (Denitrification, nitrate → nitrogen). Diagram from https://www.genome.jp/dbget-bin/www_bget?md:M00529](BIOPOLE_Chukchi_metaT_files/KEGG_Module_Denitrification_M00529.png){width=75%}
+![KEGG module M00529 (Denitrification, nitrate → nitrogen). Diagram from https://www.genome.jp/dbget-bin/www_bget?md:M00529](figures/KEGG_Module_Denitrification_M00529.png){width=75%}
 
 From the output of anvi-estimate-metabolism, we can look for the KEGG module for Denitrification (M00529) and look at its completeness:
 
@@ -299,17 +299,17 @@ Once it is splitted we can find a directory called "denitrifications_splits" in 
 
 ## anvi'o interactive plot - Denitrification - Nitrate reductase - Station 1
 
-![Anvi'o interactive plot](BIOPOLE_Chukchi_metaT_files/anvi_plot_dinitrification_nitrate_reductase.png){width=100%}
+![Anvi'o interactive plot](figures/anvi_plot_dinitrification_nitrate_reductase.png){width=100%}
 
 ## anvi'o interactive plot - Denitrification - Nitrite reductase (nirK) - Station 1
 
-![Anvi'o interactive plot](BIOPOLE_Chukchi_metaT_files/anvi_plot_denitrification_nirK.png){width=100%}
+![Anvi'o interactive plot](figures/anvi_plot_denitrification_nirK.png){width=100%}
 
 Now we can start looking for specific genes and creating bins for each so we can visualise them and see their coverage.
 
 ## KEGG Map of Nitrogen Pathways
 
-![KEGG map of Nitrogen metabolic pathways. Diagram from anvi'o and KEGG. In green are the genes present in anvio contig database for Station 1](BIOPOLE_Chukchi_metaT_files/Nitrogen_metabolism_St1_KEGG-1.png){width=100%}
+![KEGG map of Nitrogen metabolic pathways. Diagram from anvi'o and KEGG. In green are the genes present in anvio contig database for Station 1](figures/Nitrogen_metabolism_St1_KEGG-1.png){width=100%}
 
 ##  KEGG nitrogen cycle (map00910)
 
@@ -373,7 +373,7 @@ K20935  hdh
 
 As no site-matched metagenomic data were available for these samples, a reference-based approach was adopted using publicly available metagenomic data from the Tara Oceans Arctic expedition (**Station 194**), representing the closest comparable marine Arctic microbial communities currently available.
 
-![Map of Station 194 of the Tara Oceans Polar Circle expedition in 2013](BIOPOLE_Chukchi_metaT_files/Tara_Ocean_Artic_St_194_map.png)
+![Map of Station 194 of the Tara Oceans Polar Circle expedition in 2013](figures/Tara_Ocean_Artic_St_194_map.png)
 2:45 AM on September 8, 2013 (UTC)
 
 ### Station 194 - Tara Oceans Polar Circle expedition

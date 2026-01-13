@@ -5,3 +5,5 @@ project:
 website:
   title: "BIOPOLE Report"
   navbar: false
+execute:
+  freeze: false
