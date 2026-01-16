@@ -247,13 +247,9 @@ anvi-estimate-metabolism
 ```
 Identifies complete and partial KEGG modules across all annotated contigs, providing an overview of metabolic potential (e.g., denitrification, dissimilatory nitrate reduction, anammox).
 ```{bash}
-anvi-react-network
-```
-Generates reaction-centric metabolic networks based on KEGG reactions detected in the assembly. This allows exploration of how individual reactions connect into broader nitrogen pathways.
-```{bash}
 anvi-reaction-network
 ```
-Creates interactive network files linking genes (KO identifiers), reactions, and pathways—useful for mapping expression levels or identifying pathway bottlenecks.
+Generates reaction-centric metabolic networks based on KEGG reactions detected in the assembly. This allows exploration of how individual reactions connect into broader nitrogen pathways.
 ```{bash}
 anvi-draw-kegg
 ```
@@ -295,17 +291,195 @@ anvi-import-collection   -p St1_MERGED/PROFILE.db   -c St1_contigs.db   -C denit
 ```
 Now that we have an anvio collection, we need to "split" it from the main contigs and profile databases (we create a subset). This is because our initial contigs.be has too many splits (1,432,906 splits to be precise) and hierarchical clustering gets turned off.
 
-Once it is splitted we can find a directory called "denitrifications_splits" in which we find a contigs and profile database that we can now plot using anvi-interactive:
+Once it is splitted we can find a directory called "denitrifications_splits" in which we find a contigs and profile database that we can now plot using anvi-interactive.
+
+First, we will import the data about the presence/absence of the genes of interest (from Module M00529) so we can visualise where they are found.
+
+```{bash}
+anvi-export-functions   -c CONTIGS.db   -o gene_functions.tsv
+
+# 1) Define your KO list (space-separated)
+KOS="K00370 K00371 K00374 K02567 K02568 K00368 K15864 K04561 K02305 K00376"
+
+# 2) Build gene-level KO presence/absence from gene_functions.tsv (KO is column 3)
+awk -F'\t' -v OFS='\t' -v kos="$KOS" '
+BEGIN{
+    n = split(kos, k, " ")
+    for (i=1; i<=n; i++) KO[k[i]] = 1
+    printf "gene_callers_id"
+    for (i=1; i<=n; i++) printf "%s%s", OFS, k[i]
+    printf "\n"
+}
+NR==1 { next }  # skip header
+{
+    gene = $1
+    acc  = $3
+    genes[gene] = 1
+    if (acc in KO) present[gene, acc] = 1
+}
+END{
+    for (g in genes) {
+        printf "%s", g
+        for (i=1; i<=n; i++) {
+            ko = k[i]
+            v = ((g SUBSEP ko) in present) ? 1 : 0
+            printf "%s%d", OFS, v
+        }
+        printf "\n"
+    }
+}
+' gene_functions.tsv > KO_presence_absence_by_gene.tsv
+
+# 3) Map gene_callers_id -> contig (requires genes_in_contigs.tsv from anvi-export-gene-calls)
+#    Then collapse to contig-level by OR (max) across genes
+awk -F'\t' -v OFS='\t' '
+NR==FNR {
+    if (FNR==1) next
+    gene2contig[$1] = $2
+    next
+}
+FNR==1 { print "contig", substr($0, index($0, "\t")+1); ncol=NF; next }
+{
+    gene = $1
+    contig = (gene in gene2contig) ? gene2contig[gene] : "NA"
+    contigs[contig]=1
+    for (i=2; i<=NF; i++) if ($i==1) M[contig, i]=1
+}
+END{
+    for (c in contigs) {
+        printf "%s", c
+        for (i=2; i<=ncol; i++) {
+            v = ((c SUBSEP i) in M) ? 1 : 0
+            printf "%s%d", OFS, v
+        }
+        printf "\n"
+    }
+}
+' genes_in_contigs.tsv KO_presence_absence_by_gene.tsv > KO_presence_absence_by_contig.tsv
+
+# 4) Convert contig names to split names (naive: appends _split_00001)
+awk -F'\t' -v OFS='\t' '
+FNR==1 { $1="item_name"; print; next }
+{ $1 = $1 "_split_00001"; print }
+' KO_presence_absence_by_contig.tsv > KO_presence_absence_by_split.tsv
+
+# Import the data to the PROFILE.db
+anvi-import-misc-data -p PROFILE.db -t items KO_presence_absence_by_split.tsv
+
+```
 
 ## anvi'o interactive plot - Denitrification - Nitrate reductase - Station 1
 
-![Anvi'o interactive plot](figures/anvi_plot_dinitrification_nitrate_reductase.png){width=100%}
+![Anvi'o interactive plot showing the presence/absence of transcript annotation associated with denitrification in station 1. ](figures/anvi_plot_denitrification_KOs_presence-absence.png){width=100%}
 
-## anvi'o interactive plot - Denitrification - Nitrite reductase (nirK) - Station 1
+From this plot we see that:
+
+  1) K00370 (narG) and K00371 (narH) are annotated on the same transcript (bin 1 on figure) which makes sense as they are subunits of the same nitrate reductase enzyme complex. In many bacterial genomes, narG and narH are directly adjacent and commonly co-transcribed as part of a nitrate reductase operon. For example, in E. coli the nar operon appears to contain four genes designated narGHJI (https://pmc.ncbi.nlm.nih.gov/articles/PMC211023/pdf/jbacter00182-0317.pdf).Operons are typically transcribed as one long mRNA. Hence, having multiple functions on one transcript here is not surprising.
+  
+  2) Transcripts are annotated with the same gene multiple times. Different microbial populations likely have slightly different sequences for these genes, hence they get assembled into multiple different versions instead of collapsed by the assembler into one sequence. Hence, having multiple transcript with the same function is not surprising.
+  
+From the coverage data layers, we can see that all the transcripts have coverage from sample S4B (Bottom) ans most for sample S4M (Mid-water) but some might be missing from sample S4S (Surface). Therefore, let's look at the completeness of denitrification per depth instead of for the whole station.
+
+```{bash}
+anvi-estimate-metabolism -c CONTIGS.db -p PROFILE.db -O denitrification_meta --add-coverage
+```
+
+From the output table we see that, the denitrification module (M00529) shows differences in both abundance (average coverage) and completeness (average detection) across samples. St1_S4S exhibits substantially lower coverage and detection, indicating a reduced presence and/or partial representation of the denitrification pathway in the surface sample. In contrast, St1_S4M and St1_S4B show much higher coverage and detection values, consistent with a more abundant and more complete denitrification potential in deeper waters. Notably, St1_S4B shows the highest detection, suggesting the most complete representation of the pathway among the three samples. Given that denitrification is surely happening in the sediments, this result makes sense.
+
+| Sample   | Avg. Coverage | Avg. Detection |
+|----------|---------------|---------------|
+| St1_S4S  | 975.53        | 0.454         |
+| St1_S4M  | 2032.39       | 0.787         |
+| St1_S4B  | 1706.59       | 0.859         |
+
+The table below provides a gene-level breakdown of the denitrification module (KEGG M00529), linking each predicted gene (Gene_ID) to its corresponding KEGG Ortholog (KO) and its sequencing coverage in three samples (St1_S4B, St1_S4M, and St1_S4S).
+
+| Gene_ID | KO | St1_S4B_coverage | St1_S4M_coverage | St1_S4S_coverage |
+|--------:|----|-----------------:|-----------------:|-----------------:|
+| 1359363 | K00368 | 20.2724 | 20.0305 | 0.0000 |
+| 691166 | K00368 | 165.5046 | 334.5195 | 13.3177 |
+| 707695 | K00368 | 41.8570 | 69.1358 | 12.5575 |
+| 687620 | K00368 | 1282.9247 | 2415.3629 | 243.7858 |
+| 700737 | K00368 | 2478.6866 | 2384.1486 | 1253.8170 |
+| 854256 | K00368 | 11.4167 | 3.3309 | 5.3478 |
+| 1185346 | K00368 | 28.9579 | 5.8295 | 7.4308 |
+| 941749 | K00368 | 38.1338 | 27.6934 | 5.3577 |
+| 1709903 | K00368 | 105.2276 | 88.9237 | 34.8610 |
+| 1705673 | K00368 | 344.4583 | 682.0183 | 178.3852 |
+| 65438 | K00368 | 6.3643 | 5.1628 | 6.0814 |
+| 1031617 | K00368 | 689.8963 | 1204.7898 | 165.6266 |
+| 26013 | K00368 | 12.4952 | 12.8188 | 15.1860 |
+| 1787639 | K00368 | 9.6738 | 18.6717 | 17.9031 |
+| 888296 | K00368 | 40.1019 | 45.6324 | 5.3630 |
+| 895831 | K00368 | 49445.2245 | 52866.8920 | 44637.3724 |
+| 882932 | K00368 | 14.2161 | 18.0897 | 8.2637 |
+| 87959 | K00368 | 10915.1630 | 11415.0249 | 4717.4411 |
+| 994614 | K00368 | 1.9337 | 17.4825 | 0.0000 |
+| 1617538 | K00368 | 14.7141 | 12.2627 | 18.9873 |
+| 1348289 | K00368 | 19.2252 | 17.7117 | 3.4054 |
+| 411974 | K00368 | 12.5977 | 27.5419 | 0.0000 |
+| 441287 | K00368 | 145.1941 | 279.3881 | 10.4268 |
+| 516928 | K00368 | 14.6225 | 4.1400 | 0.0000 |
+| 19512 | K00368 | 9.0578 | 9.2244 | 0.0000 |
+| 189833 | K00368 | 16223.0362 | 32930.3351 | 3152.7518 |
+| 443514 | K00368 | 34.8817 | 66.0895 | 4.2496 |
+| 823538 | K00368 | 935.0735 | 1874.6680 | 392.6050 |
+| 1814075 | K00368 | 69.7314 | 164.8157 | 0.0000 |
+| 742645 | K00370 | 878.6661 | 1009.9220 | 251.1167 |
+| 594150 | K00371 | 2.4505 | 14.2871 | 6.3498 |
+| 1363937 | K00371 | 10.2119 | 3.3420 | 16.6811 |
+| 815415 | K00371 | 0.7502 | 9.2725 | 26.9735 |
+| 85995 | K00371 | 7687.8341 | 7547.8975 | 2080.3177 |
+| 144516 | K00371 | 55.7631 | 69.1036 | 41.3231 |
+| 433983 | K00371 | 8190.7754 | 7206.5446 | 2536.7527 |
+| 528599 | K00371 | 1780.6823 | 1350.2175 | 893.7160 |
+| 742644 | K00371 | 691.1526 | 522.5736 | 229.5579 |
+| 772410 | K00371 | 12746.2707 | 12521.7199 | 4925.9703 |
+| 894284 | K00371 | 523.0258 | 645.8185 | 215.0751 |
+| 1228756 | K00371 | 78.4240 | 116.4395 | 19.8915 |
+| 747852 | K00374 | 17.9413 | 5.8443 | 32.5668 |
+| 123437 | K00374 | 4.6273 | 7.1632 | 29.0478 |
+| 815414 | K00374 | 0.0000 | 8.0645 | 24.4382 |
+| 474316 | K00374 | 1.3157 | 6.2746 | 3.1953 |
+| 123436 | K00374 | 0.0000 | 4.4774 | 18.0989 |
+| 1743784 | K00376 | 11.0827 | 4.6706 | 1.3333 |
+| 296938 | K00376 | 23.3961 | 8.4638 | 4.3466 |
+| 239047 | K00376 | 16.0931 | 8.2598 | 3.6313 |
+| 110498 | K00376 | 5.2941 | 8.1390 | 0.0000 |
+| 374090 | K00376 | 9.8702 | 1.9231 | 0.0000 |
+| 793456 | K00376 | 8.9385 | 0.0000 | 0.0000 |
+| 921128 | K00376 | 9.3483 | 4.0896 | 0.0000 |
+| 1401364 | K02305 | 8.4604 | 3.2278 | 0.0000 |
+| 1445710 | K02305 | 14.9201 | 16.6901 | 2.8947 |
+| 1753152 | K02567 | 11.9600 | 9.6693 | 4.4833 |
+| 1433084 | K02567 | 12.6263 | 2.1465 | 0.0000 |
+| 1852908 | K02567 | 4.2483 | 2.2242 | 20.1092 |
+| 1168575 | K02568 | 5.9083 | 11.0201 | 1.5839 |
+| 648640 | K02568 | 5.2407 | 2.0864 | 0.0000 |
+| 1431702 | K02568 | 7.0235 | 4.4507 | 0.0000 |
+| 481953 | K02568 | 18.7030 | 19.8397 | 0.0000 |
+| 685198 | K04561 | 17.1011 | 0.2232 | 0.0000 |
+| 1271679 | K04561 | 11.4956 | 3.5383 | 0.0000 |
+| 468297 | K04561 | 11.6298 | 5.9309 | 0.0000 |
+| 252981 | K04561 | 21.7907 | 1.7374 | 29.5610 |
+| 540786 | K04561 | 3.4200 | 7.7399 | 0.7168 |
+| 1468402 | K15864 | 9.0891 | 5.8108 | 5.5743 |
+
+Multiple gene copies are associated with several key denitrification steps, indicating some degree of functional redundancy within the pathway. Gene coverages are generally higher in St1_S4B and St1_S4M than in St1_S4S, where several components show low or zero coverage, suggesting a reduced or incomplete representation of the pathway in this sample. A small number of genes display particularly high coverage, implying that certain denitrification functions may be more prevalent than others across the dataset.
 
 ![Anvi'o interactive plot](figures/anvi_plot_denitrification_nirK.png){width=100%}
 
 Now we can start looking for specific genes and creating bins for each so we can visualise them and see their coverage.
+
+
+
+
+
+
+
+
+
+
 
 ## KEGG Map of Nitrogen Pathways
 
