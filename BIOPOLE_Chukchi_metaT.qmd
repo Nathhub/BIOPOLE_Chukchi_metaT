@@ -374,7 +374,7 @@ anvi-import-misc-data -p PROFILE.db -t items KO_presence_absence_by_split.tsv
 
 From this plot we see that:
 
-  1) K00370 (narG) and K00371 (narH) are annotated on the same transcript (bin 1 on figure) which makes sense as they are subunits of the same nitrate reductase enzyme complex. In many bacterial genomes, narG and narH are directly adjacent and commonly co-transcribed as part of a nitrate reductase operon. For example, in E. coli the nar operon appears to contain four genes designated narGHJI (https://pmc.ncbi.nlm.nih.gov/articles/PMC211023/pdf/jbacter00182-0317.pdf).Operons are typically transcribed as one long mRNA. Hence, having multiple functions on one transcript here is not surprising.
+  1) K00370 (narG) and K00371 (narH) are annotated on the same transcript (bin 1 on figure) which makes sense as they are subunits of the same nitrate reductase enzyme complex. In many bacterial genomes, narG and narH are directly adjacent and commonly co-transcribed as part of a nitrate reductase operon. For example, in E. coli the nar operon appears to contain four genes designated narGHJI (<https://pmc.ncbi.nlm.nih.gov/articles/PMC211023/pdf/jbacter00182-0317.pdf>).Operons are typically transcribed as one long mRNA. Hence, having multiple functions on one transcript here is not surprising.
   
   2) Transcripts are annotated with the same gene multiple times. Different microbial populations likely have slightly different sequences for these genes, hence they get assembled into multiple different versions instead of collapsed by the assembler into one sequence. Hence, having multiple transcript with the same function is not surprising.
   
@@ -467,10 +467,27 @@ The table below provides a gene-level breakdown of the denitrification module (K
 
 Multiple gene copies are associated with several key denitrification steps, indicating some degree of functional redundancy within the pathway. Gene coverages are generally higher in St1_S4B and St1_S4M than in St1_S4S, where several components show low or zero coverage, suggesting a reduced or incomplete representation of the pathway in this sample. A small number of genes display particularly high coverage, implying that certain denitrification functions may be more prevalent than others across the dataset.
 
-![Anvi'o interactive plot](figures/anvi_plot_denitrification_nirK.png){width=100%}
+Now using the table above, we can list for each sample the Gene_IDs and KOs with nonzero coverage and you can turn that list into into an enzymes-txt file which can be used to calculated the denitrification completeness score for each sample, using:
 
-Now we can start looking for specific genes and creating bins for each so we can visualise them and see their coverage.
+```{bash}
+anvi-estimate-metabolism --enzymes-txt
+```
 
+| Sample  | Module | Stepwise completeness | Pathwise completeness | Proportion of unique enzymes present | Enzymes unique to module | Unique enzyme hit counts |
+|---------|--------|------------------------|------------------------|--------------------------------------|--------------------------|--------------------------|
+| St1_S4S | M00529 | 1                      | 1                      | 1                                    | K00376, K02305, K04561  | 3, 1, 2                  |
+| St1_S4M | M00529 | 1                      | 1                      | 1                                    | K00376, K02305, K04561  | 6, 2, 5                  |
+| St1_S4B | M00529 | 1                      | 1                      | 1                                    | K00376, K02305, K04561  | 7, 2, 5                  |
+
+All three samples (St1_S4S, St1_S4M, and St1_S4B) show complete denitrification pathways according to both stepwise and pathwise KEGG module criteria, indicating that all required enzymatic steps from nitrate to N₂ are represented.
+
+The number of hits for the unique enzymes differs among samples. St1_S4B and St1_S4M show higher hit counts for most of the unique enzymes compared to St1_S4S, suggesting that these functions are represented by more gene transcripts or more abundant RNAs in these samples.
+
+Together, these results suggest that the denitrification pathways is fully expressed in all three samples, but its relative transcription representation appears to be lower in St1_S4S than in St1_S4M and St1_S4B.
+
+
+
+![Anvi'o interactive plot](figures/){width=100%}
 
 
 
@@ -564,7 +581,10 @@ As no site-matched metagenomic data were available for these samples, a referenc
 | Size fraction | 0.22–3 |
 | Region | Arctic Ocean |
 
+link to the NCBI SRA (Sequence Read Archive) Run Browser metadata page for a specific run accession (ERR3589571): <https://trace.ncbi.nlm.nih.gov/Traces/index.html?view=run_browser&acc=ERR3589571&display=metadata>  
 
+The EBI MGnify overview for analysis MGYA00607610 showing summary metadata and processed metagenomic results for a public datase is here: <https://www.ebi.ac.uk/metagenomics/analyses/MGYA00607610#overview> 
+The assembly metadata is there: https://www.ebi.ac.uk/metagenomics/assemblies/ERZ7463204
 
 This strategy enables the detection and quantification of expressed genes that are conserved between Arctic marine microbial communities, while acknowledging that locally specific taxa or gene variants not present in the reference dataset may not be captured.
 
@@ -589,3 +609,14 @@ These mapping rates are consistent with expectations for metatranscriptomic data
 This reference-based approach enables the identification and relative quantification of expressed genes that are conserved across Arctic marine microbial communities, including key genes involved in nitrogen cycling. However, transcripts derived from locally unique taxa or divergent gene variants absent from the Tara Oceans reference assembly are unlikely to be captured, resulting in an underestimation of total transcript diversity and expression.
 
 Consequently, analyses based on this approach focus on relative expression patterns of nitrogen-cycle gene families represented in the reference dataset, rather than absolute transcript abundances or the absence of specific metabolic pathways. Despite these limitations, the approach provides a robust framework for exploring nitrogen cycling activity in the Chukchi Sea in the absence of site-specific metagenomic data.
+
+## Downloading MAGs from Station 194
+
+Using the BioSamples ID (SAMEA4397903) in OMDB repository
+<https://omdb.microbiomics.io/repository/ocean/genome-cols> we see that 88 MAGs have been produced from that sample. We can download the table listing their taxonomic assignment and other infos. We can also download the MAGs as a fasta file. 
+
+Which ones do we want?
+
+Let's download all the Rhodobacteraceae (These are frequent partial or complete denitrifiers in marine systems)
+
+

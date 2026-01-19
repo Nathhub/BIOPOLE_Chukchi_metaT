@@ -96,7 +96,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#metabolic-reconstruction-and-pathway-visualisation" id="toc-metabolic-reconstruction-and-pathway-visualisation" class="nav-link" data-scroll-target="#metabolic-reconstruction-and-pathway-visualisation">🔬 Metabolic Reconstruction and Pathway Visualisation</a></li>
   <li><a href="#kegg-module-m00529-denitrification-nitrate-nitrogen" id="toc-kegg-module-m00529-denitrification-nitrate-nitrogen" class="nav-link" data-scroll-target="#kegg-module-m00529-denitrification-nitrate-nitrogen">KEGG Module M00529 — Denitrification (nitrate → nitrogen)</a></li>
   <li><a href="#anvio-interactive-plot---denitrification---nitrate-reductase---station-1" id="toc-anvio-interactive-plot---denitrification---nitrate-reductase---station-1" class="nav-link" data-scroll-target="#anvio-interactive-plot---denitrification---nitrate-reductase---station-1">anvi’o interactive plot - Denitrification - Nitrate reductase - Station 1</a></li>
-  <li><a href="#anvio-interactive-plot---denitrification---nitrite-reductase-nirk---station-1" id="toc-anvio-interactive-plot---denitrification---nitrite-reductase-nirk---station-1" class="nav-link" data-scroll-target="#anvio-interactive-plot---denitrification---nitrite-reductase-nirk---station-1">anvi’o interactive plot - Denitrification - Nitrite reductase (nirK) - Station 1</a></li>
   <li><a href="#kegg-map-of-nitrogen-pathways" id="toc-kegg-map-of-nitrogen-pathways" class="nav-link" data-scroll-target="#kegg-map-of-nitrogen-pathways">KEGG Map of Nitrogen Pathways</a></li>
   <li><a href="#kegg-nitrogen-cycle-map00910" id="toc-kegg-nitrogen-cycle-map00910" class="nav-link" data-scroll-target="#kegg-nitrogen-cycle-map00910">KEGG nitrogen cycle (map00910)</a>
   <ul class="collapse">
@@ -109,6 +108,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#assembly-of-tara-oceans-arctic-metagenomes" id="toc-assembly-of-tara-oceans-arctic-metagenomes" class="nav-link" data-scroll-target="#assembly-of-tara-oceans-arctic-metagenomes">Assembly of Tara Oceans Arctic metagenomes</a></li>
   <li><a href="#metatranscriptomic-read-processing-and-mapping" id="toc-metatranscriptomic-read-processing-and-mapping" class="nav-link" data-scroll-target="#metatranscriptomic-read-processing-and-mapping">Metatranscriptomic read processing and mapping</a></li>
   </ul></li>
+  <li><a href="#downloading-mags-from-station-194" id="toc-downloading-mags-from-station-194" class="nav-link" data-scroll-target="#downloading-mags-from-station-194">Downloading MAGs from Station 194</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -427,10 +427,8 @@ samtools index "${OUT}.bam"</code></pre>
 <p>We used the following anvi’o programs:</p>
 <pre class="{bash}"><code>anvi-estimate-metabolism</code></pre>
 <p>Identifies complete and partial KEGG modules across all annotated contigs, providing an overview of metabolic potential (e.g., denitrification, dissimilatory nitrate reduction, anammox).</p>
-<pre class="{bash}"><code>anvi-react-network</code></pre>
-<p>Generates reaction-centric metabolic networks based on KEGG reactions detected in the assembly. This allows exploration of how individual reactions connect into broader nitrogen pathways.</p>
 <pre class="{bash}"><code>anvi-reaction-network</code></pre>
-<p>Creates interactive network files linking genes (KO identifiers), reactions, and pathways—useful for mapping expression levels or identifying pathway bottlenecks.</p>
+<p>Generates reaction-centric metabolic networks based on KEGG reactions detected in the assembly. This allows exploration of how individual reactions connect into broader nitrogen pathways.</p>
 <pre class="{bash}"><code>anvi-draw-kegg</code></pre>
 <p>Renders KEGG metabolic pathway diagrams annotated with detected genes, enabling visual inspection of pathway completeness and highlighting which steps are supported by metatranscriptomic evidence.</p>
 <p>These tools collectively provide a pathway-level view of nitrogen cycling activity in the Chukchi Sea microbial community, enabling detailed interpretation of expression patterns associated with denitrification, nitrification, and anammox processes.</p>
@@ -496,26 +494,681 @@ awk '{print $1"_split_00001\tdenitrification"}' contigs_of_interest.txt   &gt; d
 
 anvi-import-collection   -p St1_MERGED/PROFILE.db   -c St1_contigs.db   -C denitrification_splits denitrification_splits_collection.tsv</code></pre>
 <p>Now that we have an anvio collection, we need to “split” it from the main contigs and profile databases (we create a subset). This is because our initial contigs.be has too many splits (1,432,906 splits to be precise) and hierarchical clustering gets turned off.</p>
-<p>Once it is splitted we can find a directory called “denitrifications_splits” in which we find a contigs and profile database that we can now plot using anvi-interactive:</p>
+<p>Once it is splitted we can find a directory called “denitrifications_splits” in which we find a contigs and profile database that we can now plot using anvi-interactive.</p>
+<p>First, we will import the data about the presence/absence of the genes of interest (from Module M00529) so we can visualise where they are found.</p>
+<pre class="{bash}"><code>anvi-export-functions   -c CONTIGS.db   -o gene_functions.tsv
+
+# 1) Define your KO list (space-separated)
+KOS="K00370 K00371 K00374 K02567 K02568 K00368 K15864 K04561 K02305 K00376"
+
+# 2) Build gene-level KO presence/absence from gene_functions.tsv (KO is column 3)
+awk -F'\t' -v OFS='\t' -v kos="$KOS" '
+BEGIN{
+    n = split(kos, k, " ")
+    for (i=1; i&lt;=n; i++) KO[k[i]] = 1
+    printf "gene_callers_id"
+    for (i=1; i&lt;=n; i++) printf "%s%s", OFS, k[i]
+    printf "\n"
+}
+NR==1 { next }  # skip header
+{
+    gene = $1
+    acc  = $3
+    genes[gene] = 1
+    if (acc in KO) present[gene, acc] = 1
+}
+END{
+    for (g in genes) {
+        printf "%s", g
+        for (i=1; i&lt;=n; i++) {
+            ko = k[i]
+            v = ((g SUBSEP ko) in present) ? 1 : 0
+            printf "%s%d", OFS, v
+        }
+        printf "\n"
+    }
+}
+' gene_functions.tsv &gt; KO_presence_absence_by_gene.tsv
+
+# 3) Map gene_callers_id -&gt; contig (requires genes_in_contigs.tsv from anvi-export-gene-calls)
+#    Then collapse to contig-level by OR (max) across genes
+awk -F'\t' -v OFS='\t' '
+NR==FNR {
+    if (FNR==1) next
+    gene2contig[$1] = $2
+    next
+}
+FNR==1 { print "contig", substr($0, index($0, "\t")+1); ncol=NF; next }
+{
+    gene = $1
+    contig = (gene in gene2contig) ? gene2contig[gene] : "NA"
+    contigs[contig]=1
+    for (i=2; i&lt;=NF; i++) if ($i==1) M[contig, i]=1
+}
+END{
+    for (c in contigs) {
+        printf "%s", c
+        for (i=2; i&lt;=ncol; i++) {
+            v = ((c SUBSEP i) in M) ? 1 : 0
+            printf "%s%d", OFS, v
+        }
+        printf "\n"
+    }
+}
+' genes_in_contigs.tsv KO_presence_absence_by_gene.tsv &gt; KO_presence_absence_by_contig.tsv
+
+# 4) Convert contig names to split names (naive: appends _split_00001)
+awk -F'\t' -v OFS='\t' '
+FNR==1 { $1="item_name"; print; next }
+{ $1 = $1 "_split_00001"; print }
+' KO_presence_absence_by_contig.tsv &gt; KO_presence_absence_by_split.tsv
+
+# Import the data to the PROFILE.db
+anvi-import-misc-data -p PROFILE.db -t items KO_presence_absence_by_split.tsv
+</code></pre>
 </section>
 <section id="anvio-interactive-plot---denitrification---nitrate-reductase---station-1" class="level2">
 <h2 class="anchored" data-anchor-id="anvio-interactive-plot---denitrification---nitrate-reductase---station-1">anvi’o interactive plot - Denitrification - Nitrate reductase - Station 1</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/anvi_plot_dinitrification_nitrate_reductase.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>Anvi’o interactive plot</figcaption>
+<p><img src="figures/anvi_plot_denitrification_KOs_presence-absence.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Anvi’o interactive plot showing the presence/absence of transcript annotation associated with denitrification in station 1.</figcaption>
 </figure>
 </div>
-</section>
-<section id="anvio-interactive-plot---denitrification---nitrite-reductase-nirk---station-1" class="level2">
-<h2 class="anchored" data-anchor-id="anvio-interactive-plot---denitrification---nitrite-reductase-nirk---station-1">anvi’o interactive plot - Denitrification - Nitrite reductase (nirK) - Station 1</h2>
+<p>From this plot we see that:</p>
+<ol type="1">
+<li><p>K00370 (narG) and K00371 (narH) are annotated on the same transcript (bin 1 on figure) which makes sense as they are subunits of the same nitrate reductase enzyme complex. In many bacterial genomes, narG and narH are directly adjacent and commonly co-transcribed as part of a nitrate reductase operon. For example, in E. coli the nar operon appears to contain four genes designated narGHJI (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC211023/pdf/jbacter00182-0317.pdf" class="uri">https://pmc.ncbi.nlm.nih.gov/articles/PMC211023/pdf/jbacter00182-0317.pdf</a>).Operons are typically transcribed as one long mRNA. Hence, having multiple functions on one transcript here is not surprising.</p></li>
+<li><p>Transcripts are annotated with the same gene multiple times. Different microbial populations likely have slightly different sequences for these genes, hence they get assembled into multiple different versions instead of collapsed by the assembler into one sequence. Hence, having multiple transcript with the same function is not surprising.</p></li>
+</ol>
+<p>From the coverage data layers, we can see that all the transcripts have coverage from sample S4B (Bottom) ans most for sample S4M (Mid-water) but some might be missing from sample S4S (Surface). Therefore, let’s look at the completeness of denitrification per depth instead of for the whole station.</p>
+<pre class="{bash}"><code>anvi-estimate-metabolism -c CONTIGS.db -p PROFILE.db -O denitrification_meta --add-coverage</code></pre>
+<p>From the output table we see that, the denitrification module (M00529) shows differences in both abundance (average coverage) and completeness (average detection) across samples. St1_S4S exhibits substantially lower coverage and detection, indicating a reduced presence and/or partial representation of the denitrification pathway in the surface sample. In contrast, St1_S4M and St1_S4B show much higher coverage and detection values, consistent with a more abundant and more complete denitrification potential in deeper waters. Notably, St1_S4B shows the highest detection, suggesting the most complete representation of the pathway among the three samples. Given that denitrification is surely happening in the sediments, this result makes sense.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Sample</th>
+<th>Avg. Coverage</th>
+<th>Avg. Detection</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>St1_S4S</td>
+<td>975.53</td>
+<td>0.454</td>
+</tr>
+<tr class="even">
+<td>St1_S4M</td>
+<td>2032.39</td>
+<td>0.787</td>
+</tr>
+<tr class="odd">
+<td>St1_S4B</td>
+<td>1706.59</td>
+<td>0.859</td>
+</tr>
+</tbody>
+</table>
+<p>The table below provides a gene-level breakdown of the denitrification module (KEGG M00529), linking each predicted gene (Gene_ID) to its corresponding KEGG Ortholog (KO) and its sequencing coverage in three samples (St1_S4B, St1_S4M, and St1_S4S).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 5%">
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Gene_ID</th>
+<th>KO</th>
+<th style="text-align: right;">St1_S4B_coverage</th>
+<th style="text-align: right;">St1_S4M_coverage</th>
+<th style="text-align: right;">St1_S4S_coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1359363</td>
+<td>K00368</td>
+<td style="text-align: right;">20.2724</td>
+<td style="text-align: right;">20.0305</td>
+<td style="text-align: right;">0.0000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">691166</td>
+<td>K00368</td>
+<td style="text-align: right;">165.5046</td>
+<td style="text-align: right;">334.5195</td>
+<td style="text-align: right;">13.3177</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">707695</td>
+<td>K00368</td>
+<td style="text-align: right;">41.8570</td>
+<td style="text-align: right;">69.1358</td>
+<td style="text-align: right;">12.5575</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">687620</td>
+<td>K00368</td>
+<td style="text-align: right;">1282.9247</td>
+<td style="text-align: right;">2415.3629</td>
+<td style="text-align: right;">243.7858</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">700737</td>
+<td>K00368</td>
+<td style="text-align: right;">2478.6866</td>
+<td style="text-align: right;">2384.1486</td>
+<td style="text-align: right;">1253.8170</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">854256</td>
+<td>K00368</td>
+<td style="text-align: right;">11.4167</td>
+<td style="text-align: right;">3.3309</td>
+<td style="text-align: right;">5.3478</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1185346</td>
+<td>K00368</td>
+<td style="text-align: right;">28.9579</td>
+<td style="text-align: right;">5.8295</td>
+<td style="text-align: right;">7.4308</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">941749</td>
+<td>K00368</td>
+<td style="text-align: right;">38.1338</td>
+<td style="text-align: right;">27.6934</td>
+<td style="text-align: right;">5.3577</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1709903</td>
+<td>K00368</td>
+<td style="text-align: right;">105.2276</td>
+<td style="text-align: right;">88.9237</td>
+<td style="text-align: right;">34.8610</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1705673</td>
+<td>K00368</td>
+<td style="text-align: right;">344.4583</td>
+<td style="text-align: right;">682.0183</td>
+<td style="text-align: right;">178.3852</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">65438</td>
+<td>K00368</td>
+<td style="text-align: right;">6.3643</td>
+<td style="text-align: right;">5.1628</td>
+<td style="text-align: right;">6.0814</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1031617</td>
+<td>K00368</td>
+<td style="text-align: right;">689.8963</td>
+<td style="text-align: right;">1204.7898</td>
+<td style="text-align: right;">165.6266</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">26013</td>
+<td>K00368</td>
+<td style="text-align: right;">12.4952</td>
+<td style="text-align: right;">12.8188</td>
+<td style="text-align: right;">15.1860</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1787639</td>
+<td>K00368</td>
+<td style="text-align: right;">9.6738</td>
+<td style="text-align: right;">18.6717</td>
+<td style="text-align: right;">17.9031</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">888296</td>
+<td>K00368</td>
+<td style="text-align: right;">40.1019</td>
+<td style="text-align: right;">45.6324</td>
+<td style="text-align: right;">5.3630</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">895831</td>
+<td>K00368</td>
+<td style="text-align: right;">49445.2245</td>
+<td style="text-align: right;">52866.8920</td>
+<td style="text-align: right;">44637.3724</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">882932</td>
+<td>K00368</td>
+<td style="text-align: right;">14.2161</td>
+<td style="text-align: right;">18.0897</td>
+<td style="text-align: right;">8.2637</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">87959</td>
+<td>K00368</td>
+<td style="text-align: right;">10915.1630</td>
+<td style="text-align: right;">11415.0249</td>
+<td style="text-align: right;">4717.4411</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">994614</td>
+<td>K00368</td>
+<td style="text-align: right;">1.9337</td>
+<td style="text-align: right;">17.4825</td>
+<td style="text-align: right;">0.0000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1617538</td>
+<td>K00368</td>
+<td style="text-align: right;">14.7141</td>
+<td style="text-align: right;">12.2627</td>
+<td style="text-align: right;">18.9873</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1348289</td>
+<td>K00368</td>
+<td style="text-align: right;">19.2252</td>
+<td style="text-align: right;">17.7117</td>
+<td style="text-align: right;">3.4054</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">411974</td>
+<td>K00368</td>
+<td style="text-align: right;">12.5977</td>
+<td style="text-align: right;">27.5419</td>
+<td style="text-align: right;">0.0000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">441287</td>
+<td>K00368</td>
+<td style="text-align: right;">145.1941</td>
+<td style="text-align: right;">279.3881</td>
+<td style="text-align: right;">10.4268</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">516928</td>
+<td>K00368</td>
+<td style="text-align: right;">14.6225</td>
+<td style="text-align: right;">4.1400</td>
+<td style="text-align: right;">0.0000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19512</td>
+<td>K00368</td>
+<td style="text-align: right;">9.0578</td>
+<td style="text-align: right;">9.2244</td>
+<td style="text-align: right;">0.0000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">189833</td>
+<td>K00368</td>
+<td style="text-align: right;">16223.0362</td>
+<td style="text-align: right;">32930.3351</td>
+<td style="text-align: right;">3152.7518</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">443514</td>
+<td>K00368</td>
+<td style="text-align: right;">34.8817</td>
+<td style="text-align: right;">66.0895</td>
+<td style="text-align: right;">4.2496</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">823538</td>
+<td>K00368</td>
+<td style="text-align: right;">935.0735</td>
+<td style="text-align: right;">1874.6680</td>
+<td style="text-align: right;">392.6050</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1814075</td>
+<td>K00368</td>
+<td style="text-align: right;">69.7314</td>
+<td style="text-align: right;">164.8157</td>
+<td style="text-align: right;">0.0000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">742645</td>
+<td>K00370</td>
+<td style="text-align: right;">878.6661</td>
+<td style="text-align: right;">1009.9220</td>
+<td style="text-align: right;">251.1167</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">594150</td>
+<td>K00371</td>
+<td style="text-align: right;">2.4505</td>
+<td style="text-align: right;">14.2871</td>
+<td style="text-align: right;">6.3498</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1363937</td>
+<td>K00371</td>
+<td style="text-align: right;">10.2119</td>
+<td style="text-align: right;">3.3420</td>
+<td style="text-align: right;">16.6811</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">815415</td>
+<td>K00371</td>
+<td style="text-align: right;">0.7502</td>
+<td style="text-align: right;">9.2725</td>
+<td style="text-align: right;">26.9735</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">85995</td>
+<td>K00371</td>
+<td style="text-align: right;">7687.8341</td>
+<td style="text-align: right;">7547.8975</td>
+<td style="text-align: right;">2080.3177</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">144516</td>
+<td>K00371</td>
+<td style="text-align: right;">55.7631</td>
+<td style="text-align: right;">69.1036</td>
+<td style="text-align: right;">41.3231</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">433983</td>
+<td>K00371</td>
+<td style="text-align: right;">8190.7754</td>
+<td style="text-align: right;">7206.5446</td>
+<td style="text-align: right;">2536.7527</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">528599</td>
+<td>K00371</td>
+<td style="text-align: right;">1780.6823</td>
+<td style="text-align: right;">1350.2175</td>
+<td style="text-align: right;">893.7160</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">742644</td>
+<td>K00371</td>
+<td style="text-align: right;">691.1526</td>
+<td style="text-align: right;">522.5736</td>
+<td style="text-align: right;">229.5579</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">772410</td>
+<td>K00371</td>
+<td style="text-align: right;">12746.2707</td>
+<td style="text-align: right;">12521.7199</td>
+<td style="text-align: right;">4925.9703</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">894284</td>
+<td>K00371</td>
+<td style="text-align: right;">523.0258</td>
+<td style="text-align: right;">645.8185</td>
+<td style="text-align: right;">215.0751</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1228756</td>
+<td>K00371</td>
+<td style="text-align: right;">78.4240</td>
+<td style="text-align: right;">116.4395</td>
+<td style="text-align: right;">19.8915</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">747852</td>
+<td>K00374</td>
+<td style="text-align: right;">17.9413</td>
+<td style="text-align: right;">5.8443</td>
+<td style="text-align: right;">32.5668</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">123437</td>
+<td>K00374</td>
+<td style="text-align: right;">4.6273</td>
+<td style="text-align: right;">7.1632</td>
+<td style="text-align: right;">29.0478</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">815414</td>
+<td>K00374</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">8.0645</td>
+<td style="text-align: right;">24.4382</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">474316</td>
+<td>K00374</td>
+<td style="text-align: right;">1.3157</td>
+<td style="text-align: right;">6.2746</td>
+<td style="text-align: right;">3.1953</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">123436</td>
+<td>K00374</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">4.4774</td>
+<td style="text-align: right;">18.0989</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1743784</td>
+<td>K00376</td>
+<td style="text-align: right;">11.0827</td>
+<td style="text-align: right;">4.6706</td>
+<td style="text-align: right;">1.3333</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">296938</td>
+<td>K00376</td>
+<td style="text-align: right;">23.3961</td>
+<td style="text-align: right;">8.4638</td>
+<td style="text-align: right;">4.3466</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">239047</td>
+<td>K00376</td>
+<td style="text-align: right;">16.0931</td>
+<td style="text-align: right;">8.2598</td>
+<td style="text-align: right;">3.6313</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">110498</td>
+<td>K00376</td>
+<td style="text-align: right;">5.2941</td>
+<td style="text-align: right;">8.1390</td>
+<td style="text-align: right;">0.0000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">374090</td>
+<td>K00376</td>
+<td style="text-align: right;">9.8702</td>
+<td style="text-align: right;">1.9231</td>
+<td style="text-align: right;">0.0000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">793456</td>
+<td>K00376</td>
+<td style="text-align: right;">8.9385</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.0000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">921128</td>
+<td>K00376</td>
+<td style="text-align: right;">9.3483</td>
+<td style="text-align: right;">4.0896</td>
+<td style="text-align: right;">0.0000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1401364</td>
+<td>K02305</td>
+<td style="text-align: right;">8.4604</td>
+<td style="text-align: right;">3.2278</td>
+<td style="text-align: right;">0.0000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1445710</td>
+<td>K02305</td>
+<td style="text-align: right;">14.9201</td>
+<td style="text-align: right;">16.6901</td>
+<td style="text-align: right;">2.8947</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1753152</td>
+<td>K02567</td>
+<td style="text-align: right;">11.9600</td>
+<td style="text-align: right;">9.6693</td>
+<td style="text-align: right;">4.4833</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1433084</td>
+<td>K02567</td>
+<td style="text-align: right;">12.6263</td>
+<td style="text-align: right;">2.1465</td>
+<td style="text-align: right;">0.0000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1852908</td>
+<td>K02567</td>
+<td style="text-align: right;">4.2483</td>
+<td style="text-align: right;">2.2242</td>
+<td style="text-align: right;">20.1092</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1168575</td>
+<td>K02568</td>
+<td style="text-align: right;">5.9083</td>
+<td style="text-align: right;">11.0201</td>
+<td style="text-align: right;">1.5839</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">648640</td>
+<td>K02568</td>
+<td style="text-align: right;">5.2407</td>
+<td style="text-align: right;">2.0864</td>
+<td style="text-align: right;">0.0000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1431702</td>
+<td>K02568</td>
+<td style="text-align: right;">7.0235</td>
+<td style="text-align: right;">4.4507</td>
+<td style="text-align: right;">0.0000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">481953</td>
+<td>K02568</td>
+<td style="text-align: right;">18.7030</td>
+<td style="text-align: right;">19.8397</td>
+<td style="text-align: right;">0.0000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">685198</td>
+<td>K04561</td>
+<td style="text-align: right;">17.1011</td>
+<td style="text-align: right;">0.2232</td>
+<td style="text-align: right;">0.0000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1271679</td>
+<td>K04561</td>
+<td style="text-align: right;">11.4956</td>
+<td style="text-align: right;">3.5383</td>
+<td style="text-align: right;">0.0000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">468297</td>
+<td>K04561</td>
+<td style="text-align: right;">11.6298</td>
+<td style="text-align: right;">5.9309</td>
+<td style="text-align: right;">0.0000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">252981</td>
+<td>K04561</td>
+<td style="text-align: right;">21.7907</td>
+<td style="text-align: right;">1.7374</td>
+<td style="text-align: right;">29.5610</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">540786</td>
+<td>K04561</td>
+<td style="text-align: right;">3.4200</td>
+<td style="text-align: right;">7.7399</td>
+<td style="text-align: right;">0.7168</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1468402</td>
+<td>K15864</td>
+<td style="text-align: right;">9.0891</td>
+<td style="text-align: right;">5.8108</td>
+<td style="text-align: right;">5.5743</td>
+</tr>
+</tbody>
+</table>
+<p>Multiple gene copies are associated with several key denitrification steps, indicating some degree of functional redundancy within the pathway. Gene coverages are generally higher in St1_S4B and St1_S4M than in St1_S4S, where several components show low or zero coverage, suggesting a reduced or incomplete representation of the pathway in this sample. A small number of genes display particularly high coverage, implying that certain denitrification functions may be more prevalent than others across the dataset.</p>
+<p>Now using the table above, we can list for each sample the Gene_IDs and KOs with nonzero coverage and you can turn that list into into an enzymes-txt file which can be used to calculated the denitrification completeness score for each sample, using:</p>
+<pre class="{bash}"><code>anvi-estimate-metabolism --enzymes-txt</code></pre>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 24%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sample</th>
+<th>Module</th>
+<th>Stepwise completeness</th>
+<th>Pathwise completeness</th>
+<th>Proportion of unique enzymes present</th>
+<th>Enzymes unique to module</th>
+<th>Unique enzyme hit counts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>St1_S4S</td>
+<td>M00529</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>K00376, K02305, K04561</td>
+<td>3, 1, 2</td>
+</tr>
+<tr class="even">
+<td>St1_S4M</td>
+<td>M00529</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>K00376, K02305, K04561</td>
+<td>6, 2, 5</td>
+</tr>
+<tr class="odd">
+<td>St1_S4B</td>
+<td>M00529</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>K00376, K02305, K04561</td>
+<td>7, 2, 5</td>
+</tr>
+</tbody>
+</table>
+<p>All three samples (St1_S4S, St1_S4M, and St1_S4B) show complete denitrification pathways according to both stepwise and pathwise KEGG module criteria, indicating that all required enzymatic steps from nitrate to N₂ are represented.</p>
+<p>The number of hits for the unique enzymes differs among samples. St1_S4B and St1_S4M show higher hit counts for most of the unique enzymes compared to St1_S4S, suggesting that these functions are represented by more gene transcripts or more abundant RNAs in these samples.</p>
+<p>Together, these results suggest that the denitrification pathways is fully expressed in all three samples, but its relative transcription representation appears to be lower in St1_S4S than in St1_S4M and St1_S4B.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/anvi_plot_denitrification_nirK.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<p><img src="figures/.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <figcaption>Anvi’o interactive plot</figcaption>
 </figure>
 </div>
-<p>Now we can start looking for specific genes and creating bins for each so we can visualise them and see their coverage.</p>
 </section>
 <section id="kegg-map-of-nitrogen-pathways" class="level2">
 <h2 class="anchored" data-anchor-id="kegg-map-of-nitrogen-pathways">KEGG Map of Nitrogen Pathways</h2>
@@ -604,6 +1257,8 @@ anvi-import-collection   -p St1_MERGED/PROFILE.db   -c St1_contigs.db   -C denit
 </tr>
 </tbody>
 </table>
+<p>link to the NCBI SRA (Sequence Read Archive) Run Browser metadata page for a specific run accession (ERR3589571): <a href="https://trace.ncbi.nlm.nih.gov/Traces/index.html?view=run_browser&amp;acc=ERR3589571&amp;display=metadata" class="uri">https://trace.ncbi.nlm.nih.gov/Traces/index.html?view=run_browser&amp;acc=ERR3589571&amp;display=metadata</a></p>
+<p>The EBI MGnify overview for analysis MGYA00607610 showing summary metadata and processed metagenomic results for a public datase is here: <a href="https://www.ebi.ac.uk/metagenomics/analyses/MGYA00607610#overview" class="uri">https://www.ebi.ac.uk/metagenomics/analyses/MGYA00607610#overview</a></p>
 <p>This strategy enables the detection and quantification of expressed genes that are conserved between Arctic marine microbial communities, while acknowledging that locally specific taxa or gene variants not present in the reference dataset may not be captured.</p>
 </section>
 <section id="assembly-of-tara-oceans-arctic-metagenomes" class="level3">
@@ -620,9 +1275,13 @@ anvi-import-collection   -p St1_MERGED/PROFILE.db   -c St1_contigs.db   -C denit
 <p><strong>Interpretation and limitations</strong></p>
 <p>This reference-based approach enables the identification and relative quantification of expressed genes that are conserved across Arctic marine microbial communities, including key genes involved in nitrogen cycling. However, transcripts derived from locally unique taxa or divergent gene variants absent from the Tara Oceans reference assembly are unlikely to be captured, resulting in an underestimation of total transcript diversity and expression.</p>
 <p>Consequently, analyses based on this approach focus on relative expression patterns of nitrogen-cycle gene families represented in the reference dataset, rather than absolute transcript abundances or the absence of specific metabolic pathways. Despite these limitations, the approach provides a robust framework for exploring nitrogen cycling activity in the Chukchi Sea in the absence of site-specific metagenomic data.</p>
-
-
 </section>
+</section>
+<section id="downloading-mags-from-station-194" class="level2">
+<h2 class="anchored" data-anchor-id="downloading-mags-from-station-194">Downloading MAGs from Station 194</h2>
+<p>Using the BioSamples ID (SAMEA4397903) in OMDB repository https://omdb.microbiomics.io/repository/ocean/genome-cols</p>
+
+
 </section>
 </section>
 
