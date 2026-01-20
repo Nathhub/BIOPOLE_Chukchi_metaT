@@ -553,6 +553,10 @@ K20934  hzsC
 K20935  hdh
 
 
+## Extraction of the community profile
+
+According to this paper: <https://doi.org/10.1080/19490976.2024.2323235>, the best way to extract taxonomy from metaT reads is using the Kraken 2/Bracken approach.
+
 
 
 
@@ -613,10 +617,62 @@ Consequently, analyses based on this approach focus on relative expression patte
 ## Downloading MAGs from Station 194
 
 Using the BioSamples ID (SAMEA4397903) in OMDB repository
-<https://omdb.microbiomics.io/repository/ocean/genome-cols> we see that 88 MAGs have been produced from that sample. We can download the table listing their taxonomic assignment and other infos. We can also download the MAGs as a fasta file. 
+<https://omdb.microbiomics.io/repository/ocean/genome-cols> we can download all the MAGs that have been generated from the data of station 194.
 
-Which ones do we want?
+```{bash}
+# 1) Download the catalog of all genomes and files:
+curl -O https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_data.tsv.gz
 
-Let's download all the Rhodobacteraceae (These are frequent partial or complete denitrifiers in marine systems)
+# 2) Unzip it
+gunzip OMDBv2.0_data.tsv.gz
+
+# 3) Use it to download sets of MAGs
+# Example: download all MAG FASTA files
+grep "TARA_SAMEA4397903_MAG_" OMDBv2.0_data.tsv | cut -f4 | xargs -n 1 curl -O
+```
+
+Now I want to change the name of the MAGs so they show the name of the species they have been associated to:
+
+```{bash}
+awk -F'\t' 'NR>1 {print $1 "\t" $8}' taxonomy_mags | while IFS=$'\t' read -r id species; do
+    species_clean=$(echo "$species" | tr ' /' '__')
+    old="${id}.fa.gz"
+    base="${species_clean}.fa.gz"
+
+    [ -e "$old" ] || continue
+
+    new="$base"
+    n=2
+    while [ -e "$new" ]; do
+        new="${species_clean}_${n}.fa.gz"
+        n=$((n+1))
+    done
+
+    mv "$old" "$new"
+done
+```
+
+After unziping them all, we can generate an 
+
+```{bash}
+for i in `ls *fa | awk 'BEGIN{FS=".fa"}{print $1}'`
+do
+    anvi-gen-contigs-database -f $i.fa -o $i.db -T 60
+    anvi-run-hmms -c $i.db -T 60
+    anvi-run-ncbi-cogs -c $i.db -T 30
+    anvi-run-kegg-kofams -c $i.db -T 30
+    anvi-run-scg-taxonomy -c $i.db -T 30
+done
+```
+
+Next, we need to make a TAB-delimited ‘external genomes’ file to describe these genomes and associate them with a name.
+
+```{bash}
+echo -e "name\tcontig_db_path" > external_genomes.txt
+for db in *.db; do
+    name="${db%.db}"
+    echo -e "${name}\t${db}" >> external_genomes.txt
+done
+```
 
 
