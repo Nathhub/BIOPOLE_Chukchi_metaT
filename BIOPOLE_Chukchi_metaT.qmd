@@ -557,9 +557,33 @@ K20935  hdh
 
 According to this paper: <https://doi.org/10.1080/19490976.2024.2323235>, the best way to extract taxonomy from metaT reads is using the Kraken 2/Bracken approach.
 
+```{bash}
+kraken2 \
+  --db /dssgfs01/scratch/ote_db/kraken/kraken_standard-16 \ 
+  --threads 60 \ 
+  --gzip-compressed \ 
+  --report St1_S4S_report.txt \ 
+  --output St1_S4S_kraken.out \ 
+  --paired 1-S4S/1-S4S_RNA_clean_fwd.fq.gz 1-S4S/1-S4S_RNA_clean_rev.fq.gz
+  
+```
 
+```{bash}
+bracken \
+  -d /dssgfs01/scratch/ote_db/kraken/kraken_standard-16 \
+  -i St1_S4S_report.txt \
+  -o St1_S4S.bracken.F \
+  -r 150 \
+  -l F
+```
 
+```{bash}
+# 1) Convert Kraken2 output to Krona input
+cut -f2,3 St1_S4S_kraken.out > St1_S4S.krona.tsv
 
+# 2) Make the Krona HTML
+ktImportTaxonomy -t 2 -m 3 -o St1_S4S_krona.html St1_S4S.krona.tsv
+```
 
 
 ## Tara Oceans Arctic data as reference
@@ -626,8 +650,7 @@ curl -O https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalog
 # 2) Unzip it
 gunzip OMDBv2.0_data.tsv.gz
 
-# 3) Use it to download sets of MAGs
-# Example: download all MAG FASTA files
+# 3) Use it to download the MAGs associated with SAMEA4397903
 grep "TARA_SAMEA4397903_MAG_" OMDBv2.0_data.tsv | cut -f4 | xargs -n 1 curl -O
 ```
 
@@ -668,11 +691,47 @@ done
 Next, we need to make a TAB-delimited ‘external genomes’ file to describe these genomes and associate them with a name.
 
 ```{bash}
-echo -e "name\tcontig_db_path" > external_genomes.txt
+echo -e "name\tcontigs_db_path" > external_genomes.txt
 for db in *.db; do
     name="${db%.db}"
     echo -e "${name}\t${db}" >> external_genomes.txt
 done
 ```
+
+```{bash}
+anvi-gen-genomes-storage -e external_genomes.txt \
+                         -o Tara_194_mags.db
+```
+
+
+```{bash}
+anvi-pan-genome -g Tara_194_mags-GENOMES.db --project-name Tara_194 -T 30
+```
+
+```{bash}
+anvi-script-add-default-collection -p Tara_194/Tara_194-PAN.db
+anvi-summarize -g Tara_194_mags-GENOMES.db -p Tara_194/Tara_194-PAN.db -C DEFAULT
+
+head -n 1 Tara_194_gene_clusters_summary.txt > denitrification_hits.txt
+grep -E "K00370|K00371|K00374|K02567|K02568|K00368|K15864|K04561|K02305|K00376" Tara_194_gene_clusters_summary.txt >> denitrification_hits.txt
+
+cut -f1-5,26 denitrification_hits.txt
+```
+
+| unique_id | gene_cluster_id | bin_name   | genome_name             | gene_callers_id | KOfam_ACC |
+|-----------|------------------|------------|--------------------------|------------------|-----------|
+| 123355    | GC_00039248      | EVERYTHING | Unknown_HTCC2207_2      | 530              | K00374    |
+| 144179    | GC_00060072      | EVERYTHING | Hel1_33_131_sp949499105 | 207              | K00368    |
+| 147231    | GC_00063124      | EVERYTHING | SP4260_sp905182415      | 712              | K02305    |
+
+
+
+
+
+
+
+
+
+
 
 

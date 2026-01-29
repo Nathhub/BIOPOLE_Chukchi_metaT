@@ -101,6 +101,7 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#core-nitrogen-cycle-kos-map00910" id="toc-core-nitrogen-cycle-kos-map00910" class="nav-link" data-scroll-target="#core-nitrogen-cycle-kos-map00910">Core nitrogen-cycle KOs (map00910)</a></li>
   </ul></li>
+  <li><a href="#extraction-of-the-community-profile" id="toc-extraction-of-the-community-profile" class="nav-link" data-scroll-target="#extraction-of-the-community-profile">Extraction of the community profile</a></li>
   <li><a href="#tara-oceans-arctic-data-as-reference" id="toc-tara-oceans-arctic-data-as-reference" class="nav-link" data-scroll-target="#tara-oceans-arctic-data-as-reference">Tara Oceans Arctic data as reference</a>
   <ul class="collapse">
   <li><a href="#rationale-and-overview" id="toc-rationale-and-overview" class="nav-link" data-scroll-target="#rationale-and-overview">Rationale and overview</a></li>
@@ -1202,6 +1203,29 @@ anvi-import-misc-data -p PROFILE.db -t items KO_presence_absence_by_split.tsv
 </ul>
 </section>
 </section>
+<section id="extraction-of-the-community-profile" class="level2">
+<h2 class="anchored" data-anchor-id="extraction-of-the-community-profile">Extraction of the community profile</h2>
+<p>According to this paper: <a href="https://doi.org/10.1080/19490976.2024.2323235" class="uri">https://doi.org/10.1080/19490976.2024.2323235</a>, the best way to extract taxonomy from metaT reads is using the Kraken 2/Bracken approach.</p>
+<pre class="{bash}"><code>kraken2 \
+  --db /dssgfs01/scratch/ote_db/kraken/kraken_standard-16 \ 
+  --threads 60 \ 
+  --gzip-compressed \ 
+  --report St1_S4S_report.txt \ 
+  --output St1_S4S_kraken.out \ 
+  --paired 1-S4S/1-S4S_RNA_clean_fwd.fq.gz 1-S4S/1-S4S_RNA_clean_rev.fq.gz
+  </code></pre>
+<pre class="{bash}"><code>bracken \
+  -d /dssgfs01/scratch/ote_db/kraken/kraken_standard-16 \
+  -i St1_S4S_report.txt \
+  -o St1_S4S.bracken.F \
+  -r 150 \
+  -l F</code></pre>
+<pre class="{bash}"><code># 1) Convert Kraken2 output to Krona input
+cut -f2,3 St1_S4S_kraken.out &gt; St1_S4S.krona.tsv
+
+# 2) Make the Krona HTML
+ktImportTaxonomy -t 2 -m 3 -o St1_S4S_krona.html St1_S4S.krona.tsv</code></pre>
+</section>
 <section id="tara-oceans-arctic-data-as-reference" class="level2">
 <h2 class="anchored" data-anchor-id="tara-oceans-arctic-data-as-reference">Tara Oceans Arctic data as reference</h2>
 <section id="rationale-and-overview" class="level3">
@@ -1279,9 +1303,103 @@ anvi-import-misc-data -p PROFILE.db -t items KO_presence_absence_by_split.tsv
 </section>
 <section id="downloading-mags-from-station-194" class="level2">
 <h2 class="anchored" data-anchor-id="downloading-mags-from-station-194">Downloading MAGs from Station 194</h2>
-<p>Using the BioSamples ID (SAMEA4397903) in OMDB repository <a href="https://omdb.microbiomics.io/repository/ocean/genome-cols" class="uri">https://omdb.microbiomics.io/repository/ocean/genome-cols</a> we see that 88 MAGs have been produced from that sample. We can download the table listing their taxonomic assignment and other infos. We can also download the MAGs as a fasta file.</p>
-<p>Which ones do we want?</p>
-<p>Let’s download all the Rhodobacteraceae (These are frequent partial or complete denitrifiers in marine systems)</p>
+<p>Using the BioSamples ID (SAMEA4397903) in OMDB repository <a href="https://omdb.microbiomics.io/repository/ocean/genome-cols" class="uri">https://omdb.microbiomics.io/repository/ocean/genome-cols</a> we can download all the MAGs that have been generated from the data of station 194.</p>
+<pre class="{bash}"><code># 1) Download the catalog of all genomes and files:
+curl -O https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_data.tsv.gz
+
+# 2) Unzip it
+gunzip OMDBv2.0_data.tsv.gz
+
+# 3) Use it to download the MAGs associated with SAMEA4397903
+grep "TARA_SAMEA4397903_MAG_" OMDBv2.0_data.tsv | cut -f4 | xargs -n 1 curl -O</code></pre>
+<p>Now I want to change the name of the MAGs so they show the name of the species they have been associated to:</p>
+<pre class="{bash}"><code>awk -F'\t' 'NR&gt;1 {print $1 "\t" $8}' taxonomy_mags | while IFS=$'\t' read -r id species; do
+    species_clean=$(echo "$species" | tr ' /' '__')
+    old="${id}.fa.gz"
+    base="${species_clean}.fa.gz"
+
+    [ -e "$old" ] || continue
+
+    new="$base"
+    n=2
+    while [ -e "$new" ]; do
+        new="${species_clean}_${n}.fa.gz"
+        n=$((n+1))
+    done
+
+    mv "$old" "$new"
+done</code></pre>
+<p>After unziping them all, we can generate an</p>
+<pre class="{bash}"><code>for i in `ls *fa | awk 'BEGIN{FS=".fa"}{print $1}'`
+do
+    anvi-gen-contigs-database -f $i.fa -o $i.db -T 60
+    anvi-run-hmms -c $i.db -T 60
+    anvi-run-ncbi-cogs -c $i.db -T 30
+    anvi-run-kegg-kofams -c $i.db -T 30
+    anvi-run-scg-taxonomy -c $i.db -T 30
+done</code></pre>
+<p>Next, we need to make a TAB-delimited ‘external genomes’ file to describe these genomes and associate them with a name.</p>
+<pre class="{bash}"><code>echo -e "name\tcontigs_db_path" &gt; external_genomes.txt
+for db in *.db; do
+    name="${db%.db}"
+    echo -e "${name}\t${db}" &gt;&gt; external_genomes.txt
+done</code></pre>
+<pre class="{bash}"><code>anvi-gen-genomes-storage -e external_genomes.txt \
+                         -o Tara_194_mags.db</code></pre>
+<pre class="{bash}"><code>anvi-pan-genome -g Tara_194_mags-GENOMES.db --project-name Tara_194 -T 30</code></pre>
+<pre class="{bash}"><code>anvi-script-add-default-collection -p Tara_194/Tara_194-PAN.db
+anvi-summarize -g Tara_194_mags-GENOMES.db -p Tara_194/Tara_194-PAN.db -C DEFAULT
+
+head -n 1 Tara_194_gene_clusters_summary.txt &gt; denitrification_hits.txt
+grep -E "K00370|K00371|K00374|K02567|K02568|K00368|K15864|K04561|K02305|K00376" Tara_194_gene_clusters_summary.txt &gt;&gt; denitrification_hits.txt
+
+cut -f1-5,26 denitrification_hits.txt</code></pre>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 18%">
+<col style="width: 12%">
+<col style="width: 27%">
+<col style="width: 18%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>unique_id</th>
+<th>gene_cluster_id</th>
+<th>bin_name</th>
+<th>genome_name</th>
+<th>gene_callers_id</th>
+<th>KOfam_ACC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>123355</td>
+<td>GC_00039248</td>
+<td>EVERYTHING</td>
+<td>Unknown_HTCC2207_2</td>
+<td>530</td>
+<td>K00374</td>
+</tr>
+<tr class="even">
+<td>144179</td>
+<td>GC_00060072</td>
+<td>EVERYTHING</td>
+<td>Hel1_33_131_sp949499105</td>
+<td>207</td>
+<td>K00368</td>
+</tr>
+<tr class="odd">
+<td>147231</td>
+<td>GC_00063124</td>
+<td>EVERYTHING</td>
+<td>SP4260_sp905182415</td>
+<td>712</td>
+<td>K02305</td>
+</tr>
+</tbody>
+</table>
 
 
 </section>
