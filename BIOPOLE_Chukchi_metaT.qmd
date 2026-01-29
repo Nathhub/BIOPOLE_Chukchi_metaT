@@ -14,6 +14,7 @@ execute:
   echo: false
   warning: false
   message: false
+  eval: false
 ---
 <style>
 pre code {
@@ -485,77 +486,27 @@ The number of hits for the unique enzymes differs among samples. St1_S4B and St1
 
 Together, these results suggest that the denitrification pathways is fully expressed in all three samples, but its relative transcription representation appears to be lower in St1_S4S than in St1_S4M and St1_S4B.
 
+### Mapping transcripts to genomes of potential denitrifiers
+
+The reference genomes listed in this table represent marine prokaryotes that are ecologically plausible contributors to denitrification in Arctic shelf waters such as the Chukchi Sea.
 
 
-![Anvi'o interactive plot](figures/){width=100%}
+| Species                     | Phylum         | Class               | Ecological niche (marine)                | Denitrification relevance |
+|-----------------------------|----------------|---------------------|------------------------------------------|---------------------------|
+| Colwellia psychrerythraea   | Pseudomonadota | Gammaproteobacteria | Arctic / cold-adapted, particle-associated | narGHI, nirS, norB; often incomplete (N₂O-prone) |
+| Shewanella baltica          | Pseudomonadota | Gammaproteobacteria | Cold coastal waters, redox-flexible        | nar/nap, partial denitrification common |
+| Psychromonas arctica        | Pseudomonadota | Gammaproteobacteria | Psychrophilic, organic-matter associated   | Nitrate reduction, variable downstream steps |
+| Marinobacter alkaliphilus   | Pseudomonadota | Gammaproteobacteria | Marine copiotroph, particle-associated     | nar/nap present in many strains |
+| Planktomarina temperata     | Pseudomonadota | Alphaproteobacteria | Free-living, bloom-associated              | napAB, nirS/K, norB; variable nosZ |
+| Sulfitobacter pontiacus     | Pseudomonadota | Alphaproteobacteria | Bloom-associated Rhodobacteraceae          | napAB, nirS/K, norB; occasional nosZ |
 
 
 
-
-
-
-
-
-
-
-## KEGG Map of Nitrogen Pathways
-
-![KEGG map of Nitrogen metabolic pathways. Diagram from anvi'o and KEGG. In green are the genes present in anvio contig database for Station 1](figures/Nitrogen_metabolism_St1_KEGG-1.png){width=100%}
-
-##  KEGG nitrogen cycle (map00910)
-
-This is a standard, widely used KO set covering:
-
-- Nitrification
-- Denitrification
-- DNRA
-- Anammox
-- Nitrogen fixation
-
-Assimilatory pathways
-
-###  Core nitrogen-cycle KOs (map00910)
-- Nitrogen fixation
-K02588  nifH
-K02591  nifD
-K02586  nifK
-
-- Nitrification
-K10944  amoA
-K10945  amoB
-K10946  amoC
-K10535  hao
-
-- Assimilatory nitrate reduction
-K00367  nasA
-K00360  nirA
-
-- Dissimilatory nitrate reduction (DNRA)
-K00362  napA
-K00363  napB
-K00370  narG
-K00371  narH
-K00374  narI
-K02567  nrfA
-K02568  nrfH
-
-- Denitrification
-K00368  nirK
-K15864  nirS
-K04561  norB
-K02305  norC
-K00376  nosZ
-
-- Anammox
-K20932  hzsA
-K20933  hzsB
-K20934  hzsC
-K20935  hdh
 
 
 ## Extraction of the community profile
 
-According to this paper: <https://doi.org/10.1080/19490976.2024.2323235>, the best way to extract taxonomy from metaT reads is using the Kraken 2/Bracken approach.
+According to this paper: <https://doi.org/10.1080/19490976.2024.2323235>, the best way to extract taxonomy from metaT reads is using the Kraken2/Bracken approach.
 
 ```{bash}
 kraken2 \
@@ -584,6 +535,72 @@ cut -f2,3 St1_S4S_kraken.out > St1_S4S.krona.tsv
 # 2) Make the Krona HTML
 ktImportTaxonomy -t 2 -m 3 -o St1_S4S_krona.html St1_S4S.krona.tsv
 ```
+
+
+Approximately **17%** of metatranscriptomic reads could be taxonomically classified using Kraken2 with the standard database (16 GB). Krona plots were therefore generated using classified reads only, and complementary family-level profiles were produced using Bracken.
+
+```{r}
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(forcats)
+library(scales)
+
+my_colors <- c(
+  "#FF6666", "#8DD3C7", "#377EB8", "#4DAF4A",
+  "#984EA3", "#A6D854", "#FFFF33", "#FF7F00",
+  "#F781BF", "#999999", "#66C2A5", "#FC8D62",
+  "#8DA0CB", "#E78AC3", "#FFD92F", "#E5C494",
+  "#B3B3B3", "#A65628", "#FFFFB3", "#BEBADA",
+  "#FB8072", "#80B1D3", "#FDB462"
+)
+
+# ---- load Bracken (family-level example) ----
+br <- read_tsv("data/St1_S4S.bracken.F", show_col_types = FALSE) %>%
+  filter(taxonomy_id != 9606) %>%                 # optional: remove human
+  mutate(rel_abund = new_est_reads / sum(new_est_reads))
+
+# ---- top 20 + Other ----
+top_n <- 20
+
+br_plot <- br %>%
+  arrange(desc(rel_abund)) %>%
+  mutate(
+    taxon = fct_lump_n(name, n = top_n, w = rel_abund),
+    taxon = fct_reorder(taxon, rel_abund, .desc = TRUE)
+  ) %>%
+  group_by(taxon) %>%
+  summarise(rel_abund = sum(rel_abund), .groups = "drop")
+
+# ---- named palette: top taxa get your colors, Other is grey ----
+taxa_levels <- levels(br_plot$taxon)
+n_levels <- length(taxa_levels)
+
+# Ensure we have enough colors for n=20 (we do)
+palette_vals <- c(my_colors[seq_len(min(top_n, length(my_colors)))], "grey80")[seq_len(n_levels)]
+names(palette_vals) <- taxa_levels
+
+ggplot(br_plot, aes(x = "St1_S4S", y = rel_abund, fill = taxon)) +
+  geom_col(width = 0.7) +
+  scale_fill_manual(values = palette_vals) +
+  scale_y_continuous(labels = percent_format(accuracy = 1)) +
+  labs(
+    x = NULL,
+    y = "Relative abundance (Bracken; classified reads)",
+    fill = "Family"
+  ) +
+  theme_bw()
+
+```
+
+
+
+
+
+
+
+
+
 
 
 ## Tara Oceans Arctic data as reference
@@ -724,10 +741,77 @@ cut -f1-5,26 denitrification_hits.txt
 | 144179    | GC_00060072      | EVERYTHING | Hel1_33_131_sp949499105 | 207              | K00368    |
 | 147231    | GC_00063124      | EVERYTHING | SP4260_sp905182415      | 712              | K02305    |
 
+ Maybe the denitrifiers were not binned into complete enough MAGs so they didn't end in OMDB repository... Let's check if we can find the genes in the Tara Ocean metaG dataset.
+ 
+ | KO ID      | Description                            |
+| ---------- | -------------------------------------- |
+| **K00374** | Nitrate reductase gamma subunit (NarI) |
+| **K00368** | Nitrite reductase (NO-forming)         |
+| **K02305** | Nitric oxide reductase subunit C       |
+| **K04561** | Nitric oxide reductase subunit B       |
+| **K00376** | Nitrous-oxide reductase                |
+
+
+**Note:**
+The denitrification pathway is nearly complete. The two missing genes, K00370 (narG) and K00371 (narH), encode the catalytic subunits of the membrane-bound nitrate reductase (Nar) complex. Their absence is notable given the presence of K00374 (narI), the gamma subunit of the same enzyme complex. This suggests that the complete Nar enzyme is likely present in the environment, but that the missing subunits were not captured in the sequencing data or reconstructed during assembly, rather than being truly absent from the system.
 
 
 
 
+
+## KEGG Map of Nitrogen Pathways
+
+![KEGG map of Nitrogen metabolic pathways. Diagram from anvi'o and KEGG. In green are the genes present in anvio contig database for Station 1](figures/Nitrogen_metabolism_St1_KEGG-1.png){width=100%}
+
+##  KEGG nitrogen cycle (map00910)
+
+This is a standard, widely used KO set covering:
+
+- Nitrification
+- Denitrification
+- DNRA
+- Anammox
+- Nitrogen fixation
+
+Assimilatory pathways
+
+###  Core nitrogen-cycle KOs (map00910)
+- Nitrogen fixation
+K02588  nifH
+K02591  nifD
+K02586  nifK
+
+- Nitrification
+K10944  amoA
+K10945  amoB
+K10946  amoC
+K10535  hao
+
+- Assimilatory nitrate reduction
+K00367  nasA
+K00360  nirA
+
+- Dissimilatory nitrate reduction (DNRA)
+K00362  napA
+K00363  napB
+K00370  narG
+K00371  narH
+K00374  narI
+K02567  nrfA
+K02568  nrfH
+
+- Denitrification
+K00368  nirK
+K15864  nirS
+K04561  norB
+K02305  norC
+K00376  nosZ
+
+- Anammox
+K20932  hzsA
+K20933  hzsB
+K20934  hzsC
+K20935  hdh
 
 
 

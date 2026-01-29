@@ -95,11 +95,9 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#functional-annotation-of-genes" id="toc-functional-annotation-of-genes" class="nav-link" data-scroll-target="#functional-annotation-of-genes">🔍 Functional Annotation of genes</a></li>
   <li><a href="#metabolic-reconstruction-and-pathway-visualisation" id="toc-metabolic-reconstruction-and-pathway-visualisation" class="nav-link" data-scroll-target="#metabolic-reconstruction-and-pathway-visualisation">🔬 Metabolic Reconstruction and Pathway Visualisation</a></li>
   <li><a href="#kegg-module-m00529-denitrification-nitrate-nitrogen" id="toc-kegg-module-m00529-denitrification-nitrate-nitrogen" class="nav-link" data-scroll-target="#kegg-module-m00529-denitrification-nitrate-nitrogen">KEGG Module M00529 — Denitrification (nitrate → nitrogen)</a></li>
-  <li><a href="#anvio-interactive-plot---denitrification---nitrate-reductase---station-1" id="toc-anvio-interactive-plot---denitrification---nitrate-reductase---station-1" class="nav-link" data-scroll-target="#anvio-interactive-plot---denitrification---nitrate-reductase---station-1">anvi’o interactive plot - Denitrification - Nitrate reductase - Station 1</a></li>
-  <li><a href="#kegg-map-of-nitrogen-pathways" id="toc-kegg-map-of-nitrogen-pathways" class="nav-link" data-scroll-target="#kegg-map-of-nitrogen-pathways">KEGG Map of Nitrogen Pathways</a></li>
-  <li><a href="#kegg-nitrogen-cycle-map00910" id="toc-kegg-nitrogen-cycle-map00910" class="nav-link" data-scroll-target="#kegg-nitrogen-cycle-map00910">KEGG nitrogen cycle (map00910)</a>
+  <li><a href="#anvio-interactive-plot---denitrification---nitrate-reductase---station-1" id="toc-anvio-interactive-plot---denitrification---nitrate-reductase---station-1" class="nav-link" data-scroll-target="#anvio-interactive-plot---denitrification---nitrate-reductase---station-1">anvi’o interactive plot - Denitrification - Nitrate reductase - Station 1</a>
   <ul class="collapse">
-  <li><a href="#core-nitrogen-cycle-kos-map00910" id="toc-core-nitrogen-cycle-kos-map00910" class="nav-link" data-scroll-target="#core-nitrogen-cycle-kos-map00910">Core nitrogen-cycle KOs (map00910)</a></li>
+  <li><a href="#mapping-transcripts-to-genomes-of-potential-denitrifiers" id="toc-mapping-transcripts-to-genomes-of-potential-denitrifiers" class="nav-link" data-scroll-target="#mapping-transcripts-to-genomes-of-potential-denitrifiers">Mapping transcripts to genomes of potential denitrifiers</a></li>
   </ul></li>
   <li><a href="#extraction-of-the-community-profile" id="toc-extraction-of-the-community-profile" class="nav-link" data-scroll-target="#extraction-of-the-community-profile">Extraction of the community profile</a></li>
   <li><a href="#tara-oceans-arctic-data-as-reference" id="toc-tara-oceans-arctic-data-as-reference" class="nav-link" data-scroll-target="#tara-oceans-arctic-data-as-reference">Tara Oceans Arctic data as reference</a>
@@ -110,6 +108,11 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#metatranscriptomic-read-processing-and-mapping" id="toc-metatranscriptomic-read-processing-and-mapping" class="nav-link" data-scroll-target="#metatranscriptomic-read-processing-and-mapping">Metatranscriptomic read processing and mapping</a></li>
   </ul></li>
   <li><a href="#downloading-mags-from-station-194" id="toc-downloading-mags-from-station-194" class="nav-link" data-scroll-target="#downloading-mags-from-station-194">Downloading MAGs from Station 194</a></li>
+  <li><a href="#kegg-map-of-nitrogen-pathways" id="toc-kegg-map-of-nitrogen-pathways" class="nav-link" data-scroll-target="#kegg-map-of-nitrogen-pathways">KEGG Map of Nitrogen Pathways</a></li>
+  <li><a href="#kegg-nitrogen-cycle-map00910" id="toc-kegg-nitrogen-cycle-map00910" class="nav-link" data-scroll-target="#kegg-nitrogen-cycle-map00910">KEGG nitrogen cycle (map00910)</a>
+  <ul class="collapse">
+  <li><a href="#core-nitrogen-cycle-kos-map00910" id="toc-core-nitrogen-cycle-kos-map00910" class="nav-link" data-scroll-target="#core-nitrogen-cycle-kos-map00910">Core nitrogen-cycle KOs (map00910)</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -289,18 +292,6 @@ code {
 <h2 class="anchored" data-anchor-id="rrna-removal-sortmerna">rRNA Removal – <strong>SortMeRNA</strong></h2>
 <p>To enrich for mRNA and other non-rRNA transcripts, we removed ribosomal RNA using <strong>SortMeRNA</strong>.</p>
 <p>The command below shows the SortMeRNA run that was used for each sample. We used the CGR-trimmed paired-end reads as input and the <strong>smr_v4.3_sensitive_db_rfam_seeds</strong> database for rRNA identification.</p>
-<pre class="{bash}"><code>
-sortmerna \
-  --ref "smr_v4.3_sensitive_db_rfam_seeds.fasta" \
-  --reads "$R1" \
-  --reads "$R2" \
-  --threads "$SLURM_CPUS_PER_TASK" \
-  --fastx \
-  --out2 \
-  --paired_in \
-  --aligned "${SAMPLE}_rRNA" \
-  --other "${SAMPLE}_RNA_clean" \
-  --workdir "$WORKDIR"</code></pre>
 <p>For each sample, SortMeRNA produces:</p>
 <p><em><em>rRNA</em></em> files containing reads classified as rRNA</p>
 <p><em><em>RNA_clean</em></em> files containing the rRNA-depleted read pairs, which are carried forward to assembly.</p>
@@ -308,16 +299,7 @@ sortmerna \
 <section id="de-novo-assembly-megahit" class="level2">
 <h2 class="anchored" data-anchor-id="de-novo-assembly-megahit">De Novo Assembly – <strong>MEGAHIT</strong></h2>
 <p>We performed a co-assembly of selected rRNA-depleted samples using MEGAHIT, optimised for complex metatranscriptomic data with the meta-sensitive preset. For illustration, the command below shows the co-assembly of samples:</p>
-<pre class="{bash}"><code>megahit 
--1 [station_samples]_RNA_clean_fwd.fq.gz 
--2 [station_samples]_RNA_clean_rev.fq.gz 
--t 60 
---presets meta-sensitive 
---min-contig-len 500 
--m 0.9 
--o St[1:3]_megahit_out</code></pre>
 <p>Assembly statistics for an example MEGAHIT run (St1) were obtained using seqkit:</p>
-<pre class="{bash}"><code>seqkit stats final.contigs.fa</code></pre>
 <p>For example (St1 assembly):</p>
 <table class="caption-top table">
 <colgroup>
@@ -355,27 +337,7 @@ sortmerna \
 <h2 class="anchored" data-anchor-id="read-mapping-bowtie2-and-samtools">Read Mapping – <strong>Bowtie2</strong> and <strong>Samtools</strong></h2>
 <p>To quantify transcript coverage across assembled contigs, we mapped the rRNA-depleted reads back to the MEGAHIT assembly using Bowtie2, followed by BAM processing with Samtools.</p>
 <p>First, we built a Bowtie2 index from the fixed assembly:</p>
-<pre class="{bash}"><code>bowtie2-build St1_assembly-fixed.fa St1_assembly-fixed</code></pre>
 <p>Then, for each sample, paired-end reads were aligned and processed as follows:</p>
-<pre class="{bash}"><code>IDX="St1_assembly-fixed"
-R1="SAMPLE_RNA_clean_fwd.fq.gz"
-R2="SAMPLE_RNA_clean_rev.fq.gz"
-THREADS=16
-OUT="St1_SAMPLE"
-
-Map paired-end reads
-
-bowtie2 -x "${IDX}"
--1 "${R1}"
--2 "${R2}"
--p "${THREADS}"
--S "${OUT}.sam"
-
-Convert to BAM, keep mapped reads only (-F 4), sort and index
-
-samtools view -F 4 -bS "${OUT}.sam" -o "${OUT}-RAW.bam"
-samtools sort -@ "${THREADS}" "${OUT}-RAW.bam" -o "${OUT}.bam"
-samtools index "${OUT}.bam"</code></pre>
 <p>The resulting sorted and indexed BAM files (<em>.bam, </em>.bam.bai) are used as input for downstream coverage estimation and gene- or contig-level quantification in anvi’o.</p>
 </section>
 <section id="creating-anvio-databases" class="level2">
@@ -392,45 +354,32 @@ samtools index "${OUT}.bam"</code></pre>
 <ol type="1">
 <li>Create contigs database</li>
 </ol>
-<pre class="{bash}"><code>anvi-gen-contigs-database -f St1_assembly-fixed.fa -o St1_contigs.db -n "St1 Chukchi Sea metaT"</code></pre>
 <ol start="2" type="1">
 <li>Run HMMs (standard anvio collection)</li>
 </ol>
-<pre class="{bash}"><code>anvi-run-hmms -c St1_contigs.db --num-threads 20</code></pre>
 <ol start="3" type="1">
 <li>Profile each BAM file</li>
 </ol>
-<pre class="{bash}"><code>anvi-profile -i St1_SAMPLE.bam -c St1_contigs.db
---output-dir St1_SAMPLE_profile
---num-threads 20</code></pre>
 <ol start="4" type="1">
 <li>Merge profiles across samples</li>
 </ol>
-<pre class="{bash}"><code>anvi-merge St1_*_profile/PROFILE.db -o St1_merged_profiles -c St1_contigs.db</code></pre>
 <p>These anvi’o databases form the basis for functional annotation and visualisation of key nitrogen-cycle pathways in the Chukchi Sea metatranscriptomes.</p>
 </section>
 <section id="functional-annotation-of-genes" class="level2">
 <h2 class="anchored" data-anchor-id="functional-annotation-of-genes">🔍 Functional Annotation of genes</h2>
 <p>To characterise the metabolic potential represented in the metatranscriptomic assembly, we performed extensive functional annotation of the anvi’o contigs database. This step links assembled sequences to known protein families, orthologous groups, and taxonomic markers, enabling downstream interpretation of nitrogen-cycle genes (e.g., denitrification, anammox).</p>
 <p>We used the following anvi’o annotation programs:</p>
-<pre class="{bash}"><code>anvi-run-hmms</code></pre>
 <p>Identifies single-copy core genes (SCGs) and key conserved protein families using anvi’o’s curated HMM collections. This provides quality metrics for assemblies and forms the basis for taxonomic inference.</p>
-<pre class="{bash}"><code>anvi-run-ncbi-cogs</code></pre>
 <p>Assigns Clusters of Orthologous Groups (COGs) from NCBI to contigs based on predicted open reading frames. COG categories help identify broad functional roles such as energy production, amino acid metabolism, stress response, etc.</p>
-<pre class="{bash}"><code>anvi-run-kegg-kofams</code></pre>
 <p>Annotates genes using KEGG Orthologs (KOfam HMMs), providing pathway-level information including nitrogen cycling modules (e.g., nitrate reduction, nitrification, denitrification, anammox).</p>
-<pre class="{bash}"><code>anvi-run-scg-taxonomy</code></pre>
 <p>Uses single-copy core gene content to infer taxonomic origin of contigs, giving insight into which microbial groups are contributing to specific nitrogen-cycling pathways.</p>
 </section>
 <section id="metabolic-reconstruction-and-pathway-visualisation" class="level2">
 <h2 class="anchored" data-anchor-id="metabolic-reconstruction-and-pathway-visualisation">🔬 Metabolic Reconstruction and Pathway Visualisation</h2>
 <p>Following functional annotation, we performed metabolic inference and pathway-level analysis using anvi’o’s metabolism suite. These tools integrate KEGG Ortholog (KOfam) annotations with curated pathway models to identify which biochemical pathways are represented in the dataset and to visualise how transcripts map onto specific metabolic processes—particularly those involved in nitrogen cycling.</p>
 <p>We used the following anvi’o programs:</p>
-<pre class="{bash}"><code>anvi-estimate-metabolism</code></pre>
 <p>Identifies complete and partial KEGG modules across all annotated contigs, providing an overview of metabolic potential (e.g., denitrification, dissimilatory nitrate reduction, anammox).</p>
-<pre class="{bash}"><code>anvi-reaction-network</code></pre>
 <p>Generates reaction-centric metabolic networks based on KEGG reactions detected in the assembly. This allows exploration of how individual reactions connect into broader nitrogen pathways.</p>
-<pre class="{bash}"><code>anvi-draw-kegg</code></pre>
 <p>Renders KEGG metabolic pathway diagrams annotated with detected genes, enabling visual inspection of pathway completeness and highlighting which steps are supported by metatranscriptomic evidence.</p>
 <p>These tools collectively provide a pathway-level view of nitrogen cycling activity in the Chukchi Sea microbial community, enabling detailed interpretation of expression patterns associated with denitrification, nitrification, and anammox processes.</p>
 </section>
@@ -482,91 +431,9 @@ samtools index "${OUT}.bam"</code></pre>
 <p>So all the genes required for denitrification to occur seem to be detected at each of the stations.</p>
 <p>Let’s look at the denitrification pathway in more details using anvi-interactive, so we can see the coverage of the genes involved in denitrification across the 3 depths in the stations.</p>
 <p>First, we need to create an anvi’o collection that contains all the denitrification genes. Using <strong>anvi-export-functions</strong> we can get the <em>gene_callers_ids</em> matching your <em>KO IDs</em>, then we can get the contigs name using <strong>anvi-export-table –table genes_in_contigs</strong>. After that we need to use <em>join</em> to find the contigs that have the genes of interest and finally we need to add “_split_00001” to each contig name (because in this case each contig has only one split as these come from metaT assembly. We ad a column with the name of our bin and then can import that using <strong>anvi-import-collection</strong></p>
-<pre class="{bash}"><code>anvi-export-functions   -c St1_contigs.db   -o St1_gene_functions.tsv
-anvi-export-table --table genes_in_contigs -o St1_genes_in_contigs.tsv St1_contigs.db
-tail -n +2 St1_genes_in_contigs.tsv | cut -f1,2 &gt; gene_to_contig.tsv
-
-# KO list for denitrification (edit/add as needed)
-KOS='K00370|K00371|K00374|K02567|K02568|K00368|K15864|K04561|K02305|K00376'
-# Get unique gene_callers_id hits for those KOs
-awk -F'\t' -v kos="$KOS" '($3 ~ kos){print $1}' St1_gene_functions.tsv   | sort -u &gt; genes_of_interest.ids
-join -t $'\t' genes_of_interest.ids gene_to_contig.tsv   | cut -f2   | sort -u &gt; contigs_of_interest.txt
-awk '{print $1"_split_00001\tdenitrification"}' contigs_of_interest.txt   &gt; denitrification_splits_collection.tsv
-
-anvi-import-collection   -p St1_MERGED/PROFILE.db   -c St1_contigs.db   -C denitrification_splits denitrification_splits_collection.tsv</code></pre>
 <p>Now that we have an anvio collection, we need to “split” it from the main contigs and profile databases (we create a subset). This is because our initial contigs.be has too many splits (1,432,906 splits to be precise) and hierarchical clustering gets turned off.</p>
 <p>Once it is splitted we can find a directory called “denitrifications_splits” in which we find a contigs and profile database that we can now plot using anvi-interactive.</p>
 <p>First, we will import the data about the presence/absence of the genes of interest (from Module M00529) so we can visualise where they are found.</p>
-<pre class="{bash}"><code>anvi-export-functions   -c CONTIGS.db   -o gene_functions.tsv
-
-# 1) Define your KO list (space-separated)
-KOS="K00370 K00371 K00374 K02567 K02568 K00368 K15864 K04561 K02305 K00376"
-
-# 2) Build gene-level KO presence/absence from gene_functions.tsv (KO is column 3)
-awk -F'\t' -v OFS='\t' -v kos="$KOS" '
-BEGIN{
-    n = split(kos, k, " ")
-    for (i=1; i&lt;=n; i++) KO[k[i]] = 1
-    printf "gene_callers_id"
-    for (i=1; i&lt;=n; i++) printf "%s%s", OFS, k[i]
-    printf "\n"
-}
-NR==1 { next }  # skip header
-{
-    gene = $1
-    acc  = $3
-    genes[gene] = 1
-    if (acc in KO) present[gene, acc] = 1
-}
-END{
-    for (g in genes) {
-        printf "%s", g
-        for (i=1; i&lt;=n; i++) {
-            ko = k[i]
-            v = ((g SUBSEP ko) in present) ? 1 : 0
-            printf "%s%d", OFS, v
-        }
-        printf "\n"
-    }
-}
-' gene_functions.tsv &gt; KO_presence_absence_by_gene.tsv
-
-# 3) Map gene_callers_id -&gt; contig (requires genes_in_contigs.tsv from anvi-export-gene-calls)
-#    Then collapse to contig-level by OR (max) across genes
-awk -F'\t' -v OFS='\t' '
-NR==FNR {
-    if (FNR==1) next
-    gene2contig[$1] = $2
-    next
-}
-FNR==1 { print "contig", substr($0, index($0, "\t")+1); ncol=NF; next }
-{
-    gene = $1
-    contig = (gene in gene2contig) ? gene2contig[gene] : "NA"
-    contigs[contig]=1
-    for (i=2; i&lt;=NF; i++) if ($i==1) M[contig, i]=1
-}
-END{
-    for (c in contigs) {
-        printf "%s", c
-        for (i=2; i&lt;=ncol; i++) {
-            v = ((c SUBSEP i) in M) ? 1 : 0
-            printf "%s%d", OFS, v
-        }
-        printf "\n"
-    }
-}
-' genes_in_contigs.tsv KO_presence_absence_by_gene.tsv &gt; KO_presence_absence_by_contig.tsv
-
-# 4) Convert contig names to split names (naive: appends _split_00001)
-awk -F'\t' -v OFS='\t' '
-FNR==1 { $1="item_name"; print; next }
-{ $1 = $1 "_split_00001"; print }
-' KO_presence_absence_by_contig.tsv &gt; KO_presence_absence_by_split.tsv
-
-# Import the data to the PROFILE.db
-anvi-import-misc-data -p PROFILE.db -t items KO_presence_absence_by_split.tsv
-</code></pre>
 </section>
 <section id="anvio-interactive-plot---denitrification---nitrate-reductase---station-1" class="level2">
 <h2 class="anchored" data-anchor-id="anvio-interactive-plot---denitrification---nitrate-reductase---station-1">anvi’o interactive plot - Denitrification - Nitrate reductase - Station 1</h2>
@@ -582,7 +449,6 @@ anvi-import-misc-data -p PROFILE.db -t items KO_presence_absence_by_split.tsv
 <li><p>Transcripts are annotated with the same gene multiple times. Different microbial populations likely have slightly different sequences for these genes, hence they get assembled into multiple different versions instead of collapsed by the assembler into one sequence. Hence, having multiple transcript with the same function is not surprising.</p></li>
 </ol>
 <p>From the coverage data layers, we can see that all the transcripts have coverage from sample S4B (Bottom) ans most for sample S4M (Mid-water) but some might be missing from sample S4S (Surface). Therefore, let’s look at the completeness of denitrification per depth instead of for the whole station.</p>
-<pre class="{bash}"><code>anvi-estimate-metabolism -c CONTIGS.db -p PROFILE.db -O denitrification_meta --add-coverage</code></pre>
 <p>From the output table we see that, the denitrification module (M00529) shows differences in both abundance (average coverage) and completeness (average detection) across samples. St1_S4S exhibits substantially lower coverage and detection, indicating a reduced presence and/or partial representation of the denitrification pathway in the surface sample. In contrast, St1_S4M and St1_S4B show much higher coverage and detection values, consistent with a more abundant and more complete denitrification potential in deeper waters. Notably, St1_S4B shows the highest detection, suggesting the most complete representation of the pathway among the three samples. Given that denitrification is surely happening in the sediments, this result makes sense.</p>
 <table class="caption-top table">
 <thead>
@@ -1109,7 +975,6 @@ anvi-import-misc-data -p PROFILE.db -t items KO_presence_absence_by_split.tsv
 </table>
 <p>Multiple gene copies are associated with several key denitrification steps, indicating some degree of functional redundancy within the pathway. Gene coverages are generally higher in St1_S4B and St1_S4M than in St1_S4S, where several components show low or zero coverage, suggesting a reduced or incomplete representation of the pathway in this sample. A small number of genes display particularly high coverage, implying that certain denitrification functions may be more prevalent than others across the dataset.</p>
 <p>Now using the table above, we can list for each sample the Gene_IDs and KOs with nonzero coverage and you can turn that list into into an enzymes-txt file which can be used to calculated the denitrification completeness score for each sample, using:</p>
-<pre class="{bash}"><code>anvi-estimate-metabolism --enzymes-txt</code></pre>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 5%">
@@ -1164,67 +1029,77 @@ anvi-import-misc-data -p PROFILE.db -t items KO_presence_absence_by_split.tsv
 <p>All three samples (St1_S4S, St1_S4M, and St1_S4B) show complete denitrification pathways according to both stepwise and pathwise KEGG module criteria, indicating that all required enzymatic steps from nitrate to N₂ are represented.</p>
 <p>The number of hits for the unique enzymes differs among samples. St1_S4B and St1_S4M show higher hit counts for most of the unique enzymes compared to St1_S4S, suggesting that these functions are represented by more gene transcripts or more abundant RNAs in these samples.</p>
 <p>Together, these results suggest that the denitrification pathways is fully expressed in all three samples, but its relative transcription representation appears to be lower in St1_S4S than in St1_S4M and St1_S4B.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>Anvi’o interactive plot</figcaption>
-</figure>
-</div>
-</section>
-<section id="kegg-map-of-nitrogen-pathways" class="level2">
-<h2 class="anchored" data-anchor-id="kegg-map-of-nitrogen-pathways">KEGG Map of Nitrogen Pathways</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/Nitrogen_metabolism_St1_KEGG-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>KEGG map of Nitrogen metabolic pathways. Diagram from anvi’o and KEGG. In green are the genes present in anvio contig database for Station 1</figcaption>
-</figure>
-</div>
-</section>
-<section id="kegg-nitrogen-cycle-map00910" class="level2">
-<h2 class="anchored" data-anchor-id="kegg-nitrogen-cycle-map00910">KEGG nitrogen cycle (map00910)</h2>
-<p>This is a standard, widely used KO set covering:</p>
-<ul>
-<li>Nitrification</li>
-<li>Denitrification</li>
-<li>DNRA</li>
-<li>Anammox</li>
-<li>Nitrogen fixation</li>
-</ul>
-<p>Assimilatory pathways</p>
-<section id="core-nitrogen-cycle-kos-map00910" class="level3">
-<h3 class="anchored" data-anchor-id="core-nitrogen-cycle-kos-map00910">Core nitrogen-cycle KOs (map00910)</h3>
-<ul>
-<li><p>Nitrogen fixation K02588 nifH K02591 nifD K02586 nifK</p></li>
-<li><p>Nitrification K10944 amoA K10945 amoB K10946 amoC K10535 hao</p></li>
-<li><p>Assimilatory nitrate reduction K00367 nasA K00360 nirA</p></li>
-<li><p>Dissimilatory nitrate reduction (DNRA) K00362 napA K00363 napB K00370 narG K00371 narH K00374 narI K02567 nrfA K02568 nrfH</p></li>
-<li><p>Denitrification K00368 nirK K15864 nirS K04561 norB K02305 norC K00376 nosZ</p></li>
-<li><p>Anammox K20932 hzsA K20933 hzsB K20934 hzsC K20935 hdh</p></li>
-</ul>
+<section id="mapping-transcripts-to-genomes-of-potential-denitrifiers" class="level3">
+<h3 class="anchored" data-anchor-id="mapping-transcripts-to-genomes-of-potential-denitrifiers">Mapping transcripts to genomes of potential denitrifiers</h3>
+<p>The reference genomes listed in this table represent marine prokaryotes that are ecologically plausible contributors to denitrification in Arctic shelf waters such as the Chukchi Sea.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 11%">
+<col style="width: 15%">
+<col style="width: 31%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Species</th>
+<th>Phylum</th>
+<th>Class</th>
+<th>Ecological niche (marine)</th>
+<th>Denitrification relevance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Colwellia psychrerythraea</td>
+<td>Pseudomonadota</td>
+<td>Gammaproteobacteria</td>
+<td>Arctic / cold-adapted, particle-associated</td>
+<td>narGHI, nirS, norB; often incomplete (N₂O-prone)</td>
+</tr>
+<tr class="even">
+<td>Shewanella baltica</td>
+<td>Pseudomonadota</td>
+<td>Gammaproteobacteria</td>
+<td>Cold coastal waters, redox-flexible</td>
+<td>nar/nap, partial denitrification common</td>
+</tr>
+<tr class="odd">
+<td>Psychromonas arctica</td>
+<td>Pseudomonadota</td>
+<td>Gammaproteobacteria</td>
+<td>Psychrophilic, organic-matter associated</td>
+<td>Nitrate reduction, variable downstream steps</td>
+</tr>
+<tr class="even">
+<td>Marinobacter alkaliphilus</td>
+<td>Pseudomonadota</td>
+<td>Gammaproteobacteria</td>
+<td>Marine copiotroph, particle-associated</td>
+<td>nar/nap present in many strains</td>
+</tr>
+<tr class="odd">
+<td>Planktomarina temperata</td>
+<td>Pseudomonadota</td>
+<td>Alphaproteobacteria</td>
+<td>Free-living, bloom-associated</td>
+<td>napAB, nirS/K, norB; variable nosZ</td>
+</tr>
+<tr class="even">
+<td>Sulfitobacter pontiacus</td>
+<td>Pseudomonadota</td>
+<td>Alphaproteobacteria</td>
+<td>Bloom-associated Rhodobacteraceae</td>
+<td>napAB, nirS/K, norB; occasional nosZ</td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 <section id="extraction-of-the-community-profile" class="level2">
 <h2 class="anchored" data-anchor-id="extraction-of-the-community-profile">Extraction of the community profile</h2>
-<p>According to this paper: <a href="https://doi.org/10.1080/19490976.2024.2323235" class="uri">https://doi.org/10.1080/19490976.2024.2323235</a>, the best way to extract taxonomy from metaT reads is using the Kraken 2/Bracken approach.</p>
-<pre class="{bash}"><code>kraken2 \
-  --db /dssgfs01/scratch/ote_db/kraken/kraken_standard-16 \ 
-  --threads 60 \ 
-  --gzip-compressed \ 
-  --report St1_S4S_report.txt \ 
-  --output St1_S4S_kraken.out \ 
-  --paired 1-S4S/1-S4S_RNA_clean_fwd.fq.gz 1-S4S/1-S4S_RNA_clean_rev.fq.gz
-  </code></pre>
-<pre class="{bash}"><code>bracken \
-  -d /dssgfs01/scratch/ote_db/kraken/kraken_standard-16 \
-  -i St1_S4S_report.txt \
-  -o St1_S4S.bracken.F \
-  -r 150 \
-  -l F</code></pre>
-<pre class="{bash}"><code># 1) Convert Kraken2 output to Krona input
-cut -f2,3 St1_S4S_kraken.out &gt; St1_S4S.krona.tsv
-
-# 2) Make the Krona HTML
-ktImportTaxonomy -t 2 -m 3 -o St1_S4S_krona.html St1_S4S.krona.tsv</code></pre>
+<p>According to this paper: <a href="https://doi.org/10.1080/19490976.2024.2323235" class="uri">https://doi.org/10.1080/19490976.2024.2323235</a>, the best way to extract taxonomy from metaT reads is using the Kraken2/Bracken approach.</p>
+<p>Approximately <strong>17%</strong> of metatranscriptomic reads could be taxonomically classified using Kraken2 with the standard database (16 GB). Krona plots were therefore generated using classified reads only, and complementary family-level profiles were produced using Bracken.</p>
 </section>
 <section id="tara-oceans-arctic-data-as-reference" class="level2">
 <h2 class="anchored" data-anchor-id="tara-oceans-arctic-data-as-reference">Tara Oceans Arctic data as reference</h2>
@@ -1304,56 +1179,9 @@ ktImportTaxonomy -t 2 -m 3 -o St1_S4S_krona.html St1_S4S.krona.tsv</code></pre>
 <section id="downloading-mags-from-station-194" class="level2">
 <h2 class="anchored" data-anchor-id="downloading-mags-from-station-194">Downloading MAGs from Station 194</h2>
 <p>Using the BioSamples ID (SAMEA4397903) in OMDB repository <a href="https://omdb.microbiomics.io/repository/ocean/genome-cols" class="uri">https://omdb.microbiomics.io/repository/ocean/genome-cols</a> we can download all the MAGs that have been generated from the data of station 194.</p>
-<pre class="{bash}"><code># 1) Download the catalog of all genomes and files:
-curl -O https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_data.tsv.gz
-
-# 2) Unzip it
-gunzip OMDBv2.0_data.tsv.gz
-
-# 3) Use it to download the MAGs associated with SAMEA4397903
-grep "TARA_SAMEA4397903_MAG_" OMDBv2.0_data.tsv | cut -f4 | xargs -n 1 curl -O</code></pre>
 <p>Now I want to change the name of the MAGs so they show the name of the species they have been associated to:</p>
-<pre class="{bash}"><code>awk -F'\t' 'NR&gt;1 {print $1 "\t" $8}' taxonomy_mags | while IFS=$'\t' read -r id species; do
-    species_clean=$(echo "$species" | tr ' /' '__')
-    old="${id}.fa.gz"
-    base="${species_clean}.fa.gz"
-
-    [ -e "$old" ] || continue
-
-    new="$base"
-    n=2
-    while [ -e "$new" ]; do
-        new="${species_clean}_${n}.fa.gz"
-        n=$((n+1))
-    done
-
-    mv "$old" "$new"
-done</code></pre>
 <p>After unziping them all, we can generate an</p>
-<pre class="{bash}"><code>for i in `ls *fa | awk 'BEGIN{FS=".fa"}{print $1}'`
-do
-    anvi-gen-contigs-database -f $i.fa -o $i.db -T 60
-    anvi-run-hmms -c $i.db -T 60
-    anvi-run-ncbi-cogs -c $i.db -T 30
-    anvi-run-kegg-kofams -c $i.db -T 30
-    anvi-run-scg-taxonomy -c $i.db -T 30
-done</code></pre>
 <p>Next, we need to make a TAB-delimited ‘external genomes’ file to describe these genomes and associate them with a name.</p>
-<pre class="{bash}"><code>echo -e "name\tcontigs_db_path" &gt; external_genomes.txt
-for db in *.db; do
-    name="${db%.db}"
-    echo -e "${name}\t${db}" &gt;&gt; external_genomes.txt
-done</code></pre>
-<pre class="{bash}"><code>anvi-gen-genomes-storage -e external_genomes.txt \
-                         -o Tara_194_mags.db</code></pre>
-<pre class="{bash}"><code>anvi-pan-genome -g Tara_194_mags-GENOMES.db --project-name Tara_194 -T 30</code></pre>
-<pre class="{bash}"><code>anvi-script-add-default-collection -p Tara_194/Tara_194-PAN.db
-anvi-summarize -g Tara_194_mags-GENOMES.db -p Tara_194/Tara_194-PAN.db -C DEFAULT
-
-head -n 1 Tara_194_gene_clusters_summary.txt &gt; denitrification_hits.txt
-grep -E "K00370|K00371|K00374|K02567|K02568|K00368|K15864|K04561|K02305|K00376" Tara_194_gene_clusters_summary.txt &gt;&gt; denitrification_hits.txt
-
-cut -f1-5,26 denitrification_hits.txt</code></pre>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 11%">
@@ -1400,8 +1228,72 @@ cut -f1-5,26 denitrification_hits.txt</code></pre>
 </tr>
 </tbody>
 </table>
+<p>Maybe the denitrifiers were not binned into complete enough MAGs so they didn’t end in OMDB repository… Let’s check if we can find the genes in the Tara Ocean metaG dataset.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>KO ID</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>K00374</strong></td>
+<td>Nitrate reductase gamma subunit (NarI)</td>
+</tr>
+<tr class="even">
+<td><strong>K00368</strong></td>
+<td>Nitrite reductase (NO-forming)</td>
+</tr>
+<tr class="odd">
+<td><strong>K02305</strong></td>
+<td>Nitric oxide reductase subunit C</td>
+</tr>
+<tr class="even">
+<td><strong>K04561</strong></td>
+<td>Nitric oxide reductase subunit B</td>
+</tr>
+<tr class="odd">
+<td><strong>K00376</strong></td>
+<td>Nitrous-oxide reductase</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> The denitrification pathway is nearly complete. The two missing genes, K00370 (narG) and K00371 (narH), encode the catalytic subunits of the membrane-bound nitrate reductase (Nar) complex. Their absence is notable given the presence of K00374 (narI), the gamma subunit of the same enzyme complex. This suggests that the complete Nar enzyme is likely present in the environment, but that the missing subunits were not captured in the sequencing data or reconstructed during assembly, rather than being truly absent from the system.</p>
+</section>
+<section id="kegg-map-of-nitrogen-pathways" class="level2">
+<h2 class="anchored" data-anchor-id="kegg-map-of-nitrogen-pathways">KEGG Map of Nitrogen Pathways</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/Nitrogen_metabolism_St1_KEGG-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>KEGG map of Nitrogen metabolic pathways. Diagram from anvi’o and KEGG. In green are the genes present in anvio contig database for Station 1</figcaption>
+</figure>
+</div>
+</section>
+<section id="kegg-nitrogen-cycle-map00910" class="level2">
+<h2 class="anchored" data-anchor-id="kegg-nitrogen-cycle-map00910">KEGG nitrogen cycle (map00910)</h2>
+<p>This is a standard, widely used KO set covering:</p>
+<ul>
+<li>Nitrification</li>
+<li>Denitrification</li>
+<li>DNRA</li>
+<li>Anammox</li>
+<li>Nitrogen fixation</li>
+</ul>
+<p>Assimilatory pathways</p>
+<section id="core-nitrogen-cycle-kos-map00910" class="level3">
+<h3 class="anchored" data-anchor-id="core-nitrogen-cycle-kos-map00910">Core nitrogen-cycle KOs (map00910)</h3>
+<ul>
+<li><p>Nitrogen fixation K02588 nifH K02591 nifD K02586 nifK</p></li>
+<li><p>Nitrification K10944 amoA K10945 amoB K10946 amoC K10535 hao</p></li>
+<li><p>Assimilatory nitrate reduction K00367 nasA K00360 nirA</p></li>
+<li><p>Dissimilatory nitrate reduction (DNRA) K00362 napA K00363 napB K00370 narG K00371 narH K00374 narI K02567 nrfA K02568 nrfH</p></li>
+<li><p>Denitrification K00368 nirK K15864 nirS K04561 norB K02305 norC K00376 nosZ</p></li>
+<li><p>Anammox K20932 hzsA K20933 hzsB K20934 hzsC K20935 hdh</p></li>
+</ul>
 
 
+</section>
 </section>
 </section>
 
