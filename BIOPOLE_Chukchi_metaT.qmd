@@ -14,7 +14,6 @@ execute:
   echo: false
   warning: false
   message: false
-  eval: false
 ---
 <style>
 pre code {
@@ -91,7 +90,8 @@ To enrich for mRNA and other non-rRNA transcripts, we removed ribosomal RNA usin
 The command below shows the SortMeRNA run that was used for each sample. We used the CGR-trimmed paired-end reads as input and the **smr_v4.3_sensitive_db_rfam_seeds** database for rRNA identification.
 
 ```{bash}
-
+#| eval: false   
+#| echo: true
 sortmerna \
   --ref "smr_v4.3_sensitive_db_rfam_seeds.fasta" \
   --reads "$R1" \
@@ -115,7 +115,9 @@ For each sample, SortMeRNA produces:
 
 We performed a co-assembly of selected rRNA-depleted samples using MEGAHIT, optimised for complex metatranscriptomic data with the meta-sensitive preset. For illustration, the command below shows the co-assembly of samples:
 
-```{bash}
+```{bash}   
+#| eval: false   
+#| echo: true
 megahit 
 -1 [station_samples]_RNA_clean_fwd.fq.gz 
 -2 [station_samples]_RNA_clean_rev.fq.gz 
@@ -129,6 +131,8 @@ megahit
 Assembly statistics for an example MEGAHIT run (St1) were obtained using seqkit:
 
 ```{bash}
+#| eval: false   
+#| echo: true
 seqkit stats final.contigs.fa
 ```
 
@@ -147,12 +151,16 @@ To quantify transcript coverage across assembled contigs, we mapped the rRNA-dep
 First, we built a Bowtie2 index from the fixed assembly:
 
 ```{bash}
+#| eval: false   
+#| echo: true
 bowtie2-build St1_assembly-fixed.fa St1_assembly-fixed
 ```
 
 Then, for each sample, paired-end reads were aligned and processed as follows:
 
 ```{bash}
+#| eval: false   
+#| echo: true
 IDX="St1_assembly-fixed"
 R1="SAMPLE_RNA_clean_fwd.fq.gz"
 R2="SAMPLE_RNA_clean_rev.fq.gz"
@@ -195,20 +203,28 @@ Example (commands will vary slightly depending on environment and anvio version)
 
 1. Create contigs database
 ```{bash}
+#| eval: false   
+#| echo: true
 anvi-gen-contigs-database -f St1_assembly-fixed.fa -o St1_contigs.db -n "St1 Chukchi Sea metaT"
 ```
 2. Run HMMs (standard anvio collection)
 ```{bash}
+#| eval: false   
+#| echo: true
 anvi-run-hmms -c St1_contigs.db --num-threads 20
 ```
 3. Profile each BAM file
 ```{bash}
+#| eval: false   
+#| echo: true
 anvi-profile -i St1_SAMPLE.bam -c St1_contigs.db
 --output-dir St1_SAMPLE_profile
 --num-threads 20
 ```
 4. Merge profiles across samples
 ```{bash}
+#| eval: false   
+#| echo: true
 anvi-merge St1_*_profile/PROFILE.db -o St1_merged_profiles -c St1_contigs.db
 ```
 
@@ -221,19 +237,27 @@ To characterise the metabolic potential represented in the metatranscriptomic as
 We used the following anvi’o annotation programs:
 
 ```{bash}
+#| eval: false   
+#| echo: true
 anvi-run-hmms
 ```
 Identifies single-copy core genes (SCGs) and key conserved protein families using anvi’o’s curated HMM collections. This provides quality metrics for assemblies and forms the basis for taxonomic inference.
 
 ```{bash}
+#| eval: false   
+#| echo: true
 anvi-run-ncbi-cogs
 ```
 Assigns Clusters of Orthologous Groups (COGs) from NCBI to contigs based on predicted open reading frames. COG categories help identify broad functional roles such as energy production, amino acid metabolism, stress response, etc.
 ```{bash}
+#| eval: false   
+#| echo: true
 anvi-run-kegg-kofams
 ```
 Annotates genes using KEGG Orthologs (KOfam HMMs), providing pathway-level information including nitrogen cycling modules (e.g., nitrate reduction, nitrification, denitrification, anammox).
 ```{bash}
+#| eval: false   
+#| echo: true
 anvi-run-scg-taxonomy
 ```
 Uses single-copy core gene content to infer taxonomic origin of contigs, giving insight into which microbial groups are contributing to specific nitrogen-cycling pathways.
@@ -244,14 +268,20 @@ Following functional annotation, we performed metabolic inference and pathway-le
 
 We used the following anvi’o programs:
 ```{bash}
+#| eval: false   
+#| echo: true
 anvi-estimate-metabolism
 ```
 Identifies complete and partial KEGG modules across all annotated contigs, providing an overview of metabolic potential (e.g., denitrification, dissimilatory nitrate reduction, anammox).
 ```{bash}
+#| eval: false   
+#| echo: true
 anvi-reaction-network
 ```
 Generates reaction-centric metabolic networks based on KEGG reactions detected in the assembly. This allows exploration of how individual reactions connect into broader nitrogen pathways.
 ```{bash}
+#| eval: false   
+#| echo: true
 anvi-draw-kegg
 ```
 Renders KEGG metabolic pathway diagrams annotated with detected genes, enabling visual inspection of pathway completeness and highlighting which steps are supported by metatranscriptomic evidence.
@@ -277,6 +307,8 @@ Let's look at the denitrification pathway in more details using anvi-interactive
 First, we need to create an anvi'o collection that contains all the denitrification genes. Using **anvi-export-functions** we can get the *gene_callers_ids* matching your *KO IDs*, then we can get the contigs name using **anvi-export-table --table genes_in_contigs**. After that we need to use *join* to find the contigs that have the genes of interest and finally we need to add "_split_00001" to each contig name (because in this case each contig has only one split as these come from metaT assembly. We ad a column with the name of our bin and then can import that using **anvi-import-collection** 
 
 ```{bash}
+#| eval: false   
+#| echo: true
 anvi-export-functions   -c St1_contigs.db   -o St1_gene_functions.tsv
 anvi-export-table --table genes_in_contigs -o St1_genes_in_contigs.tsv St1_contigs.db
 tail -n +2 St1_genes_in_contigs.tsv | cut -f1,2 > gene_to_contig.tsv
@@ -297,6 +329,8 @@ Once it is splitted we can find a directory called "denitrifications_splits" in 
 First, we will import the data about the presence/absence of the genes of interest (from Module M00529) so we can visualise where they are found.
 
 ```{bash}
+#| eval: false   
+#| echo: true
 anvi-export-functions   -c CONTIGS.db   -o gene_functions.tsv
 
 # 1) Define your KO list (space-separated)
@@ -382,6 +416,8 @@ From this plot we see that:
 From the coverage data layers, we can see that all the transcripts have coverage from sample S4B (Bottom) ans most for sample S4M (Mid-water) but some might be missing from sample S4S (Surface). Therefore, let's look at the completeness of denitrification per depth instead of for the whole station.
 
 ```{bash}
+#| eval: false   
+#| echo: true
 anvi-estimate-metabolism -c CONTIGS.db -p PROFILE.db -O denitrification_meta --add-coverage
 ```
 
@@ -394,6 +430,8 @@ From the output table we see that, the denitrification module (M00529) shows dif
 | St1_S4B  | 1706.59       | 0.859         |
 
 The table below provides a gene-level breakdown of the denitrification module (KEGG M00529), linking each predicted gene (Gene_ID) to its corresponding KEGG Ortholog (KO) and its sequencing coverage in three samples (St1_S4B, St1_S4M, and St1_S4S).
+
+<div style="max-height:400px; overflow-y:auto; border:1px solid #ddd;">
 
 | Gene_ID | KO | St1_S4B_coverage | St1_S4M_coverage | St1_S4S_coverage |
 |--------:|----|-----------------:|-----------------:|-----------------:|
@@ -466,11 +504,15 @@ The table below provides a gene-level breakdown of the denitrification module (K
 | 540786 | K04561 | 3.4200 | 7.7399 | 0.7168 |
 | 1468402 | K15864 | 9.0891 | 5.8108 | 5.5743 |
 
+</div>
+
 Multiple gene copies are associated with several key denitrification steps, indicating some degree of functional redundancy within the pathway. Gene coverages are generally higher in St1_S4B and St1_S4M than in St1_S4S, where several components show low or zero coverage, suggesting a reduced or incomplete representation of the pathway in this sample. A small number of genes display particularly high coverage, implying that certain denitrification functions may be more prevalent than others across the dataset.
 
 Now using the table above, we can list for each sample the Gene_IDs and KOs with nonzero coverage and you can turn that list into into an enzymes-txt file which can be used to calculated the denitrification completeness score for each sample, using:
 
 ```{bash}
+#| eval: false   
+#| echo: true
 anvi-estimate-metabolism --enzymes-txt
 ```
 
@@ -509,6 +551,8 @@ The reference genomes listed in this table represent marine prokaryotes that are
 According to this paper: <https://doi.org/10.1080/19490976.2024.2323235>, the best way to extract taxonomy from metaT reads is using the Kraken2/Bracken approach.
 
 ```{bash}
+#| eval: false   
+#| echo: true
 kraken2 \
   --db /dssgfs01/scratch/ote_db/kraken/kraken_standard-16 \ 
   --threads 60 \ 
@@ -520,6 +564,8 @@ kraken2 \
 ```
 
 ```{bash}
+#| eval: false   
+#| echo: true
 bracken \
   -d /dssgfs01/scratch/ote_db/kraken/kraken_standard-16 \
   -i St1_S4S_report.txt \
@@ -529,6 +575,8 @@ bracken \
 ```
 
 ```{bash}
+#| eval: false   
+#| echo: true
 # 1) Convert Kraken2 output to Krona input
 cut -f2,3 St1_S4S_kraken.out > St1_S4S.krona.tsv
 
@@ -555,13 +603,12 @@ my_colors <- c(
   "#FB8072", "#80B1D3", "#FDB462"
 )
 
-# ---- load Bracken (family-level example) ----
-br <- read_tsv("data/St1_S4S.bracken.F", show_col_types = FALSE) %>%
-  filter(taxonomy_id != 9606) %>%                 # optional: remove human
-  mutate(rel_abund = new_est_reads / sum(new_est_reads))
-
-# ---- top 20 + Other ----
 top_n <- 20
+
+br <- read_tsv("data/St1_S4S.bracken.F", show_col_types = FALSE) %>%
+  # remove host at family level (Hominidae = 9604)
+  filter(taxonomy_id != 9604) %>%
+  mutate(rel_abund = new_est_reads / sum(new_est_reads))
 
 br_plot <- br %>%
   arrange(desc(rel_abund)) %>%
@@ -572,23 +619,15 @@ br_plot <- br %>%
   group_by(taxon) %>%
   summarise(rel_abund = sum(rel_abund), .groups = "drop")
 
-# ---- named palette: top taxa get your colors, Other is grey ----
 taxa_levels <- levels(br_plot$taxon)
-n_levels <- length(taxa_levels)
-
-# Ensure we have enough colors for n=20 (we do)
-palette_vals <- c(my_colors[seq_len(min(top_n, length(my_colors)))], "grey80")[seq_len(n_levels)]
+palette_vals <- c(my_colors[1:top_n], "grey80")[seq_along(taxa_levels)]
 names(palette_vals) <- taxa_levels
 
 ggplot(br_plot, aes(x = "St1_S4S", y = rel_abund, fill = taxon)) +
   geom_col(width = 0.7) +
   scale_fill_manual(values = palette_vals) +
   scale_y_continuous(labels = percent_format(accuracy = 1)) +
-  labs(
-    x = NULL,
-    y = "Relative abundance (Bracken; classified reads)",
-    fill = "Family"
-  ) +
+  labs(x = NULL, y = "Relative abundance (Bracken; classified reads)", fill = "Family") +
   theme_bw()
 
 ```
@@ -661,6 +700,8 @@ Using the BioSamples ID (SAMEA4397903) in OMDB repository
 <https://omdb.microbiomics.io/repository/ocean/genome-cols> we can download all the MAGs that have been generated from the data of station 194.
 
 ```{bash}
+#| eval: false   
+#| echo: true
 # 1) Download the catalog of all genomes and files:
 curl -O https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_data.tsv.gz
 
@@ -674,6 +715,8 @@ grep "TARA_SAMEA4397903_MAG_" OMDBv2.0_data.tsv | cut -f4 | xargs -n 1 curl -O
 Now I want to change the name of the MAGs so they show the name of the species they have been associated to:
 
 ```{bash}
+#| eval: false   
+#| echo: true
 awk -F'\t' 'NR>1 {print $1 "\t" $8}' taxonomy_mags | while IFS=$'\t' read -r id species; do
     species_clean=$(echo "$species" | tr ' /' '__')
     old="${id}.fa.gz"
@@ -695,6 +738,8 @@ done
 After unziping them all, we can generate an 
 
 ```{bash}
+#| eval: false   
+#| echo: true
 for i in `ls *fa | awk 'BEGIN{FS=".fa"}{print $1}'`
 do
     anvi-gen-contigs-database -f $i.fa -o $i.db -T 60
@@ -708,6 +753,8 @@ done
 Next, we need to make a TAB-delimited ‘external genomes’ file to describe these genomes and associate them with a name.
 
 ```{bash}
+#| eval: false   
+#| echo: true
 echo -e "name\tcontigs_db_path" > external_genomes.txt
 for db in *.db; do
     name="${db%.db}"
@@ -716,16 +763,22 @@ done
 ```
 
 ```{bash}
+#| eval: false   
+#| echo: true
 anvi-gen-genomes-storage -e external_genomes.txt \
                          -o Tara_194_mags.db
 ```
 
 
 ```{bash}
+#| eval: false   
+#| echo: true
 anvi-pan-genome -g Tara_194_mags-GENOMES.db --project-name Tara_194 -T 30
 ```
 
 ```{bash}
+#| eval: false   
+#| echo: true
 anvi-script-add-default-collection -p Tara_194/Tara_194-PAN.db
 anvi-summarize -g Tara_194_mags-GENOMES.db -p Tara_194/Tara_194-PAN.db -C DEFAULT
 
