@@ -593,6 +593,7 @@ library(dplyr)
 library(ggplot2)
 library(forcats)
 library(scales)
+library(purrr)
 
 my_colors <- c(
   "#FF6666", "#8DD3C7", "#377EB8", "#4DAF4A",
@@ -605,34 +606,149 @@ my_colors <- c(
 
 top_n <- 20
 
-br <- read_tsv("data/St1_S4S.bracken.F", show_col_types = FALSE) %>%
-  # remove host at family level (Hominidae = 9604)
-  filter(taxonomy_id != 9604) %>%
-  mutate(rel_abund = new_est_reads / sum(new_est_reads))
+# Order left-to-right: Surface -> Mid-water -> Bottom
+samples <- c("1-S4S", "2-S4M", "3-S4B")
 
-br_plot <- br %>%
-  arrange(desc(rel_abund)) %>%
-  mutate(
-    taxon = fct_lump_n(name, n = top_n, w = rel_abund),
-    taxon = fct_reorder(taxon, rel_abund, .desc = TRUE)
-  ) %>%
-  group_by(taxon) %>%
+sample_labels <- c(
+  "1-S4S" = "Surface",
+  "2-S4M" = "Mid-water",
+  "3-S4B" = "Bottom"
+)
+
+files <- file.path("data", paste0(samples, ".bracken.F"))
+
+read_bracken <- function(f, sample) {
+  read_tsv(f, show_col_types = FALSE) %>%
+    # remove host at family level (Hominidae = 9604)
+    filter(taxonomy_id != 9604) %>%
+    mutate(sample = sample) %>%
+    group_by(sample) %>%
+    mutate(rel_abund = new_est_reads / sum(new_est_reads)) %>%
+    ungroup()
+}
+
+br_all <- map2_dfr(files, samples, read_bracken)
+
+# Global top 20 taxa across all samples
+top_taxa <- br_all %>%
+  group_by(name) %>%
+  summarise(total = sum(rel_abund), .groups = "drop") %>%
+  arrange(desc(total)) %>%
+  slice_head(n = top_n) %>%
+  pull(name)
+
+br_plot <- br_all %>%
+  mutate(taxon = if_else(name %in% top_taxa, name, "Other")) %>%
+  group_by(sample, taxon) %>%
   summarise(rel_abund = sum(rel_abund), .groups = "drop")
 
-taxa_levels <- levels(br_plot$taxon)
-palette_vals <- c(my_colors[1:top_n], "grey80")[seq_along(taxa_levels)]
-names(palette_vals) <- taxa_levels
+# Order taxa in legend by overall abundance (Other last)
+taxon_levels <- br_plot %>%
+  group_by(taxon) %>%
+  summarise(total = sum(rel_abund), .groups = "drop") %>%
+  arrange(desc(total)) %>%
+  pull(taxon)
 
-ggplot(br_plot, aes(x = "St1_S4S", y = rel_abund, fill = taxon)) +
+taxon_levels <- c(setdiff(taxon_levels, "Other"), "Other")
+
+br_plot <- br_plot %>%
+  mutate(
+    sample = factor(sample, levels = samples),
+    taxon  = factor(taxon, levels = taxon_levels)
+  )
+
+# Named palette (top 20 colors + grey for Other)
+palette_vals <- setNames(
+  c(my_colors[1:top_n], "grey80"),
+  c(taxon_levels[taxon_levels != "Other"], "Other")
+)
+
+ggplot(br_plot, aes(x = sample, y = rel_abund, fill = taxon)) +
   geom_col(width = 0.7) +
+  scale_x_discrete(labels = sample_labels) +
   scale_fill_manual(values = palette_vals) +
   scale_y_continuous(labels = percent_format(accuracy = 1)) +
-  labs(x = NULL, y = "Relative abundance (Bracken; classified reads)", fill = "Family") +
+  labs(
+    x = NULL,
+    y = "Relative abundance (Bracken; classified reads)",
+    fill = "Family"
+  ) +
   theme_bw()
 
 ```
 
+```{r}
 
+# Order left-to-right: Surface -> Mid-water -> Bottom
+samples <- c("7-S14S", "8-S14M", "9-S14B")
+
+sample_labels <- c(
+  "7-S14S" = "Surface",
+  "8-S14M" = "Mid-water",
+  "9-S14B" = "Bottom"
+)
+
+files <- file.path("data", paste0(samples, ".bracken.F"))
+
+read_bracken <- function(f, sample) {
+  read_tsv(f, show_col_types = FALSE) %>%
+    # remove host at family level (Hominidae = 9604)
+    filter(taxonomy_id != 9604) %>%
+    mutate(sample = sample) %>%
+    group_by(sample) %>%
+    mutate(rel_abund = new_est_reads / sum(new_est_reads)) %>%
+    ungroup()
+}
+
+br_all <- map2_dfr(files, samples, read_bracken)
+
+# Global top 20 taxa across all samples
+top_taxa <- br_all %>%
+  group_by(name) %>%
+  summarise(total = sum(rel_abund), .groups = "drop") %>%
+  arrange(desc(total)) %>%
+  slice_head(n = top_n) %>%
+  pull(name)
+
+br_plot <- br_all %>%
+  mutate(taxon = if_else(name %in% top_taxa, name, "Other")) %>%
+  group_by(sample, taxon) %>%
+  summarise(rel_abund = sum(rel_abund), .groups = "drop")
+
+# Order taxa in legend by overall abundance (Other last)
+taxon_levels <- br_plot %>%
+  group_by(taxon) %>%
+  summarise(total = sum(rel_abund), .groups = "drop") %>%
+  arrange(desc(total)) %>%
+  pull(taxon)
+
+taxon_levels <- c(setdiff(taxon_levels, "Other"), "Other")
+
+br_plot <- br_plot %>%
+  mutate(
+    sample = factor(sample, levels = samples),
+    taxon  = factor(taxon, levels = taxon_levels)
+  )
+
+# Named palette (top 20 colors + grey for Other)
+palette_vals <- setNames(
+  c(my_colors[1:top_n], "grey80"),
+  c(taxon_levels[taxon_levels != "Other"], "Other")
+)
+
+ggplot(br_plot, aes(x = sample, y = rel_abund, fill = taxon)) +
+  geom_col(width = 0.7) +
+  scale_x_discrete(labels = sample_labels) +
+  scale_fill_manual(values = palette_vals) +
+  scale_y_continuous(labels = percent_format(accuracy = 1)) +
+  labs(
+    x = NULL,
+    y = "Relative abundance (Bracken; classified reads)",
+    fill = "Family"
+  ) +
+  theme_bw()
+
+```
 
 
 
