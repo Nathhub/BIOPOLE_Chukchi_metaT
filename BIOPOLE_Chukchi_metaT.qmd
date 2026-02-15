@@ -587,6 +587,8 @@ ktImportTaxonomy -t 2 -m 3 -o St1_S4S_krona.html St1_S4S.krona.tsv
 
 Approximately **17%** of metatranscriptomic reads could be taxonomically classified using Kraken2 with the standard database (16 GB). Krona plots were therefore generated using classified reads only, and complementary family-level profiles were produced using Bracken.
 
+### Station 4
+
 ```{r}
 library(readr)
 library(dplyr)
@@ -677,6 +679,83 @@ ggplot(br_plot, aes(x = sample, y = rel_abund, fill = taxon)) +
 
 ```
 
+### Station 13
+
+```{r}
+
+# Order left-to-right: Surface -> Mid-water -> Bottom
+samples <- c("5-S13M", "6-S13B")
+
+top_n <- 20
+
+sample_labels <- c(
+  "5-S13M" = "Mid-water",
+  "6-S13B" = "Bottom"
+)
+
+files <- file.path("data", paste0(samples, ".bracken.F"))
+
+read_bracken <- function(f, sample) {
+  read_tsv(f, show_col_types = FALSE) %>%
+    # remove host at family level (Hominidae = 9604)
+    filter(taxonomy_id != 9604) %>%
+    mutate(sample = sample) %>%
+    group_by(sample) %>%
+    mutate(rel_abund = new_est_reads / sum(new_est_reads)) %>%
+    ungroup()
+}
+
+br_all <- map2_dfr(files, samples, read_bracken)
+
+# Global top 20 taxa across all samples
+top_taxa <- br_all %>%
+  group_by(name) %>%
+  summarise(total = sum(rel_abund), .groups = "drop") %>%
+  arrange(desc(total)) %>%
+  slice_head(n = top_n) %>%
+  pull(name)
+
+br_plot <- br_all %>%
+  mutate(taxon = if_else(name %in% top_taxa, name, "Other")) %>%
+  group_by(sample, taxon) %>%
+  summarise(rel_abund = sum(rel_abund), .groups = "drop")
+
+# Order taxa in legend by overall abundance (Other last)
+taxon_levels <- br_plot %>%
+  group_by(taxon) %>%
+  summarise(total = sum(rel_abund), .groups = "drop") %>%
+  arrange(desc(total)) %>%
+  pull(taxon)
+
+taxon_levels <- c(setdiff(taxon_levels, "Other"), "Other")
+
+br_plot <- br_plot %>%
+  mutate(
+    sample = factor(sample, levels = samples),
+    taxon  = factor(taxon, levels = taxon_levels)
+  )
+
+# Named palette (top 20 colors + grey for Other)
+palette_vals <- setNames(
+  c(my_colors[1:top_n], "grey80"),
+  c(taxon_levels[taxon_levels != "Other"], "Other")
+)
+
+ggplot(br_plot, aes(x = sample, y = rel_abund, fill = taxon)) +
+  geom_col(width = 0.7) +
+  scale_x_discrete(labels = sample_labels) +
+  scale_fill_manual(values = palette_vals) +
+  scale_y_continuous(labels = percent_format(accuracy = 1)) +
+  labs(
+    x = NULL,
+    y = "Relative abundance (Bracken; classified reads)",
+    fill = "Family"
+  ) +
+  theme_bw()
+
+```
+### Station 14
+
 ```{r}
 
 # Order left-to-right: Surface -> Mid-water -> Bottom
@@ -749,7 +828,6 @@ ggplot(br_plot, aes(x = sample, y = rel_abund, fill = taxon)) +
   theme_bw()
 
 ```
-
 
 
 
