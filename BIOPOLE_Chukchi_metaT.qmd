@@ -413,7 +413,7 @@ From this plot we see that:
   
   2) Transcripts are annotated with the same gene multiple times. Different microbial populations likely have slightly different sequences for these genes, hence they get assembled into multiple different versions instead of collapsed by the assembler into one sequence. Hence, having multiple transcript with the same function is not surprising.
   
-From the coverage data layers, we can see that all the transcripts have coverage from sample S4B (Bottom) ans most for sample S4M (Mid-water) but some might be missing from sample S4S (Surface). Therefore, let's look at the completeness of denitrification per depth instead of for the whole station.
+From the coverage data layers, we can see that all the transcripts have coverage from sample S4B (Bottom) and most for sample S4M (Mid-water) but some might be missing from sample S4S (Surface). Therefore, let's look at the completeness of denitrification per depth instead of for the whole station.
 
 ```{bash}
 #| eval: false   
@@ -508,7 +508,7 @@ The table below provides a gene-level breakdown of the denitrification module (K
 
 Multiple gene copies are associated with several key denitrification steps, indicating some degree of functional redundancy within the pathway. Gene coverages are generally higher in St1_S4B and St1_S4M than in St1_S4S, where several components show low or zero coverage, suggesting a reduced or incomplete representation of the pathway in this sample. A small number of genes display particularly high coverage, implying that certain denitrification functions may be more prevalent than others across the dataset.
 
-Now using the table above, we can list for each sample the Gene_IDs and KOs with nonzero coverage and you can turn that list into into an enzymes-txt file which can be used to calculated the denitrification completeness score for each sample, using:
+Now using the table above, we can list for each sample the Gene_IDs and KOs with nonzero coverage and we can turn that list into into an enzymes-txt file which can be used to calculated the denitrification completeness score for each sample, using:
 
 ```{bash}
 #| eval: false   
@@ -542,7 +542,7 @@ The reference genomes listed in this table represent marine prokaryotes that are
 | Planktomarina temperata     | Pseudomonadota | Alphaproteobacteria | Free-living, bloom-associated              | napAB, nirS/K, norB; variable nosZ |
 | Sulfitobacter pontiacus     | Pseudomonadota | Alphaproteobacteria | Bloom-associated Rhodobacteraceae          | napAB, nirS/K, norB; occasional nosZ |
 
-
+Mapping our RNA transcripts to the reference genomes of these marine prokarotes was not significant suggesting that these species were not abundant and/or active and/or detected. 
 
 
 
