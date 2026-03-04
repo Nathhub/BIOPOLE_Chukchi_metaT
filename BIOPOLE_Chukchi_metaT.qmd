@@ -405,7 +405,7 @@ anvi-import-misc-data -p PROFILE.db -t items KO_presence_absence_by_split.tsv
 
 ## anvi'o interactive plot - Denitrification - Nitrate reductase - Station 1
 
-![Anvi'o interactive plot showing the presence/absence of transcript annotation associated with denitrification in station 1. ](figures/anvi_plot_denitrification_KOs_presence-absence.png){width=100%}
+![Anvi'o interactive plot showing the presence/absence of transcript annotation associated with denitrification in station 1. ](figures/St1_anvi_plot_denitrification_KOs_presence-absence.png){width=100%}
 
 From this plot we see that:
 
@@ -527,6 +527,27 @@ All three samples (St1_S4S, St1_S4M, and St1_S4B) show complete denitrification 
 The number of hits for the unique enzymes differs among samples. St1_S4B and St1_S4M show higher hit counts for most of the unique enzymes compared to St1_S4S, suggesting that these functions are represented by more gene transcripts or more abundant RNAs in these samples.
 
 Together, these results suggest that the denitrification pathways is fully expressed in all three samples, but its relative transcription representation appears to be lower in St1_S4S than in St1_S4M and St1_S4B.
+
+## anvi'o interactive plot - Denitrification - Nitrate reductase - Station 2
+
+![Anvi'o interactive plot showing the presence/absence of transcript annotation associated with denitrification in station 1. ](figures/St2_anvi_plot_denitrification_KOs_presence-absence.png){width=100%}
+
+```{bash}
+#| eval: false   
+#| echo: true
+anvi-estimate-metabolism -c CONTIGS.db -p PROFILE.db -O denitrification_meta --add-coverage
+```
+
+
+Station 2 - denitrification module (M00529) - Overall Coverage and Detection
+
+| Sample   | Avg. Coverage | Avg. Detection |
+|----------|---------------|---------------|
+| St2_S13M  | 591.48       | 0.267         |
+| St2_S13B  | 744.24       | 0.987        |
+
+
+
 
 ### Mapping transcripts to genomes of potential denitrifiers
 
