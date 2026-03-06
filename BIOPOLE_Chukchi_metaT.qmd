@@ -324,6 +324,7 @@ awk '{print $1"_split_00001\tdenitrification"}' contigs_of_interest.txt   > deni
 
 anvi-import-collection   -p St1_MERGED/PROFILE.db   -c St1_contigs.db   -C denitrification_splits denitrification_splits_collection.tsv
 ```
+
 Now that we have an anvio collection, we need to "split" it from the main contigs and profile databases (we create a subset). This is because our initial contigs.be has too many splits (1,432,906 splits to be precise) and hierarchical clustering gets turned off.
 
 Once it is splitted we can find a directory called "denitrifications_splits" in which we find a contigs and profile database that we can now plot using anvi-interactive.
@@ -334,6 +335,7 @@ First, we will import the data about the presence/absence of the genes of intere
 #| eval: false   
 #| echo: true
 anvi-export-functions   -c CONTIGS.db   -o gene_functions.tsv
+anvi-export-table --table genes_in_contigs -o genes_in_contigs.tsv CONTIGS.db
 
 # 1) Define your KO list (space-separated)
 KOS="K00370 K00371 K00374 K02567 K02568 K00368 K15864 K04561 K02305 K00376"
@@ -546,6 +548,197 @@ The **bottom sample (St3_S14B)** showed full pathway completeness (stepwise = 1,
 Overall, these results suggest a **depth-dependent increase in denitrification potential**, with incomplete or partial pathways in surface waters and a fully represented pathway in deeper layers. This pattern suggests that denitrification is influenced by the proximity with the sediments and/or with the amount of particles which relates to the fact that denitrification becomes more favorable under **low-oxygen or anoxic conditions**.
 
 :::
+
+## Anammox (anaerobic ammonium oxidation) - KEGG Module M00973
+
+Overall process:
+**nitrite + ammonia → nitrogen gas**
+
+![KEGG module M00973 — Anammox (anaerobic ammonium oxidation). Diagram from https://www.genome.jp/dbget-bin/www_bget?md:M00973](figures/KEGG_Module_Anammox_M00973.png){width=75%}
+
+| Step | Requirement                  | Function                   |
+| ---- | ---------------------------- | -------------------------- |
+| 1    | **K00368 OR K15864**         | Nitrite reduction          |
+| 2    | **K20932 + K20933 + K20934** | Hydrazine synthase complex |
+| 3    | **K20935**                   | Hydrazine dehydrogenase    |
+
+From the output of anvi-estimate-metabolism, we can look for the KEGG module for Anammox (M00973) and look at its completeness for each of the stations:
+
+| KEGG Module | Station   | stepwise_module_completeness | pathwise_module_completeness |
+|------------|-----------|--------------|------------|
+| M00973     | Station_1 | 0.33         | 0.33       |
+| M00973     | Station_2 | 0.33         | 0.55       |
+| M00973     | Station_3 | 0.33         | 0.55       |
+
+The KEGG module for anaerobic ammonium oxidation (anammox; M00973) was incomplete at all three sampling stations. While transcripts associated with nitrite reduction (K00368 and/or K15864) were detected across the datasets, the key hydrazine synthase complex and hydrazine dehydrogenase required for a functional anammox pathway were not fully present. Stepwise module completeness was therefore low (0.33) for all stations, indicating no transcript evidence for a complete anammox pathway in these samples (Table 1).
+
+**Table 1. Presence of key genes/transcripts associated with the anammox pathway (KEGG module M00973) across the three stations.**
+
+| Gene (KO)       | Function                     | Station 1 | Station 2 | Station 3 |
+| --------------- | ---------------------------- | --------- | --------- | --------- |
+| K00368 / K15864 | Nitrite reduction            | ✓         | ✓         | ✓         |
+| K20932          | Hydrazine synthase subunit A | ✗         | ✓         | ✓         |
+| K20933          | Hydrazine synthase subunit B | ✗         | ✗         | ✗         |
+| K20934          | Hydrazine synthase subunit C | ✗         | ✓         | ✓         |
+| K20935          | Hydrazine dehydrogenase      | ✗         | ✗         | ✗         |
+
+The absence of the complete hydrazine synthase complex and hydrazine dehydrogenase suggests that the canonical anammox pathway is not supported by the metatranscriptomics data at any of the sampled stations.
+
+Still, let's look at the distribution of these genes/transcripts across the differents depths of our 3 stations.
+
+::: {.callout-note title="Note"}
+The nitrite reductase genes (K00368/K15864) detected in the samples are shared between anammox and denitrification pathways and therefore do not provide specific evidence for anammox metabolism without the presence of the hydrazine synthase genes (K20932–K20934).
+:::
+
+```{bash}
+#| eval: false   
+#| echo: true
+
+# KO list for anammox-specific genes
+KOS='K00368|K15864|K20932|K20933|K20934|K20935'
+
+# Get unique gene_callers_id hits for those KOs
+awk -F'\t' -v kos="$KOS" '($3 ~ kos){print $1}' St1_gene_functions.tsv \
+  | sort -u > genes_of_interest.ids
+
+join -t $'\t' genes_of_interest.ids gene_to_contig.tsv \
+  | cut -f2 \
+  | sort -u > contigs_of_interest.txt
+
+awk '{print $1"_split_00001\tanammox"}' contigs_of_interest.txt \
+  > anammox_splits_collection.tsv
+
+anvi-import-collection \
+  -p St1_MERGED/PROFILE.db \
+  -c St1_contigs.db \
+  -C anammox_splits \
+  anammox_splits_collection.tsv
+
+```
+
+```{bash}
+#| eval: false   
+#| echo: true
+anvi-export-functions   -c CONTIGS.db   -o gene_functions.tsv
+anvi-export-table --table genes_in_contigs -o genes_in_contigs.tsv CONTIGS.db
+
+# 1) Define your KO list (space-separated)
+KOS="K00368 K15864 K20932 K20933 K20934 K20935"
+
+# 2) Build gene-level KO presence/absence from gene_functions.tsv (KO is column 3)
+awk -F'\t' -v OFS='\t' -v kos="$KOS" '
+BEGIN{
+    n = split(kos, k, " ")
+    for (i=1; i<=n; i++) KO[k[i]] = 1
+    printf "gene_callers_id"
+    for (i=1; i<=n; i++) printf "%s%s", OFS, k[i]
+    printf "\n"
+}
+NR==1 { next }  # skip header
+{
+    gene = $1
+    acc  = $3
+    genes[gene] = 1
+    if (acc in KO) present[gene, acc] = 1
+}
+END{
+    for (g in genes) {
+        printf "%s", g
+        for (i=1; i<=n; i++) {
+            ko = k[i]
+            v = ((g SUBSEP ko) in present) ? 1 : 0
+            printf "%s%d", OFS, v
+        }
+        printf "\n"
+    }
+}
+' gene_functions.tsv > KO_presence_absence_by_gene.tsv
+
+# 3) Map gene_callers_id -> contig (requires genes_in_contigs.tsv from anvi-export-gene-calls)
+#    Then collapse to contig-level by OR (max) across genes
+awk -F'\t' -v OFS='\t' '
+NR==FNR {
+    if (FNR==1) next
+    gene2contig[$1] = $2
+    next
+}
+FNR==1 { print "contig", substr($0, index($0, "\t")+1); ncol=NF; next }
+{
+    gene = $1
+    contig = (gene in gene2contig) ? gene2contig[gene] : "NA"
+    contigs[contig]=1
+    for (i=2; i<=NF; i++) if ($i==1) M[contig, i]=1
+}
+END{
+    for (c in contigs) {
+        printf "%s", c
+        for (i=2; i<=ncol; i++) {
+            v = ((c SUBSEP i) in M) ? 1 : 0
+            printf "%s%d", OFS, v
+        }
+        printf "\n"
+    }
+}
+' genes_in_contigs.tsv KO_presence_absence_by_gene.tsv > KO_presence_absence_by_contig.tsv
+
+# 4) Convert contig names to split names (naive: appends _split_00001)
+awk -F'\t' -v OFS='\t' '
+FNR==1 { $1="item_name"; print; next }
+{ $1 = $1 "_split_00001"; print }
+' KO_presence_absence_by_contig.tsv > KO_presence_absence_by_split.tsv
+
+# Import the data to the PROFILE.db
+anvi-import-misc-data -p PROFILE.db -t items KO_presence_absence_by_split.tsv
+```
+
+#### anvi'o interactive plot - Anammox
+
+![Anvi'o interactive plot showing the presence/absence of transcript annotation associated with Anammox in station 1. ](figures/St1_anvi_plot_anammox_KOs_presence-absence.png){width=100%}
+
+```{bash}
+#| eval: false   
+#| echo: true
+anvi-estimate-metabolism -c CONTIGS.db -p PROFILE.db -O denitrification_meta --add-coverage
+```
+
+| Sample   | Avg. Coverage | Avg. Detection |
+|----------|---------------|---------------|
+| St1_S4S  | 1830.53        | 0.480         |
+| St1_S4M  | 3567.58       | 0.875         |
+| St1_S4B  | 2771.32       | 0.926         |
+
+The table below provides a gene-level breakdown of the anammox module, linking each predicted gene (Gene_ID) to its corresponding KEGG Ortholog (KO) and its sequencing coverage in three samples (St1_S4B, St1_S4M, and St1_S4S).
+
+```{r}
+library(tidyverse)
+library(kableExtra)
+
+st1_cov <- read.csv("data/St1_anammox_enzymes_coverages.csv") |>
+  mutate(across(contains("coverage"), ~ round(.x, 2)))
+
+st1_cov |>
+  kbl() |>
+  kable_styling(full_width = FALSE) |>
+  scroll_box(height = "400px")
+```
+
+Now using the table above, we can list for each sample the Gene_IDs and KOs with nonzero coverage and we can turn that list into into an enzymes-txt file which can be used to calculated the anammox completeness score for each sample, using:
+
+```{bash}
+#| eval: false   
+#| echo: true
+anvi-estimate-metabolism --enzymes-txt
+```
+
+| Sample | Module | Step | Path | Unique_prop | Unique_enzymes | Hits |
+|:------|:------|----:|----:|----:|:----------------|:-----|
+| St1_S4S | M00973 | 0.33 | 0.33 | NA | No enzymes unique to module  | NA |
+| St1_S4S | M00973 | 0.33 | 0.33 | NA | No enzymes unique to module  | NA |
+| St1_S4S | M00973 | 0.33 | 0.33 | NA | No enzymes unique to module  | NA |
+
+
+**IMPORTANT NOTE**: with no enzymes unique to module, the values of coverage and detection above are actually missleading as they inform us about enzymes that are involved in order pathways than anammox. Probably it would be better to use only enzymes that are unique to modules for both denitrification and anammox! here we would have zero for coverage and detection of anammox given that none of the enzymes exclusively used in the pathway are present!
+
 
 ## Mapping transcripts to genomes of potential denitrifiers
 
