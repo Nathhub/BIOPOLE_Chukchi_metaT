@@ -138,6 +138,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#station-1" id="toc-station-1" class="nav-link" data-scroll-target="#station-1">Station 1</a></li>
   <li><a href="#station-2" id="toc-station-2" class="nav-link" data-scroll-target="#station-2">Station 2</a></li>
   <li><a href="#station-3" id="toc-station-3" class="nav-link" data-scroll-target="#station-3">Station 3</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul></li>
   <li><a href="#anammox-anaerobic-ammonium-oxidation---kegg-module-m00973" id="toc-anammox-anaerobic-ammonium-oxidation---kegg-module-m00973" class="nav-link" data-scroll-target="#anammox-anaerobic-ammonium-oxidation---kegg-module-m00973">Anammox (anaerobic ammonium oxidation) - KEGG Module M00973</a></li>
   <li><a href="#mapping-transcripts-to-genomes-of-potential-denitrifiers" id="toc-mapping-transcripts-to-genomes-of-potential-denitrifiers" class="nav-link" data-scroll-target="#mapping-transcripts-to-genomes-of-potential-denitrifiers">Mapping transcripts to genomes of potential denitrifiers</a></li>
@@ -757,9 +758,6 @@ code {
 </table>
 <p>The table below provides a gene-level breakdown of the denitrification module (KEGG M00529), linking each predicted gene (Gene_ID) to its corresponding KEGG Ortholog (KO) and its sequencing coverage in three samples (St1_S4B, St1_S4M, and St1_S4S).</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>systemfonts and textshaping have been compiled with different versions of Freetype. Because of this, textshaping will not use the font cache provided by systemfonts</code></pre>
-</div>
 <div class="cell-output-display">
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; ">
 <table class="table caption-top table-sm table-striped small">
@@ -1259,7 +1257,7 @@ code {
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-estimate-metabolism</span> <span class="at">--enzymes-txt</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-estimate-metabolism</span> <span class="at">--enzymes-txt</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <table class="caption-top table">
@@ -1322,7 +1320,7 @@ code {
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-estimate-metabolism</span> <span class="at">-c</span> CONTIGS.db <span class="at">-p</span> PROFILE.db <span class="at">-O</span> denitrification_meta <span class="at">--add-coverage</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-estimate-metabolism</span> <span class="at">-c</span> CONTIGS.db <span class="at">-p</span> PROFILE.db <span class="at">-O</span> denitrification_meta <span class="at">--add-coverage</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>Station 2 - denitrification module (M00529) - Overall Coverage and Detection</p>
@@ -2315,228 +2313,228 @@ code {
 <tr class="header">
 <th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">Gene_ID</th>
 <th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">KO</th>
-<th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">St3_S14B</th>
-<th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">St3_S14M</th>
-<th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">St3_S14S</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">St3_S14B_coverage</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">St3_S14M_coverage</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">St3_S14S_coverage</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">940220</td>
 <td style="text-align: left;">K00368</td>
-<td style="text-align: right;">3.038250e+03</td>
-<td style="text-align: right;">12004.949360</td>
-<td style="text-align: right;">2326.992634</td>
+<td style="text-align: right;">3038.25</td>
+<td style="text-align: right;">12004.95</td>
+<td style="text-align: right;">2326.99</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1141487</td>
 <td style="text-align: left;">K00368</td>
-<td style="text-align: right;">1.751713e+03</td>
-<td style="text-align: right;">1089.086462</td>
-<td style="text-align: right;">45.872583</td>
+<td style="text-align: right;">1751.71</td>
+<td style="text-align: right;">1089.09</td>
+<td style="text-align: right;">45.87</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">696726</td>
 <td style="text-align: left;">K00368</td>
-<td style="text-align: right;">1.539617e+01</td>
-<td style="text-align: right;">71.605191</td>
-<td style="text-align: right;">8.396175</td>
+<td style="text-align: right;">15.40</td>
+<td style="text-align: right;">71.61</td>
+<td style="text-align: right;">8.40</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1524063</td>
 <td style="text-align: left;">K00368</td>
-<td style="text-align: right;">4.680114e+03</td>
-<td style="text-align: right;">17604.950870</td>
-<td style="text-align: right;">2732.902697</td>
+<td style="text-align: right;">4680.11</td>
+<td style="text-align: right;">17604.95</td>
+<td style="text-align: right;">2732.90</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">103044</td>
 <td style="text-align: left;">K00368</td>
-<td style="text-align: right;">1.393728e+00</td>
-<td style="text-align: right;">28.204414</td>
-<td style="text-align: right;">13.239257</td>
+<td style="text-align: right;">1.39</td>
+<td style="text-align: right;">28.20</td>
+<td style="text-align: right;">13.24</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1603484</td>
 <td style="text-align: left;">K00368</td>
-<td style="text-align: right;">6.728296e+03</td>
-<td style="text-align: right;">6164.948894</td>
-<td style="text-align: right;">875.792525</td>
+<td style="text-align: right;">6728.30</td>
+<td style="text-align: right;">6164.95</td>
+<td style="text-align: right;">875.79</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">1688623</td>
 <td style="text-align: left;">K00368</td>
-<td style="text-align: right;">1.199478e+04</td>
-<td style="text-align: right;">5892.066667</td>
-<td style="text-align: right;">252.045679</td>
+<td style="text-align: right;">11994.78</td>
+<td style="text-align: right;">5892.07</td>
+<td style="text-align: right;">252.05</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1397102</td>
 <td style="text-align: left;">K00368</td>
-<td style="text-align: right;">2.409709e+01</td>
-<td style="text-align: right;">13.219419</td>
-<td style="text-align: right;">3.301223</td>
+<td style="text-align: right;">24.10</td>
+<td style="text-align: right;">13.22</td>
+<td style="text-align: right;">3.30</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">430064</td>
 <td style="text-align: left;">K00368</td>
-<td style="text-align: right;">1.288073e+03</td>
-<td style="text-align: right;">603.135390</td>
-<td style="text-align: right;">35.298201</td>
+<td style="text-align: right;">1288.07</td>
+<td style="text-align: right;">603.14</td>
+<td style="text-align: right;">35.30</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">161749</td>
 <td style="text-align: left;">K00368</td>
-<td style="text-align: right;">3.405020e+01</td>
-<td style="text-align: right;">32.392570</td>
-<td style="text-align: right;">14.070281</td>
+<td style="text-align: right;">34.05</td>
+<td style="text-align: right;">32.39</td>
+<td style="text-align: right;">14.07</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">158371</td>
 <td style="text-align: left;">K00368</td>
-<td style="text-align: right;">1.084319e+04</td>
-<td style="text-align: right;">20992.163670</td>
-<td style="text-align: right;">5862.655689</td>
+<td style="text-align: right;">10843.19</td>
+<td style="text-align: right;">20992.16</td>
+<td style="text-align: right;">5862.66</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1833581</td>
 <td style="text-align: left;">K00368</td>
-<td style="text-align: right;">4.966577e+02</td>
-<td style="text-align: right;">307.373123</td>
-<td style="text-align: right;">58.014264</td>
+<td style="text-align: right;">496.66</td>
+<td style="text-align: right;">307.37</td>
+<td style="text-align: right;">58.01</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">603080</td>
 <td style="text-align: left;">K00368</td>
-<td style="text-align: right;">1.228539e+04</td>
-<td style="text-align: right;">24752.470590</td>
-<td style="text-align: right;">2451.918954</td>
+<td style="text-align: right;">12285.39</td>
+<td style="text-align: right;">24752.47</td>
+<td style="text-align: right;">2451.92</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">749765</td>
 <td style="text-align: left;">K00368</td>
-<td style="text-align: right;">2.381001e+04</td>
-<td style="text-align: right;">36314.155410</td>
-<td style="text-align: right;">13077.808150</td>
+<td style="text-align: right;">23810.01</td>
+<td style="text-align: right;">36314.16</td>
+<td style="text-align: right;">13077.81</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">830637</td>
 <td style="text-align: left;">K00368</td>
-<td style="text-align: right;">1.710134e+04</td>
-<td style="text-align: right;">29621.686490</td>
-<td style="text-align: right;">4860.729730</td>
+<td style="text-align: right;">17101.34</td>
+<td style="text-align: right;">29621.69</td>
+<td style="text-align: right;">4860.73</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">888098</td>
 <td style="text-align: left;">K00368</td>
-<td style="text-align: right;">4.977084e+03</td>
-<td style="text-align: right;">13838.965990</td>
-<td style="text-align: right;">1409.396501</td>
+<td style="text-align: right;">4977.08</td>
+<td style="text-align: right;">13838.97</td>
+<td style="text-align: right;">1409.40</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">1017872</td>
 <td style="text-align: left;">K00368</td>
-<td style="text-align: right;">2.542481e+03</td>
-<td style="text-align: right;">967.993506</td>
-<td style="text-align: right;">40.874459</td>
+<td style="text-align: right;">2542.48</td>
+<td style="text-align: right;">967.99</td>
+<td style="text-align: right;">40.87</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1265105</td>
 <td style="text-align: left;">K00368</td>
-<td style="text-align: right;">7.398685e+02</td>
-<td style="text-align: right;">1711.333333</td>
-<td style="text-align: right;">230.746479</td>
+<td style="text-align: right;">739.87</td>
+<td style="text-align: right;">1711.33</td>
+<td style="text-align: right;">230.75</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">1656914</td>
 <td style="text-align: left;">K00368</td>
-<td style="text-align: right;">9.184375e+00</td>
-<td style="text-align: right;">14.021875</td>
-<td style="text-align: right;">30.427083</td>
+<td style="text-align: right;">9.18</td>
+<td style="text-align: right;">14.02</td>
+<td style="text-align: right;">30.43</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1514788</td>
 <td style="text-align: left;">K00370</td>
-<td style="text-align: right;">1.186603e+00</td>
-<td style="text-align: right;">11.050239</td>
-<td style="text-align: right;">21.745614</td>
+<td style="text-align: right;">1.19</td>
+<td style="text-align: right;">11.05</td>
+<td style="text-align: right;">21.75</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">1517667</td>
 <td style="text-align: left;">K00371</td>
-<td style="text-align: right;">6.982790e+00</td>
-<td style="text-align: right;">4.379529</td>
-<td style="text-align: right;">17.393116</td>
+<td style="text-align: right;">6.98</td>
+<td style="text-align: right;">4.38</td>
+<td style="text-align: right;">17.39</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1063936</td>
 <td style="text-align: left;">K00371</td>
-<td style="text-align: right;">1.773978e+01</td>
-<td style="text-align: right;">4.462206</td>
-<td style="text-align: right;">20.100372</td>
+<td style="text-align: right;">17.74</td>
+<td style="text-align: right;">4.46</td>
+<td style="text-align: right;">20.10</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">384530</td>
 <td style="text-align: left;">K00371</td>
-<td style="text-align: right;">3.187277e+02</td>
-<td style="text-align: right;">84.796557</td>
-<td style="text-align: right;">5.812989</td>
+<td style="text-align: right;">318.73</td>
+<td style="text-align: right;">84.80</td>
+<td style="text-align: right;">5.81</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">413339</td>
 <td style="text-align: left;">K00371</td>
-<td style="text-align: right;">9.194878e+02</td>
-<td style="text-align: right;">1081.890848</td>
-<td style="text-align: right;">74.068010</td>
+<td style="text-align: right;">919.49</td>
+<td style="text-align: right;">1081.89</td>
+<td style="text-align: right;">74.07</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">727004</td>
 <td style="text-align: left;">K00371</td>
-<td style="text-align: right;">1.970408e+03</td>
-<td style="text-align: right;">3632.484351</td>
-<td style="text-align: right;">90.001565</td>
+<td style="text-align: right;">1970.41</td>
+<td style="text-align: right;">3632.48</td>
+<td style="text-align: right;">90.00</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">856298</td>
 <td style="text-align: left;">K00371</td>
-<td style="text-align: right;">5.731318e+01</td>
-<td style="text-align: right;">90.479845</td>
-<td style="text-align: right;">18.165116</td>
+<td style="text-align: right;">57.31</td>
+<td style="text-align: right;">90.48</td>
+<td style="text-align: right;">18.17</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">1386808</td>
 <td style="text-align: left;">K00371</td>
-<td style="text-align: right;">4.225575e+00</td>
-<td style="text-align: right;">10.383621</td>
-<td style="text-align: right;">42.014368</td>
+<td style="text-align: right;">4.23</td>
+<td style="text-align: right;">10.38</td>
+<td style="text-align: right;">42.01</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1807011</td>
 <td style="text-align: left;">K00371</td>
-<td style="text-align: right;">9.006748e+03</td>
-<td style="text-align: right;">16658.330250</td>
-<td style="text-align: right;">488.647421</td>
+<td style="text-align: right;">9006.75</td>
+<td style="text-align: right;">16658.33</td>
+<td style="text-align: right;">488.65</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">1137166</td>
 <td style="text-align: left;">K00374</td>
-<td style="text-align: right;">7.052142e+00</td>
-<td style="text-align: right;">11.415270</td>
-<td style="text-align: right;">3.910614</td>
+<td style="text-align: right;">7.05</td>
+<td style="text-align: right;">11.42</td>
+<td style="text-align: right;">3.91</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1749377</td>
 <td style="text-align: left;">K00374</td>
-<td style="text-align: right;">1.586667e+01</td>
-<td style="text-align: right;">28.422222</td>
-<td style="text-align: right;">14.242593</td>
+<td style="text-align: right;">15.87</td>
+<td style="text-align: right;">28.42</td>
+<td style="text-align: right;">14.24</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">1386807</td>
 <td style="text-align: left;">K00374</td>
-<td style="text-align: right;">7.518797e-01</td>
-<td style="text-align: right;">9.904762</td>
-<td style="text-align: right;">2.842105</td>
+<td style="text-align: right;">0.75</td>
+<td style="text-align: right;">9.90</td>
+<td style="text-align: right;">2.84</td>
 </tr>
 </tbody>
 </table>
@@ -2608,6 +2606,199 @@ code {
 <p>In contrast, the <strong>mid-water sample (St3_S14M)</strong> exhibited higher completeness (stepwise = 0.75, pathwise = 0.875), with detection of enzymes specific to the later stages of denitrification, including nitric oxide reductase (K04561) and nitrous oxide reductase (K00376). This suggests that organisms capable of performing most steps of denitrification are present in the mid-water microbial community.</p>
 <p>The <strong>bottom sample (St3_S14B)</strong> showed full pathway completeness (stepwise = 1, pathwise = 1), with multiple hits for enzymes involved in the terminal steps of denitrification. The detection of key enzymes such as nitrous oxide reductase (K00376) and nitric oxide reductase (K02305, K04561) indicates that the microbial community likely possesses the capacity to carry out complete denitrification, potentially converting nitrate to dinitrogen gas.</p>
 <p>Overall, these results suggest a <strong>depth-dependent increase in denitrification potential</strong>, with incomplete or partial pathways in surface waters and a fully represented pathway in deeper layers. This pattern suggests that denitrification is influenced by the proximity with the sediments and/or with the amount of particles which relates to the fact that denitrification becomes more favorable under <strong>low-oxygen or anoxic conditions</strong>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="summary" class="level3">
+<h3 class="anchored" data-anchor-id="summary">Summary</h3>
+<p>denitrification pathway steps:</p>
+<p><strong>NO₃⁻ → NO₂⁻ → NO → N₂O → N₂</strong></p>
+<p>Typical KO groups:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 33%">
+<col style="width: 21%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Enzyme</th>
+<th>Gene</th>
+<th>KO</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Nitrate → Nitrite</td>
+<td>Nitrate reductase</td>
+<td><strong>narG / napA</strong></td>
+<td>K00370, K02567</td>
+</tr>
+<tr class="even">
+<td>Nitrite → NO</td>
+<td>Nitrite reductase</td>
+<td><strong>nirK / nirS</strong></td>
+<td>K00368, K15864</td>
+</tr>
+<tr class="odd">
+<td>NO → N₂O</td>
+<td>Nitric oxide reductase</td>
+<td><strong>norB</strong></td>
+<td>K04561</td>
+</tr>
+<tr class="even">
+<td>N₂O → N₂</td>
+<td>Nitrous oxide reductase</td>
+<td><strong>nosZ</strong></td>
+<td>K00376</td>
+</tr>
+<tr class="odd">
+<td>Accessory</td>
+<td>nos genes</td>
+<td><strong>nosD/F/Y</strong></td>
+<td>K02305</td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 9%">
+<col style="width: 10%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 9%">
+<col style="width: 29%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sample</th>
+<th style="text-align: right;">Avg Coverage</th>
+<th style="text-align: right;">Avg Detection</th>
+<th style="text-align: right;">Stepwise Completeness</th>
+<th style="text-align: right;">Pathwise Completeness</th>
+<th style="text-align: right;">Unique Prop.</th>
+<th>Unique Enzymes (hit)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>St1_S4S</td>
+<td style="text-align: right;">975.53</td>
+<td style="text-align: right;">0.454</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1</td>
+<td>K00376 (3), K02305 (1), K04561 (2)</td>
+</tr>
+<tr class="even">
+<td>St1_S4M</td>
+<td style="text-align: right;">2032.39</td>
+<td style="text-align: right;">0.787</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1</td>
+<td>K00376 (6), K02305 (2), K04561 (5)</td>
+</tr>
+<tr class="odd">
+<td>St1_S4B</td>
+<td style="text-align: right;">1706.59</td>
+<td style="text-align: right;">0.859</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1</td>
+<td>K00376 (7), K02305 (2), K04561 (5)</td>
+</tr>
+<tr class="even">
+<td>St2_S13M</td>
+<td style="text-align: right;">591.48</td>
+<td style="text-align: right;">0.267</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1</td>
+<td>K00376 (2), K02305 (6), K04561 (8)</td>
+</tr>
+<tr class="odd">
+<td>St2_S13B</td>
+<td style="text-align: right;">744.24</td>
+<td style="text-align: right;">0.987</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1</td>
+<td>K00376 (24), K02305 (11), K04561 (23)</td>
+</tr>
+<tr class="even">
+<td>St3_S14S</td>
+<td style="text-align: right;">575.89</td>
+<td style="text-align: right;">0.363</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">NA</td>
+<td>No enzymes unique to module</td>
+</tr>
+<tr class="odd">
+<td>St3_S14M</td>
+<td style="text-align: right;">3178.61</td>
+<td style="text-align: right;">0.626</td>
+<td style="text-align: right;">0.75</td>
+<td style="text-align: right;">0.875</td>
+<td style="text-align: right;">1</td>
+<td>K00376 (1), K04561 (2)</td>
+</tr>
+<tr class="even">
+<td>St3_S14B</td>
+<td style="text-align: right;">1897.44</td>
+<td style="text-align: right;">0.910</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1</td>
+<td>K00376 (3), K02305 (2), K04561 (8)</td>
+</tr>
+</tbody>
+</table>
+<section id="heatmap-of-denitrification-gene-coverage-across-stations-and-depths." class="level4">
+<h4 class="anchored" data-anchor-id="heatmap-of-denitrification-gene-coverage-across-stations-and-depths.">Heatmap of denitrification gene coverage across stations and depths.</h4>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="BIOPOLE_Chukchi_metaT_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Values correspond to log-transformed gene coverage</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/KEGG_pathway_M00529.png" class="img-fluid figure-img"></p>
+<figcaption>Denitrification pathway diagram (KEGG ortholog map</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Discussion">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Discussion
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The heatmap shows the distribution and relative expression of denitrification-related KEGG orthologs (KO) genes across the stations and depth layers. Overall, the results indicate substantial spatial variability in the transcription of denitrification genes across the study area.</p>
+<p><strong>Nitrate reduction genes</strong></p>
+<p>The first step of denitrification, the reduction of nitrate to nitrite, can be catalyzed by two distinct enzymatic systems: the <strong>membrane-bound nitrate reductase (Nar)</strong> and the <strong>periplasmic nitrate reductase (Nap)</strong>. In this dataset, the Nar pathway is represented by <strong>K00370, K00371, and K00374</strong>, while the Nap pathway is represented by <strong>K02567 and K02568</strong> (see pathway diagram above).</p>
+<p>At <strong>Station 1</strong>, transcripts from both nitrate reduction systems (Nar and Nap) are detected.At <strong>Station 2</strong>, K00374 is absent, indicating only partial expression of the Nar-associated genes detected in this dataset, while with both the Nap genes K02567 and K02568, the Nap pathwa is complete. In contrast, <strong>Station 3</strong> shows limited expression of Nar genes and Nap-associated transcripts are absent, indicating reduced transcription of nitrate-to-nitrite reduction pathways at this station.</p>
+<p><strong>Nitrite reduction genes</strong></p>
+<p>Genes associated with the reduction of nitrite to nitric oxide are represented by <strong>K00368 (nirK)</strong> and <strong>K15864 (nirS)</strong>, which encode alternative nitrite reductases (the presence of only one transcript is enough). The gene of nirK exhibits the highest coverage across samples, indicating that the conversion of nitrite to nitric oxide may represent a dominant step in the denitrification pathway in these samples. In contrast, nirS shows considerably lower expression, suggesting a predominance of nirK-type denitrifiers in the active microbial assemblages.</p>
+<p><strong>Nitric oxide reduction genes</strong></p>
+<p>Genes involved in the reduction of nitric oxide to nitrous oxide are represented by <strong>K04561 (norB)</strong> and <strong>K02305 (norC)</strong>, which are associated with the nitric oxide reductase system. The heatmap shows moderate transcript coverage at Stations 1 and 2, with the highest expression observed in the mid-water and bottom samples at Station 2. This suggests that the nitric oxide reduction step of denitrification is actively transcribed at Stations 1 and 2, particularly in deeper waters, whereas expression of nitric oxide reductase genes appears to be minimal at Station 3.</p>
+<p><strong>Nitrous oxide reduction gene</strong></p>
+<p>The final step of denitrification, the reduction of nitrous oxide to dinitrogen gas, is represented by <strong>K00376 (nosZ)</strong>, alone. Transcripts of this gene are detected primarily at Stations 1 and 2, indicating that microorganisms capable of reducing nitrous oxide may be transcriptionally active in these environments. However, expression levels remain relatively moderate compared with earlier steps of the pathway, and transcripts are largely absent at Station 3, suggesting limited expression of this step at that station.</p>
+<p><strong>Depth-related patterns</strong></p>
+<p>Across Stations 1 and 2, several denitrification genes exhibit higher transcript levels in mid-water and bottom samples compared to surface waters, suggesting that denitrification activity may be enhanced in deeper parts of the water column.</p>
 </div>
 </div>
 </section>
@@ -2760,100 +2951,100 @@ code {
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># KO list for anammox-specific genes</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="va">KOS</span><span class="op">=</span><span class="st">'K00368|K15864|K20932|K20933|K20934|K20935'</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Get unique gene_callers_id hits for those KOs</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> kos=<span class="st">"</span><span class="va">$KOS</span><span class="st">"</span> <span class="st">'($3 ~ kos){print $1}'</span> St1_gene_functions.tsv <span class="dt">\</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-u</span> <span class="op">&gt;</span> genes_of_interest.ids</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="fu">join</span> <span class="at">-t</span> <span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> genes_of_interest.ids gene_to_contig.tsv <span class="dt">\</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f2</span> <span class="dt">\</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-u</span> <span class="op">&gt;</span> contigs_of_interest.txt</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print $1"_split_00001\tanammox"}'</span> contigs_of_interest.txt <span class="dt">\</span></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;</span> anammox_splits_collection.tsv</span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-import-collection</span> <span class="dt">\</span></span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">-p</span> St1_MERGED/PROFILE.db <span class="dt">\</span></span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">-c</span> St1_contigs.db <span class="dt">\</span></span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">-C</span> anammox_splits <span class="dt">\</span></span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>  anammox_splits_collection.tsv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># KO list for anammox-specific genes</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="va">KOS</span><span class="op">=</span><span class="st">'K00368|K15864|K20932|K20933|K20934|K20935'</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Get unique gene_callers_id hits for those KOs</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> kos=<span class="st">"</span><span class="va">$KOS</span><span class="st">"</span> <span class="st">'($3 ~ kos){print $1}'</span> St1_gene_functions.tsv <span class="dt">\</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-u</span> <span class="op">&gt;</span> genes_of_interest.ids</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">join</span> <span class="at">-t</span> <span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> genes_of_interest.ids gene_to_contig.tsv <span class="dt">\</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f2</span> <span class="dt">\</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-u</span> <span class="op">&gt;</span> contigs_of_interest.txt</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print $1"_split_00001\tanammox"}'</span> contigs_of_interest.txt <span class="dt">\</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;</span> anammox_splits_collection.tsv</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-import-collection</span> <span class="dt">\</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">-p</span> St1_MERGED/PROFILE.db <span class="dt">\</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">-c</span> St1_contigs.db <span class="dt">\</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">-C</span> anammox_splits <span class="dt">\</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>  anammox_splits_collection.tsv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-export-functions</span>   <span class="at">-c</span> CONTIGS.db   <span class="at">-o</span> gene_functions.tsv</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-export-table</span> <span class="at">--table</span> genes_in_contigs <span class="at">-o</span> genes_in_contigs.tsv CONTIGS.db</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Define your KO list (space-separated)</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="va">KOS</span><span class="op">=</span><span class="st">"K00368 K15864 K20932 K20933 K20934 K20935"</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Build gene-level KO presence/absence from gene_functions.tsv (KO is column 3)</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="at">-v</span> kos=<span class="st">"</span><span class="va">$KOS</span><span class="st">"</span> <span class="st">'</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="st">BEGIN{</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="st">    n = split(kos, k, " ")</span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="st">    for (i=1; i&lt;=n; i++) KO[k[i]] = 1</span></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="st">    printf "gene_callers_id"</span></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="st">    for (i=1; i&lt;=n; i++) printf "%s%s", OFS, k[i]</span></span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="st">    printf "\n"</span></span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="st">NR==1 { next }  # skip header</span></span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="st">    gene = $1</span></span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="st">    acc  = $3</span></span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="st">    genes[gene] = 1</span></span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="st">    if (acc in KO) present[gene, acc] = 1</span></span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a><span class="st">END{</span></span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a><span class="st">    for (g in genes) {</span></span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a><span class="st">        printf "%s", g</span></span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a><span class="st">        for (i=1; i&lt;=n; i++) {</span></span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a><span class="st">            ko = k[i]</span></span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a><span class="st">            v = ((g SUBSEP ko) in present) ? 1 : 0</span></span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a><span class="st">            printf "%s%d", OFS, v</span></span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a><span class="st">        }</span></span>
-<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a><span class="st">        printf "\n"</span></span>
-<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a><span class="st">    }</span></span>
-<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a><span class="st">'</span> gene_functions.tsv <span class="op">&gt;</span> KO_presence_absence_by_gene.tsv</span>
-<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Map gene_callers_id -&gt; contig (requires genes_in_contigs.tsv from anvi-export-gene-calls)</span></span>
-<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a><span class="co">#    Then collapse to contig-level by OR (max) across genes</span></span>
-<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'</span></span>
-<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a><span class="st">NR==FNR {</span></span>
-<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a><span class="st">    if (FNR==1) next</span></span>
-<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a><span class="st">    gene2contig[$1] = $2</span></span>
-<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a><span class="st">    next</span></span>
-<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a><span class="st">FNR==1 { print "contig", substr($0, index($0, "\t")+1); ncol=NF; next }</span></span>
-<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
-<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a><span class="st">    gene = $1</span></span>
-<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a><span class="st">    contig = (gene in gene2contig) ? gene2contig[gene] : "NA"</span></span>
-<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a><span class="st">    contigs[contig]=1</span></span>
-<span id="cb24-49"><a href="#cb24-49" aria-hidden="true" tabindex="-1"></a><span class="st">    for (i=2; i&lt;=NF; i++) if ($i==1) M[contig, i]=1</span></span>
-<span id="cb24-50"><a href="#cb24-50" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb24-51"><a href="#cb24-51" aria-hidden="true" tabindex="-1"></a><span class="st">END{</span></span>
-<span id="cb24-52"><a href="#cb24-52" aria-hidden="true" tabindex="-1"></a><span class="st">    for (c in contigs) {</span></span>
-<span id="cb24-53"><a href="#cb24-53" aria-hidden="true" tabindex="-1"></a><span class="st">        printf "%s", c</span></span>
-<span id="cb24-54"><a href="#cb24-54" aria-hidden="true" tabindex="-1"></a><span class="st">        for (i=2; i&lt;=ncol; i++) {</span></span>
-<span id="cb24-55"><a href="#cb24-55" aria-hidden="true" tabindex="-1"></a><span class="st">            v = ((c SUBSEP i) in M) ? 1 : 0</span></span>
-<span id="cb24-56"><a href="#cb24-56" aria-hidden="true" tabindex="-1"></a><span class="st">            printf "%s%d", OFS, v</span></span>
-<span id="cb24-57"><a href="#cb24-57" aria-hidden="true" tabindex="-1"></a><span class="st">        }</span></span>
-<span id="cb24-58"><a href="#cb24-58" aria-hidden="true" tabindex="-1"></a><span class="st">        printf "\n"</span></span>
-<span id="cb24-59"><a href="#cb24-59" aria-hidden="true" tabindex="-1"></a><span class="st">    }</span></span>
-<span id="cb24-60"><a href="#cb24-60" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb24-61"><a href="#cb24-61" aria-hidden="true" tabindex="-1"></a><span class="st">'</span> genes_in_contigs.tsv KO_presence_absence_by_gene.tsv <span class="op">&gt;</span> KO_presence_absence_by_contig.tsv</span>
-<span id="cb24-62"><a href="#cb24-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-63"><a href="#cb24-63" aria-hidden="true" tabindex="-1"></a><span class="co"># 4) Convert contig names to split names (naive: appends _split_00001)</span></span>
-<span id="cb24-64"><a href="#cb24-64" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'</span></span>
-<span id="cb24-65"><a href="#cb24-65" aria-hidden="true" tabindex="-1"></a><span class="st">FNR==1 { $1="item_name"; print; next }</span></span>
-<span id="cb24-66"><a href="#cb24-66" aria-hidden="true" tabindex="-1"></a><span class="st">{ $1 = $1 "_split_00001"; print }</span></span>
-<span id="cb24-67"><a href="#cb24-67" aria-hidden="true" tabindex="-1"></a><span class="st">'</span> KO_presence_absence_by_contig.tsv <span class="op">&gt;</span> KO_presence_absence_by_split.tsv</span>
-<span id="cb24-68"><a href="#cb24-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-69"><a href="#cb24-69" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the data to the PROFILE.db</span></span>
-<span id="cb24-70"><a href="#cb24-70" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-import-misc-data</span> <span class="at">-p</span> PROFILE.db <span class="at">-t</span> items KO_presence_absence_by_split.tsv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-export-functions</span>   <span class="at">-c</span> CONTIGS.db   <span class="at">-o</span> gene_functions.tsv</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-export-table</span> <span class="at">--table</span> genes_in_contigs <span class="at">-o</span> genes_in_contigs.tsv CONTIGS.db</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Define your KO list (space-separated)</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="va">KOS</span><span class="op">=</span><span class="st">"K00368 K15864 K20932 K20933 K20934 K20935"</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Build gene-level KO presence/absence from gene_functions.tsv (KO is column 3)</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="at">-v</span> kos=<span class="st">"</span><span class="va">$KOS</span><span class="st">"</span> <span class="st">'</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="st">BEGIN{</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="st">    n = split(kos, k, " ")</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="st">    for (i=1; i&lt;=n; i++) KO[k[i]] = 1</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="st">    printf "gene_callers_id"</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="st">    for (i=1; i&lt;=n; i++) printf "%s%s", OFS, k[i]</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="st">    printf "\n"</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="st">NR==1 { next }  # skip header</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="st">    gene = $1</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="st">    acc  = $3</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="st">    genes[gene] = 1</span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="st">    if (acc in KO) present[gene, acc] = 1</span></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="st">END{</span></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="st">    for (g in genes) {</span></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="st">        printf "%s", g</span></span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="st">        for (i=1; i&lt;=n; i++) {</span></span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a><span class="st">            ko = k[i]</span></span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a><span class="st">            v = ((g SUBSEP ko) in present) ? 1 : 0</span></span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a><span class="st">            printf "%s%d", OFS, v</span></span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a><span class="st">        }</span></span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a><span class="st">        printf "\n"</span></span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a><span class="st">    }</span></span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a><span class="st">'</span> gene_functions.tsv <span class="op">&gt;</span> KO_presence_absence_by_gene.tsv</span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Map gene_callers_id -&gt; contig (requires genes_in_contigs.tsv from anvi-export-gene-calls)</span></span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a><span class="co">#    Then collapse to contig-level by OR (max) across genes</span></span>
+<span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'</span></span>
+<span id="cb23-39"><a href="#cb23-39" aria-hidden="true" tabindex="-1"></a><span class="st">NR==FNR {</span></span>
+<span id="cb23-40"><a href="#cb23-40" aria-hidden="true" tabindex="-1"></a><span class="st">    if (FNR==1) next</span></span>
+<span id="cb23-41"><a href="#cb23-41" aria-hidden="true" tabindex="-1"></a><span class="st">    gene2contig[$1] = $2</span></span>
+<span id="cb23-42"><a href="#cb23-42" aria-hidden="true" tabindex="-1"></a><span class="st">    next</span></span>
+<span id="cb23-43"><a href="#cb23-43" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb23-44"><a href="#cb23-44" aria-hidden="true" tabindex="-1"></a><span class="st">FNR==1 { print "contig", substr($0, index($0, "\t")+1); ncol=NF; next }</span></span>
+<span id="cb23-45"><a href="#cb23-45" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
+<span id="cb23-46"><a href="#cb23-46" aria-hidden="true" tabindex="-1"></a><span class="st">    gene = $1</span></span>
+<span id="cb23-47"><a href="#cb23-47" aria-hidden="true" tabindex="-1"></a><span class="st">    contig = (gene in gene2contig) ? gene2contig[gene] : "NA"</span></span>
+<span id="cb23-48"><a href="#cb23-48" aria-hidden="true" tabindex="-1"></a><span class="st">    contigs[contig]=1</span></span>
+<span id="cb23-49"><a href="#cb23-49" aria-hidden="true" tabindex="-1"></a><span class="st">    for (i=2; i&lt;=NF; i++) if ($i==1) M[contig, i]=1</span></span>
+<span id="cb23-50"><a href="#cb23-50" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb23-51"><a href="#cb23-51" aria-hidden="true" tabindex="-1"></a><span class="st">END{</span></span>
+<span id="cb23-52"><a href="#cb23-52" aria-hidden="true" tabindex="-1"></a><span class="st">    for (c in contigs) {</span></span>
+<span id="cb23-53"><a href="#cb23-53" aria-hidden="true" tabindex="-1"></a><span class="st">        printf "%s", c</span></span>
+<span id="cb23-54"><a href="#cb23-54" aria-hidden="true" tabindex="-1"></a><span class="st">        for (i=2; i&lt;=ncol; i++) {</span></span>
+<span id="cb23-55"><a href="#cb23-55" aria-hidden="true" tabindex="-1"></a><span class="st">            v = ((c SUBSEP i) in M) ? 1 : 0</span></span>
+<span id="cb23-56"><a href="#cb23-56" aria-hidden="true" tabindex="-1"></a><span class="st">            printf "%s%d", OFS, v</span></span>
+<span id="cb23-57"><a href="#cb23-57" aria-hidden="true" tabindex="-1"></a><span class="st">        }</span></span>
+<span id="cb23-58"><a href="#cb23-58" aria-hidden="true" tabindex="-1"></a><span class="st">        printf "\n"</span></span>
+<span id="cb23-59"><a href="#cb23-59" aria-hidden="true" tabindex="-1"></a><span class="st">    }</span></span>
+<span id="cb23-60"><a href="#cb23-60" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb23-61"><a href="#cb23-61" aria-hidden="true" tabindex="-1"></a><span class="st">'</span> genes_in_contigs.tsv KO_presence_absence_by_gene.tsv <span class="op">&gt;</span> KO_presence_absence_by_contig.tsv</span>
+<span id="cb23-62"><a href="#cb23-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-63"><a href="#cb23-63" aria-hidden="true" tabindex="-1"></a><span class="co"># 4) Convert contig names to split names (naive: appends _split_00001)</span></span>
+<span id="cb23-64"><a href="#cb23-64" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'</span></span>
+<span id="cb23-65"><a href="#cb23-65" aria-hidden="true" tabindex="-1"></a><span class="st">FNR==1 { $1="item_name"; print; next }</span></span>
+<span id="cb23-66"><a href="#cb23-66" aria-hidden="true" tabindex="-1"></a><span class="st">{ $1 = $1 "_split_00001"; print }</span></span>
+<span id="cb23-67"><a href="#cb23-67" aria-hidden="true" tabindex="-1"></a><span class="st">'</span> KO_presence_absence_by_contig.tsv <span class="op">&gt;</span> KO_presence_absence_by_split.tsv</span>
+<span id="cb23-68"><a href="#cb23-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-69"><a href="#cb23-69" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the data to the PROFILE.db</span></span>
+<span id="cb23-70"><a href="#cb23-70" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-import-misc-data</span> <span class="at">-p</span> PROFILE.db <span class="at">-t</span> items KO_presence_absence_by_split.tsv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <section id="anvio-interactive-plot---anammox" class="level4">
@@ -2867,7 +3058,7 @@ code {
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-estimate-metabolism</span> <span class="at">-c</span> CONTIGS.db <span class="at">-p</span> PROFILE.db <span class="at">-O</span> denitrification_meta <span class="at">--add-coverage</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-estimate-metabolism</span> <span class="at">-c</span> CONTIGS.db <span class="at">-p</span> PROFILE.db <span class="at">-O</span> denitrification_meta <span class="at">--add-coverage</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <table class="caption-top table">
@@ -3130,7 +3321,7 @@ code {
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-estimate-metabolism</span> <span class="at">--enzymes-txt</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-estimate-metabolism</span> <span class="at">--enzymes-txt</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <table class="caption-top table">
@@ -3165,7 +3356,7 @@ code {
 <td style="text-align: left;">NA</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">St1_S4S</td>
+<td style="text-align: left;">St1_S4M</td>
 <td style="text-align: left;">M00973</td>
 <td style="text-align: right;">0.33</td>
 <td style="text-align: right;">0.33</td>
@@ -3174,7 +3365,7 @@ code {
 <td style="text-align: left;">NA</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">St1_S4S</td>
+<td style="text-align: left;">St1_S4B</td>
 <td style="text-align: left;">M00973</td>
 <td style="text-align: right;">0.33</td>
 <td style="text-align: right;">0.33</td>
@@ -3184,7 +3375,7 @@ code {
 </tr>
 </tbody>
 </table>
-<p><strong>IMPORTANT NOTE</strong>: with no enzymes unique to module, the values of coverage and detection above are actually missleading as they inform us about enzymes that are involved in order pathways than anammox. Probably it would be better to use only enzymes that are unique to modules for both denitrification and anammox! here we would have zero for coverage and detection of anammox given that none of the enzymes exclusively used in the pathway are present!</p>
+<p><strong>IMPORTANT NOTE</strong>: with no enzymes unique to module, the values of coverage and detection above are actually missleading as they inform us about enzymes that are also involved in order pathways than anammox. Probably it would be better to use only enzymes that are unique to modules for both denitrification and anammox! here we would have zero for coverage and detection of anammox given that none of the enzymes exclusively used in the pathway are present!</p>
 </section>
 </section>
 <section id="mapping-transcripts-to-genomes-of-potential-denitrifiers" class="level2">
@@ -3260,35 +3451,35 @@ code {
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kraken2</span> <span class="dt">\</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--db</span> /dssgfs01/scratch/ote_db/kraken/kraken_standard-16 <span class="dt">\ </span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--threads</span> 60 <span class="dt">\ </span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--gzip-compressed</span> <span class="dt">\ </span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--report</span> St1_S4S_report.txt <span class="dt">\ </span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--output</span> St1_S4S_kraken.out <span class="dt">\ </span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--paired</span> 1-S4S/1-S4S_RNA_clean_fwd.fq.gz 1-S4S/1-S4S_RNA_clean_rev.fq.gz</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kraken2</span> <span class="dt">\</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--db</span> /dssgfs01/scratch/ote_db/kraken/kraken_standard-16 <span class="dt">\ </span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--threads</span> 60 <span class="dt">\ </span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--gzip-compressed</span> <span class="dt">\ </span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--report</span> St1_S4S_report.txt <span class="dt">\ </span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--output</span> St1_S4S_kraken.out <span class="dt">\ </span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--paired</span> 1-S4S/1-S4S_RNA_clean_fwd.fq.gz 1-S4S/1-S4S_RNA_clean_rev.fq.gz</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bracken</span> <span class="dt">\</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-d</span> /dssgfs01/scratch/ote_db/kraken/kraken_standard-16 <span class="dt">\</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-i</span> St1_S4S_report.txt <span class="dt">\</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> St1_S4S.bracken.F <span class="dt">\</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-r</span> 150 <span class="dt">\</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">-l</span> F</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bracken</span> <span class="dt">\</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-d</span> /dssgfs01/scratch/ote_db/kraken/kraken_standard-16 <span class="dt">\</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-i</span> St1_S4S_report.txt <span class="dt">\</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> St1_S4S.bracken.F <span class="dt">\</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-r</span> 150 <span class="dt">\</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">-l</span> F</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Convert Kraken2 output to Krona input</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f2,3</span> St1_S4S_kraken.out <span class="op">&gt;</span> St1_S4S.krona.tsv</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Make the Krona HTML</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="ex">ktImportTaxonomy</span> <span class="at">-t</span> 2 <span class="at">-m</span> 3 <span class="at">-o</span> St1_S4S_krona.html St1_S4S.krona.tsv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Convert Kraken2 output to Krona input</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f2,3</span> St1_S4S_kraken.out <span class="op">&gt;</span> St1_S4S.krona.tsv</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Make the Krona HTML</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="ex">ktImportTaxonomy</span> <span class="at">-t</span> 2 <span class="at">-m</span> 3 <span class="at">-o</span> St1_S4S_krona.html St1_S4S.krona.tsv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>Approximately <strong>17%</strong> of metatranscriptomic reads could be taxonomically classified using Kraken2 with the standard database (16 GB). Krona plots were therefore generated using classified reads only, and complementary family-level profiles were produced using Bracken.</p>
@@ -3298,7 +3489,7 @@ code {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="BIOPOLE_Chukchi_metaT_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="BIOPOLE_Chukchi_metaT_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -3310,7 +3501,7 @@ code {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="BIOPOLE_Chukchi_metaT_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="BIOPOLE_Chukchi_metaT_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -3322,7 +3513,7 @@ code {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="BIOPOLE_Chukchi_metaT_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="BIOPOLE_Chukchi_metaT_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -3410,86 +3601,86 @@ code {
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Download the catalog of all genomes and files:</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-O</span> https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_data.tsv.gz</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Unzip it</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">gunzip</span> OMDBv2.0_data.tsv.gz</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Use it to download the MAGs associated with SAMEA4397903</span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"TARA_SAMEA4397903_MAG_"</span> OMDBv2.0_data.tsv <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f4</span> <span class="kw">|</span> <span class="fu">xargs</span> <span class="at">-n</span> 1 curl <span class="at">-O</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Download the catalog of all genomes and files:</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-O</span> https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_data.tsv.gz</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Unzip it</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">gunzip</span> OMDBv2.0_data.tsv.gz</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Use it to download the MAGs associated with SAMEA4397903</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"TARA_SAMEA4397903_MAG_"</span> OMDBv2.0_data.tsv <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f4</span> <span class="kw">|</span> <span class="fu">xargs</span> <span class="at">-n</span> 1 curl <span class="at">-O</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>Now I want to change the name of the MAGs so they show the name of the species they have been associated to:</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="st">'NR&gt;1 {print $1 "\t" $8}'</span> taxonomy_mags <span class="kw">|</span> <span class="cf">while</span> <span class="va">IFS</span><span class="op">=</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="bu">read</span> <span class="at">-r</span> <span class="va">id</span> <span class="va">species</span><span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">species_clean</span><span class="op">=</span><span class="va">$(</span><span class="bu">echo</span> <span class="st">"</span><span class="va">$species</span><span class="st">"</span> <span class="kw">|</span> <span class="fu">tr</span> <span class="st">' /'</span> <span class="st">'__'</span><span class="va">)</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">old</span><span class="op">=</span><span class="st">"</span><span class="va">${id}</span><span class="st">.fa.gz"</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">base</span><span class="op">=</span><span class="st">"</span><span class="va">${species_clean}</span><span class="st">.fa.gz"</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">[</span> <span class="ot">-e</span> <span class="st">"</span><span class="va">$old</span><span class="st">"</span> <span class="bu">]</span> <span class="kw">||</span> <span class="cf">continue</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    <span class="va">new</span><span class="op">=</span><span class="st">"</span><span class="va">$base</span><span class="st">"</span></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    <span class="va">n</span><span class="op">=</span>2</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="bu">[</span> <span class="ot">-e</span> <span class="st">"</span><span class="va">$new</span><span class="st">"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">new</span><span class="op">=</span><span class="st">"</span><span class="va">${species_clean}</span><span class="st">_</span><span class="va">${n}</span><span class="st">.fa.gz"</span></span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">n</span><span class="op">=</span><span class="va">$((n</span><span class="op">+</span><span class="dv">1</span><span class="va">))</span></span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">done</span></span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mv</span> <span class="st">"</span><span class="va">$old</span><span class="st">"</span> <span class="st">"</span><span class="va">$new</span><span class="st">"</span></span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="st">'NR&gt;1 {print $1 "\t" $8}'</span> taxonomy_mags <span class="kw">|</span> <span class="cf">while</span> <span class="va">IFS</span><span class="op">=</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="bu">read</span> <span class="at">-r</span> <span class="va">id</span> <span class="va">species</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">species_clean</span><span class="op">=</span><span class="va">$(</span><span class="bu">echo</span> <span class="st">"</span><span class="va">$species</span><span class="st">"</span> <span class="kw">|</span> <span class="fu">tr</span> <span class="st">' /'</span> <span class="st">'__'</span><span class="va">)</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">old</span><span class="op">=</span><span class="st">"</span><span class="va">${id}</span><span class="st">.fa.gz"</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">base</span><span class="op">=</span><span class="st">"</span><span class="va">${species_clean}</span><span class="st">.fa.gz"</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">[</span> <span class="ot">-e</span> <span class="st">"</span><span class="va">$old</span><span class="st">"</span> <span class="bu">]</span> <span class="kw">||</span> <span class="cf">continue</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    <span class="va">new</span><span class="op">=</span><span class="st">"</span><span class="va">$base</span><span class="st">"</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    <span class="va">n</span><span class="op">=</span>2</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="bu">[</span> <span class="ot">-e</span> <span class="st">"</span><span class="va">$new</span><span class="st">"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">new</span><span class="op">=</span><span class="st">"</span><span class="va">${species_clean}</span><span class="st">_</span><span class="va">${n}</span><span class="st">.fa.gz"</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">n</span><span class="op">=</span><span class="va">$((n</span><span class="op">+</span><span class="dv">1</span><span class="va">))</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">done</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mv</span> <span class="st">"</span><span class="va">$old</span><span class="st">"</span> <span class="st">"</span><span class="va">$new</span><span class="st">"</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>After unziping them all, we can generate an</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="kw">`</span><span class="fu">ls</span> <span class="pp">*</span>fa <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'BEGIN{FS=".fa"}{print $1}'</span><span class="kw">`</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">anvi-gen-contigs-database</span> <span class="at">-f</span> <span class="va">$i</span>.fa <span class="at">-o</span> <span class="va">$i</span>.db <span class="at">-T</span> 60</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">anvi-run-hmms</span> <span class="at">-c</span> <span class="va">$i</span>.db <span class="at">-T</span> 60</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">anvi-run-ncbi-cogs</span> <span class="at">-c</span> <span class="va">$i</span>.db <span class="at">-T</span> 30</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">anvi-run-kegg-kofams</span> <span class="at">-c</span> <span class="va">$i</span>.db <span class="at">-T</span> 30</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">anvi-run-scg-taxonomy</span> <span class="at">-c</span> <span class="va">$i</span>.db <span class="at">-T</span> 30</span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="kw">`</span><span class="fu">ls</span> <span class="pp">*</span>fa <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'BEGIN{FS=".fa"}{print $1}'</span><span class="kw">`</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">anvi-gen-contigs-database</span> <span class="at">-f</span> <span class="va">$i</span>.fa <span class="at">-o</span> <span class="va">$i</span>.db <span class="at">-T</span> 60</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">anvi-run-hmms</span> <span class="at">-c</span> <span class="va">$i</span>.db <span class="at">-T</span> 60</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">anvi-run-ncbi-cogs</span> <span class="at">-c</span> <span class="va">$i</span>.db <span class="at">-T</span> 30</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">anvi-run-kegg-kofams</span> <span class="at">-c</span> <span class="va">$i</span>.db <span class="at">-T</span> 30</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">anvi-run-scg-taxonomy</span> <span class="at">-c</span> <span class="va">$i</span>.db <span class="at">-T</span> 30</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>Next, we need to make a TAB-delimited ‘external genomes’ file to describe these genomes and associate them with a name.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"name\tcontigs_db_path"</span> <span class="op">&gt;</span> external_genomes.txt</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> db <span class="kw">in</span> <span class="pp">*</span>.db<span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">name</span><span class="op">=</span><span class="st">"</span><span class="va">${db</span><span class="op">%</span>.db<span class="va">}</span><span class="st">"</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"</span><span class="va">${name}</span><span class="st">\t</span><span class="va">${db}</span><span class="st">"</span> <span class="op">&gt;&gt;</span> external_genomes.txt</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"name\tcontigs_db_path"</span> <span class="op">&gt;</span> external_genomes.txt</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> db <span class="kw">in</span> <span class="pp">*</span>.db<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">name</span><span class="op">=</span><span class="st">"</span><span class="va">${db</span><span class="op">%</span>.db<span class="va">}</span><span class="st">"</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"</span><span class="va">${name}</span><span class="st">\t</span><span class="va">${db}</span><span class="st">"</span> <span class="op">&gt;&gt;</span> external_genomes.txt</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-gen-genomes-storage</span> <span class="at">-e</span> external_genomes.txt <span class="dt">\</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">-o</span> Tara_194_mags.db</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-gen-genomes-storage</span> <span class="at">-e</span> external_genomes.txt <span class="dt">\</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">-o</span> Tara_194_mags.db</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-pan-genome</span> <span class="at">-g</span> Tara_194_mags-GENOMES.db <span class="at">--project-name</span> Tara_194 <span class="at">-T</span> 30</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-pan-genome</span> <span class="at">-g</span> Tara_194_mags-GENOMES.db <span class="at">--project-name</span> Tara_194 <span class="at">-T</span> 30</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-script-add-default-collection</span> <span class="at">-p</span> Tara_194/Tara_194-PAN.db</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-summarize</span> <span class="at">-g</span> Tara_194_mags-GENOMES.db <span class="at">-p</span> Tara_194/Tara_194-PAN.db <span class="at">-C</span> DEFAULT</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 1 Tara_194_gene_clusters_summary.txt <span class="op">&gt;</span> denitrification_hits.txt</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-E</span> <span class="st">"K00370|K00371|K00374|K02567|K02568|K00368|K15864|K04561|K02305|K00376"</span> Tara_194_gene_clusters_summary.txt <span class="op">&gt;&gt;</span> denitrification_hits.txt</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f1-5,26</span> denitrification_hits.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-script-add-default-collection</span> <span class="at">-p</span> Tara_194/Tara_194-PAN.db</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-summarize</span> <span class="at">-g</span> Tara_194_mags-GENOMES.db <span class="at">-p</span> Tara_194/Tara_194-PAN.db <span class="at">-C</span> DEFAULT</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 1 Tara_194_gene_clusters_summary.txt <span class="op">&gt;</span> denitrification_hits.txt</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-E</span> <span class="st">"K00370|K00371|K00374|K02567|K02568|K00368|K15864|K04561|K02305|K00376"</span> Tara_194_gene_clusters_summary.txt <span class="op">&gt;&gt;</span> denitrification_hits.txt</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f1-5,26</span> denitrification_hits.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <table class="caption-top table">

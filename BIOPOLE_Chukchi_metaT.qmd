@@ -549,6 +549,176 @@ Overall, these results suggest a **depth-dependent increase in denitrification p
 
 :::
 
+### Summary
+
+denitrification pathway steps:
+
+**NO₃⁻ → NO₂⁻ → NO → N₂O → N₂**
+
+Typical KO groups:
+
+| Step              | Enzyme                  | Gene            | KO             |
+| ----------------- | ----------------------- | --------------- | -------------- |
+| Nitrate → Nitrite | Nitrate reductase       | **narG / napA** | K00370, K02567 |
+| Nitrite → NO      | Nitrite reductase       | **nirK / nirS** | K00368, K15864 |
+| NO → N₂O          | Nitric oxide reductase  | **norB**        | K04561         |
+| N₂O → N₂          | Nitrous oxide reductase | **nosZ**        | K00376         |
+| Accessory         | nos genes               | **nosD/F/Y**    | K02305         |
+
+
+| Sample   | Avg Coverage | Avg Detection | Stepwise Completeness | Pathwise Completeness | Unique Prop. | Unique Enzymes (hit)                        | 
+| -------- | -----------: | ------------: | --------------------: | --------------------: | -----------: | ------------------------------------- |
+| St1_S4S  |       975.53 |         0.454 |                  1.00 |                  1.00 |            1 | K00376 (3), K02305 (1), K04561 (2)    |
+| St1_S4M  |      2032.39 |         0.787 |                  1.00 |                  1.00 |            1 | K00376 (6), K02305 (2), K04561 (5)    | 
+| St1_S4B  |      1706.59 |         0.859 |                  1.00 |                  1.00 |            1 | K00376 (7), K02305 (2), K04561 (5)    | 
+| St2_S13M |       591.48 |         0.267 |                  1.00 |                  1.00 |            1 | K00376 (2), K02305 (6), K04561 (8)    | 
+| St2_S13B |       744.24 |         0.987 |                  1.00 |                  1.00 |            1 | K00376 (24), K02305 (11), K04561 (23) | 
+| St3_S14S |       575.89 |         0.363 |                  0.50 |                  0.50 |           NA | No enzymes unique to module           | 
+| St3_S14M |      3178.61 |         0.626 |                  0.75 |                 0.875 |            1 | K00376 (1), K04561 (2)                |
+| St3_S14B |      1897.44 |         0.910 |                  1.00 |                  1.00 |            1 | K00376 (3), K02305 (2), K04561 (8)    |
+
+#### Heatmap of denitrification gene coverage across stations and depths.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
+st1 <- st1_cov %>%
+  group_by(KO) %>%
+  summarise(
+    St1_S4B = sum(St1_S4B_coverage),
+    St1_S4M = sum(St1_S4M_coverage),
+    St1_S4S = sum(St1_S4S_coverage)
+  )
+
+st2 <- st2_cov %>%
+  group_by(KO) %>%
+  summarise(
+    St2_S13B = sum(St2_S13B_coverage),
+    St2_S13M = sum(St2_S13M_coverage)
+  )
+
+st3 <- st3_cov %>%
+  group_by(KO) %>%
+  summarise(
+    St3_S14B = sum(St3_S14B_coverage),
+    St3_S14M = sum(St3_S14M_coverage),
+    St3_S14S = sum(St3_S14S_coverage)
+  )
+
+heatmap_df <- st1 %>%
+  full_join(st2, by = "KO") %>%
+  full_join(st3, by = "KO")
+
+heatmap_df[is.na(heatmap_df)] <- 0
+
+heatmap_matrix <- heatmap_df %>%
+  column_to_rownames("KO") %>%
+  as.matrix()
+
+heatmap_matrix <- log10(heatmap_matrix + 1)
+
+ko_order <- c(
+  "K00370",
+  "K00371",
+  "K00374",
+  "K02567",
+  "K02568",
+  "K00368",
+  "K15864",
+  "K04561",
+  "K02305",
+  "K00376"
+)
+
+heatmap_matrix <- heatmap_matrix[ko_order, , drop = FALSE]
+
+gene_annotation <- data.frame(
+  Step = c(
+    "Nitrate reduction",
+    "Nitrate reduction",
+    "Nitrate reduction",
+    "Nitrate reduction",
+    "Nitrate reduction",
+    "Nitrite reduction",
+    "Nitrite reduction",
+    "NO reduction",
+    "NO reduction",
+    "N2O reduction"
+  )
+)
+
+rownames(gene_annotation) <- ko_order
+
+gene_annotation$Step <- factor(
+  gene_annotation$Step,
+  levels = c(
+    "Nitrate reduction",
+    "Nitrite reduction",
+    "NO reduction",
+    "N2O reduction"
+  )
+)
+
+ann_colors <- list(
+  Step = c(
+    "Nitrate reduction" = "#d97ce8",
+    "Nitrite reduction" = "#00c98b",
+    "NO reduction"      = "#22b7e8",
+    "N2O reduction"     = "#f28e8e"
+  )
+)
+
+sample_order <- c(
+  "St1_S4S", "St1_S4M", "St1_S4B",
+  "St2_S13M", "St2_S13B",
+  "St3_S14S", "St3_S14M", "St3_S14B"
+)
+
+heatmap_matrix <- heatmap_matrix[, sample_order]
+
+library(pheatmap)
+
+pheatmap(
+  heatmap_matrix,
+  cluster_rows = FALSE,
+  cluster_cols = FALSE,
+  annotation_row = gene_annotation,
+  annotation_colors = ann_colors,
+  border_color = NA,
+  gaps_col = c(3, 5)
+)
+
+```
+
+Values correspond to log-transformed gene coverage
+
+![Denitrification pathway diagram (KEGG ortholog map](figures/KEGG_pathway_M00529.png)
+
+::: {.callout-note title="Discussion"}
+
+The heatmap shows the distribution and relative expression of denitrification-related KEGG orthologs (KO) genes across the stations and depth layers. Overall, the results indicate substantial spatial variability in the transcription of denitrification genes across the study area.
+
+**Nitrate reduction genes**
+
+The first step of denitrification, the reduction of nitrate to nitrite, can be catalyzed by two distinct enzymatic systems: the **membrane-bound nitrate reductase (Nar)** and the **periplasmic nitrate reductase (Nap)**. In this dataset, the Nar pathway is represented by **K00370, K00371, and K00374**, while the Nap pathway is represented by **K02567 and K02568** (see pathway diagram above).
+
+At **Station 1**, transcripts from both nitrate reduction systems (Nar and Nap) are detected.At **Station 2**, K00374 is absent, indicating only partial expression of the Nar-associated genes detected in this dataset, while with both the Nap genes K02567 and K02568, the Nap pathwa is complete. In contrast, **Station 3** shows limited expression of Nar genes and Nap-associated transcripts are absent, indicating reduced transcription of nitrate-to-nitrite reduction pathways at this station. 
+
+**Nitrite reduction genes**
+
+Genes associated with the reduction of nitrite to nitric oxide are represented by **K00368 (nirK)** and **K15864 (nirS)**, which encode alternative nitrite reductases (the presence of only one transcript is enough). The gene of nirK exhibits the highest coverage across samples, indicating that the conversion of nitrite to nitric oxide may represent a dominant step in the denitrification pathway in these samples. In contrast, nirS shows considerably lower expression, suggesting a predominance of nirK-type denitrifiers in the active microbial assemblages.
+
+**Nitric oxide reduction genes**
+
+Genes involved in the reduction of nitric oxide to nitrous oxide are represented by **K04561 (norB)** and **K02305 (norC)**, which are associated with the nitric oxide reductase system. The heatmap shows moderate transcript coverage at Stations 1 and 2, with the highest expression observed in the mid-water and bottom samples at Station 2. This suggests that the nitric oxide reduction step of denitrification is actively transcribed at Stations 1 and 2, particularly in deeper waters, whereas expression of nitric oxide reductase genes appears to be minimal at Station 3.
+
+**Nitrous oxide reduction gene**
+
+The final step of denitrification, the reduction of nitrous oxide to dinitrogen gas, is represented by **K00376 (nosZ)**, alone. Transcripts of this gene are detected primarily at Stations 1 and 2, indicating that microorganisms capable of reducing nitrous oxide may be transcriptionally active in these environments. However, expression levels remain relatively moderate compared with earlier steps of the pathway, and transcripts are largely absent at Station 3, suggesting limited expression of this step at that station.
+
+**Depth-related patterns**
+
+Across Stations 1 and 2, several denitrification genes exhibit higher transcript levels in mid-water and bottom samples compared to surface waters, suggesting that denitrification activity may be enhanced in deeper parts of the water column.
+:::
+
 ## Anammox (anaerobic ammonium oxidation) - KEGG Module M00973
 
 Overall process:
@@ -733,11 +903,11 @@ anvi-estimate-metabolism --enzymes-txt
 | Sample | Module | Step | Path | Unique_prop | Unique_enzymes | Hits |
 |:------|:------|----:|----:|----:|:----------------|:-----|
 | St1_S4S | M00973 | 0.33 | 0.33 | NA | No enzymes unique to module  | NA |
-| St1_S4S | M00973 | 0.33 | 0.33 | NA | No enzymes unique to module  | NA |
-| St1_S4S | M00973 | 0.33 | 0.33 | NA | No enzymes unique to module  | NA |
+| St1_S4M | M00973 | 0.33 | 0.33 | NA | No enzymes unique to module  | NA |
+| St1_S4B | M00973 | 0.33 | 0.33 | NA | No enzymes unique to module  | NA |
 
 
-**IMPORTANT NOTE**: with no enzymes unique to module, the values of coverage and detection above are actually missleading as they inform us about enzymes that are involved in order pathways than anammox. Probably it would be better to use only enzymes that are unique to modules for both denitrification and anammox! here we would have zero for coverage and detection of anammox given that none of the enzymes exclusively used in the pathway are present!
+**IMPORTANT NOTE**: with no enzymes unique to module, the values of coverage and detection above are actually missleading as they inform us about enzymes that are also involved in order pathways than anammox. Probably it would be better to use only enzymes that are unique to modules for both denitrification and anammox! here we would have zero for coverage and detection of anammox given that none of the enzymes exclusively used in the pathway are present!
 
 
 ## Mapping transcripts to genomes of potential denitrifiers
