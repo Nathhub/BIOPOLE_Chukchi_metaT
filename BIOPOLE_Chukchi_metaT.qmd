@@ -732,6 +732,10 @@ Overall process:
 | 2    | **K20932 + K20933 + K20934** | Hydrazine synthase complex |
 | 3    | **K20935**                   | Hydrazine dehydrogenase    |
 
+![Anammox reaction](figures/Anammox_reaction.png){width=50%}
+
+Let's do the same workflow as for denitrification.
+
 From the output of anvi-estimate-metabolism, we can look for the KEGG module for Anammox (M00973) and look at its completeness for each of the stations:
 
 | KEGG Module | Station   | stepwise_module_completeness | pathwise_module_completeness |
@@ -752,13 +756,15 @@ The KEGG module for anaerobic ammonium oxidation (anammox; M00973) was incomplet
 | K20934          | Hydrazine synthase subunit C | ✗         | ✓         | ✓         |
 | K20935          | Hydrazine dehydrogenase      | ✗         | ✗         | ✗         |
 
-The absence of the complete hydrazine synthase complex and hydrazine dehydrogenase suggests that the canonical anammox pathway is not supported by the metatranscriptomics data at any of the sampled stations.
+The absence of both the complete hydrazine synthase complex (subunit A, B and C) and the hydrazine dehydrogenase suggests that the canonical anammox pathway is not supported by the metatranscriptomics data at any of the sampled stations.
 
 Still, let's look at the distribution of these genes/transcripts across the differents depths of our 3 stations.
 
 ::: {.callout-note title="Note"}
-The nitrite reductase genes (K00368/K15864) detected in the samples are shared between anammox and denitrification pathways and therefore do not provide specific evidence for anammox metabolism without the presence of the hydrazine synthase genes (K20932–K20934).
+The nitrite reductase genes (K00368 or K15864) detected in the samples are shared between anammox and denitrification pathways.
 :::
+
+### Station 1
 
 ```{bash}
 #| eval: false   
@@ -770,8 +776,10 @@ KOS='K00368|K15864|K20932|K20933|K20934|K20935'
 # Get unique gene_callers_id hits for those KOs
 awk -F'\t' -v kos="$KOS" '($3 ~ kos){print $1}' St1_gene_functions.tsv \
   | sort -u > genes_of_interest.ids
+  
+sort -k1,1 gene_to_contig.tsv > gene_to_contig.sorted.tsv
 
-join -t $'\t' genes_of_interest.ids gene_to_contig.tsv \
+join -t $'\t' genes_of_interest.ids gene_to_contig.sorted.tsv \
   | cut -f2 \
   | sort -u > contigs_of_interest.txt
 
@@ -783,7 +791,6 @@ anvi-import-collection \
   -c St1_contigs.db \
   -C anammox_splits \
   anammox_splits_collection.tsv
-
 ```
 
 ```{bash}
@@ -863,12 +870,12 @@ anvi-import-misc-data -p PROFILE.db -t items KO_presence_absence_by_split.tsv
 
 #### anvi'o interactive plot - Anammox
 
-![Anvi'o interactive plot showing the presence/absence of transcript annotation associated with Anammox in station 1. ](figures/St1_anvi_plot_anammox_KOs_presence-absence.png){width=100%}
+![Anvi'o interactive plot showing the presence/absence of transcript annotation associated with Anammox in station 1.](figures/St1_anvi_plot_anammox_KOs_presence-absence.png){width=100%}
 
 ```{bash}
 #| eval: false   
 #| echo: true
-anvi-estimate-metabolism -c CONTIGS.db -p PROFILE.db -O denitrification_meta --add-coverage
+anvi-estimate-metabolism -c CONTIGS.db -p PROFILE.db -O anammox_meta --add-coverage
 ```
 
 | Sample   | Avg. Coverage | Avg. Detection |
@@ -908,6 +915,216 @@ anvi-estimate-metabolism --enzymes-txt
 
 
 **IMPORTANT NOTE**: with no enzymes unique to module, the values of coverage and detection above are actually missleading as they inform us about enzymes that are also involved in order pathways than anammox. Probably it would be better to use only enzymes that are unique to modules for both denitrification and anammox! here we would have zero for coverage and detection of anammox given that none of the enzymes exclusively used in the pathway are present!
+
+### Station 2
+
+#### anvi'o interactive plot - Anammox
+
+![Anvi'o interactive plot showing the presence/absence of transcript annotation associated with Anammox in station 2. ](figures/St2_anvi_plot_anammox_KOs_presence-absence.png){width=100%}
+
+| Sample   | Avg. Coverage | Avg. Detection |
+|----------|---------------|---------------|
+| St2_S13M  | 1214.26       | 0.99         |
+| St2_S13B  | 1293.10       | 0.40         |
+
+The table below provides a gene-level breakdown of the anammox module, linking each predicted gene (Gene_ID) to its corresponding KEGG Ortholog (KO) and its sequencing coverage in the two samples of station 2 (St2_S13B and St2_S13M).
+
+```{r}
+st2_cov <- read.csv("data/St2_anammox_enzymes_coverages.csv") |>
+  mutate(across(contains("coverage"), ~ round(.x, 2)))
+
+st2_cov |>
+  kbl() |>
+  kable_styling(full_width = FALSE) |>
+  scroll_box(height = "400px")
+```
+
+Now using the table above, we can list for each sample the Gene_IDs and KOs with nonzero coverage and we can turn that list into into an enzymes-txt file which can be used to calculated the anammox completeness score for each sample.
+
+| Sample | Module | Step | Path | Unique_prop | Unique_enzymes | Hits |
+|:------|:------|----:|----:|----:|:----------------|:-----|
+| St2_S13M | M00973 | 0.33 | 0.55 | 1 | K20932, K20934  | 2, 5 |
+| St2_S13B | M00973 | 0.33 | 0.55 | 1 | K20932, K20934  | 2, 7 |
+
+### Station 3
+
+#### anvi'o interactive plot - Anammox
+
+![Anvi'o interactive plot showing the presence/absence of transcript annotation associated with Anammox in station 3. ](figures/St3_anvi_plot_anammox_KOs_presence-absence.png){width=100%}
+
+| Sample   | Avg. Coverage | Avg. Detection |
+|----------|---------------|---------------|
+| St3_S14S  | 1214.26       | 0.99         |
+| St3_S14M  | 1214.26       | 0.99         |
+| St3_S14B  | 1293.10       | 0.40         |
+
+The table below provides a gene-level breakdown of the anammox module, linking each predicted gene (Gene_ID) to its corresponding KEGG Ortholog (KO) and its sequencing coverage in the two samples of station 2 (St2_S13B and St2_S13M).
+
+```{r}
+st3_cov <- read.csv("data/St3_anammox_enzymes_coverages.csv") |>
+  mutate(across(contains("coverage"), ~ round(.x, 2)))
+
+st3_cov |>
+  kbl() |>
+  kable_styling(full_width = FALSE) |>
+  scroll_box(height = "400px")
+```
+
+Now using the table above, we can list for each sample the Gene_IDs and KOs with nonzero coverage and we can turn that list into into an enzymes-txt file which can be used to calculated the anammox completeness score for each sample.
+
+| Sample | Module | Step | Path | Unique_prop | Unique_enzymes | Hits |
+|:------|:------|----:|----:|----:|:----------------|:-----|
+| St3_S14S | M00973 | 0.33 | 0.33 | NA | No enzymes unique to module  | NA |
+| St3_S14M | M00973 | 0.33 | 0.55 | 1 | K20932, K20934  | 2, 2 |
+| St3_S14B | M00973 | 0.33 | 0.55 | 1 | K20932, K20934  | 2, 3 |
+
+### Summary
+
+Anammox pathway steps:
+
+**NO₂⁻ → NO → N₂H₄ → N₂**
+
+In addition, NH₄⁺ is consumed in the key step:
+
+**NO + NH₄⁺ → N₂H₄**
+
+Typical KO groups:
+
+| Step                   | Enzyme                  | Gene                   | KO                     |
+| ---------------------- | ----------------------- | ---------------------- | ---------------------- |
+| Nitrite → Nitric oxide | Nitrite reductase       | **nirK / nirS**        | K00368, K15864         |
+| NO + NH₄⁺ → Hydrazine  | Hydrazine synthase      | **hzsA / hzsB / hzsC** | K20932, K20933, K20934 |
+| Hydrazine → N₂         | Hydrazine dehydrogenase | **hdh**                | K20935                 |
+
+
+| Sample   | Avg Coverage | Avg Detection | Stepwise Completeness | Pathwise Completeness | Unique Prop. | Unique Enzymes (hit) |
+|----------|-------------|---------------|----------------------|----------------------|--------------|----------------------|
+| St1_S4S  | 975.53  | 0.454 | 1.00 | 1.00 | 1 | K00376 (3), K02305 (1), K04561 (2) |
+| St1_S4M  | 2032.39 | 0.787 | 1.00 | 1.00 | 1 | K00376 (6), K02305 (2), K04561 (5) |
+| St1_S4B  | 1706.59 | 0.859 | 1.00 | 1.00 | 1 | K00376 (7), K02305 (2), K04561 (5) |
+| St2_S13M | 591.48  | 0.267 | 1.00 | 1.00 | 1 | K00376 (2), K02305 (6), K04561 (8) |
+| St2_S13B | 744.24  | 0.987 | 1.00 | 1.00 | 1 | K00376 (24), K02305 (11), K04561 (23) |
+| St3_S14S | 575.89  | 0.363 | 0.50 | 0.50 | NA | No enzymes unique to module |
+| St3_S14M | 3178.61 | 0.626 | 0.75 | 0.875 | 1 | K00376 (1), K04561 (2) |
+| St3_S14B | 1897.44 | 0.910 | 1.00 | 1.00 | 1 | K00376 (3), K02305 (2), K04561 (8) |
+
+#### Heatmap of anammox gene coverage across stations and depths.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
+st1 <- st1_cov %>%
+  group_by(KO) %>%
+  summarise(
+    St1_S4B = sum(St1_S4B_coverage),
+    St1_S4M = sum(St1_S4M_coverage),
+    St1_S4S = sum(St1_S4S_coverage)
+  )
+
+st2 <- st2_cov %>%
+  group_by(KO) %>%
+  summarise(
+    St2_S13B = sum(St2_S13B_coverage),
+    St2_S13M = sum(St2_S13M_coverage)
+  )
+
+st3 <- st3_cov %>%
+  group_by(KO) %>%
+  summarise(
+    St3_S14B = sum(St3_S14B_coverage),
+    St3_S14M = sum(St3_S14M_coverage),
+    St3_S14S = sum(St3_S14S_coverage)
+  )
+
+heatmap_df <- st1 %>%
+  full_join(st2, by = "KO") %>%
+  full_join(st3, by = "KO")
+
+heatmap_df[is.na(heatmap_df)] <- 0
+
+ko_order <- c("K00368", "K15864", "K20932", "K20933", "K20934", "K20935")
+
+heatmap_df <- heatmap_df %>%
+  tibble::add_row(KO = setdiff(ko_order, heatmap_df$KO)) %>%
+  distinct(KO, .keep_all = TRUE)
+
+heatmap_df[is.na(heatmap_df)] <- 0
+
+heatmap_matrix <- heatmap_df %>%
+  column_to_rownames("KO") %>%
+  as.matrix()
+
+heatmap_matrix <- log10(heatmap_matrix + 1)
+heatmap_matrix <- heatmap_matrix[ko_order, , drop = FALSE]
+
+gene_annotation <- data.frame(
+  Step = c(
+    "Nitrite reduction",
+    "Nitrite reduction",
+    "Hydrazine synthesis",
+    "Hydrazine synthesis",
+    "Hydrazine synthesis",
+    "Hydrazine oxidation"
+  )
+)
+
+rownames(gene_annotation) <- ko_order
+
+gene_annotation$Step <- factor(
+  gene_annotation$Step,
+  levels = c(
+    "Nitrite reduction",
+    "Hydrazine synthesis",
+    "Hydrazine oxidation"
+  )
+)
+
+ann_colors <- list(
+  Step = c(
+    "Nitrite reduction"   = "#00c98b",
+    "Hydrazine synthesis" = "#22b7e8",
+    "Hydrazine oxidation" = "#f28e8e"
+  )
+)
+
+sample_order <- c(
+  "St1_S4S", "St1_S4M", "St1_S4B",
+  "St2_S13M", "St2_S13B",
+  "St3_S14S", "St3_S14M", "St3_S14B"
+)
+
+heatmap_matrix <- heatmap_matrix[, sample_order]
+
+library(pheatmap)
+
+pheatmap(
+  heatmap_matrix,
+  cluster_rows = FALSE,
+  cluster_cols = FALSE,
+  annotation_row = gene_annotation,
+  annotation_colors = ann_colors,
+  border_color = NA,
+  gaps_row = c(2, 5),
+  gaps_col = c(3, 5)
+)
+
+```
+
+Values correspond to log-transformed gene coverage
+
+![Anammox pathway diagram (KEGG ortholog map](figures/KEGG_pathway_M00973.png)
+
+
+::: {.callout-note title="Discussion"}
+
+The heatmap shows the distribution and relative expression of anammox-related KEGG orthologs (KO) genes across the stations and depth layers.
+
+Transcripts corresponding to the **nitrite reduction genes K00368 and K15864** were detected in several samples, with **K00368 showing relatively high expression across all stations**. However, these genes are not specific to anammox metabolism and are also involved in other nitrogen cycling processes such as denitrification. Therefore, their expression alone does not indicate active anammox activity.
+
+Transcripts corresponding to two subunits of the **hydrazine synthase complex (K20932 and K20934)** were detected in samples from Stations 2 and 3, particularly in deeper samples. Hydrazine synthase is a key enzyme unique to anammox metabolism, suggesting that transcripts related to this process are present in these communities. However, the K20933 subunit was not detected, and transcripts for hydrazine dehydrogenase (K20935), which catalyses the final step of the anammox pathway, were absent across all samples.
+
+Because both the complete hydrazine synthase complex and hydrazine dehydrogenase are required for a functional anammox pathway, the metatranscriptomic data do not provide evidence for the full expression of the canonical anammox pathway in these samples. The detected transcripts may reflect partial expression of related enzymes, low-abundance anammox taxa, or homologous genes involved in other nitrogen transformation processes.
+
+Overall, the results suggest that while some anammox-associated transcripts are present—particularly in deeper samples at Stations 2 and 3—the absence of key pathway components indicates that active anammox metabolism is unlikely to be fully expressed in these communities at the time of sampling.
+:::
 
 
 ## Mapping transcripts to genomes of potential denitrifiers
