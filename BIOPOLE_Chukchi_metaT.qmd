@@ -1154,10 +1154,10 @@ anvi-export-gene-coverage-and-detection   -p St1_MERGED/PROFILE.db   -c St1_cont
 
 ```
 
-```{r}
-library(dplyr)
-library(tidyr)
-library(readr)
+```{r, eval=FALSE, message=FALSE, warning=FALSE}
+# This script has been run for each Station and for both Denitrification and anammox data.
+# We will use the resulting tables in the next code chunk
+library(tidyverse)
 
 # read function annotations
 functions <- read_tsv("St1_gene_functions.tsv", show_col_types = FALSE)
@@ -1197,13 +1197,14 @@ final_table <- cov_long %>%
   left_join(functions_ko_target, by = "gene_callers_id", relationship = "many-to-many") %>%
   select(gene_callers_id, KO_ID, `function`, sample, coverage, detection)
 
-write_tsv(final_table, "St1_anammox_final_table.tsv")
+# write_tsv(final_table, "St1_anammox_final_table.tsv")
 ```
 
 Same for the housekeeping genes:
 
-```{r}
-
+```{r, eval=FALSE, message=FALSE, warning=FALSE}
+# This script has been run for each Station.
+# We will use the resulting tables in the next code chunk
 # read coverages
 cov <- read_tsv("St2_housekeeping-GENE-COVERAGES.txt", show_col_types = FALSE)
 
@@ -1239,13 +1240,66 @@ final_table <- cov_long %>%
   left_join(functions_ko_target, by = "gene_callers_id", relationship = "many-to-many") %>%
   select(gene_callers_id, KO_ID, `function`, sample, coverage, detection)
 
-write_tsv(final_table, "St2_housekeeping_final_table.tsv")
+# write_tsv(final_table, "St2_housekeeping_final_table.tsv")
+```
+
+```{r, eval=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+
+# files
+files <- list.files("data/", pattern = "\\.tsv$", full.names = TRUE)
+
+# read all tables and add metadata from filename
+all_tables <- map_dfr(files, function(f) {
+  read_tsv(f, show_col_types = FALSE) %>%
+    mutate(
+      file = basename(f),
+      station = str_extract(basename(f), "^St[0-9]+"),
+      pathway = case_when(
+        str_detect(f, "denitrification") ~ "denitrification",
+        str_detect(f, "anammox") ~ "anammox",
+        str_detect(f, "housekeeping") ~ "housekeeping",
+        TRUE ~ NA_character_
+      )
+    )
+})
+
+# split out housekeeping and target pathways
+housekeeping <- all_tables %>%
+  filter(pathway == "housekeeping",
+         KO_ID %in% c("K03043", "K02470"))
+
+targets <- all_tables %>%
+  filter(pathway %in% c("denitrification", "anammox"))
+
+# summarise housekeeping coverage per station x sample x KO
+housekeeping_summary <- housekeeping %>%
+  group_by(station, sample, KO_ID) %>%
+  summarise(total_coverage = sum(coverage, na.rm = TRUE), .groups = "drop") %>%
+  pivot_wider(names_from = KO_ID, values_from = total_coverage) %>%
+  mutate(
+    rpoB_cov = K03043,
+    gyrB_cov = K02470,
+    hk_geom = sqrt(rpoB_cov * gyrB_cov)
+  ) %>%
+  select(station, sample, rpoB_cov, gyrB_cov, hk_geom)
+
+# inspect whether any samples are missing one housekeeping gene
+housekeeping_summary %>%
+  filter(is.na(rpoB_cov) | is.na(gyrB_cov))
+
+normalized_targets <- targets %>%
+  left_join(housekeeping_summary, by = c("station", "sample")) %>%
+  mutate(
+    normalized_coverage = coverage / hk_geom
+  )
 ```
 
 
+```{r, eval=FALSE, message=FALSE, warning=FALSE}
 
-
-
+St2_cov <- read_tsv("data/St2_housekeeping_final_table.tsv", show_col_types = FALSE)
+```
 
 
 ## Mapping transcripts to genomes of potential denitrifiers
