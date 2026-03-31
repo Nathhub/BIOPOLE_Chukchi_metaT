@@ -1,0 +1,211 @@
+gene_callers_id	KO_ID	function	sample	coverage	detection
+1709903	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	105.22755227552275	1
+1709903	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	88.92373923739237	0.9052890528905287
+1709903	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	34.8610086100861	0.4907749077490775
+1185346	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	28.957918050941306	0.9966777408637874
+1185346	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	5.829457364341085	0.4839424141749723
+1185346	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	7.43078626799557	0.4496124031007752
+921128	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St1_S4B	9.348258706467664	1
+921128	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St1_S4M	4.08955223880597	0.3880597014925373
+921128	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St1_S4S	0	0
+1359363	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	20.272357723577237	0.9532520325203252
+1359363	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	20.03048780487805	0.9329268292682928
+1359363	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	0	0
+19512	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	9.057777777777778	0.9866666666666668
+19512	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	9.224444444444444	0.8111111111111111
+19512	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	0	0
+747852	K00374	nitrate reductase gamma subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	17.941262848751837	0.9236417033773862
+747852	K00374	nitrate reductase gamma subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	5.844346549192364	0.6461086637298091
+747852	K00374	nitrate reductase gamma subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	32.56681350954479	0.7797356828193832
+252981	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St1_S4B	21.79069767441861	0.9777131782945736
+252981	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St1_S4M	1.7374031007751938	0.28972868217054265
+252981	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St1_S4S	29.561046511627907	0.6317829457364341
+1753152	K02567	nitrate reductase (cytochrome) [EC:1.9.6.1]	St1_S4B	11.96	0.9633333333333334
+1753152	K02567	nitrate reductase (cytochrome) [EC:1.9.6.1]	St1_S4M	9.669333333333332	0.9666666666666668
+1753152	K02567	nitrate reductase (cytochrome) [EC:1.9.6.1]	St1_S4S	4.483333333333333	0.32
+888296	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	40.101851851851855	1
+888296	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	45.632407407407406	1
+888296	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	5.362962962962963	0.3712962962962963
+443514	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	34.88167388167388	0.9047619047619048
+443514	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	66.08946608946609	0.8672438672438673
+443514	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	4.24963924963925	0.4545454545454546
+1363937	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	10.211858279103398	0.8532176428054953
+1363937	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	3.342010122921186	0.3665943600867679
+1363937	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	16.68112798264642	0.5748373101952278
+481953	K02568	nitrate reductase (cytochrome), electron transfer subunit	St1_S4B	18.70299145299145	0.9465811965811964
+481953	K02568	nitrate reductase (cytochrome), electron transfer subunit	St1_S4M	19.83974358974359	1
+481953	K02568	nitrate reductase (cytochrome), electron transfer subunit	St1_S4S	0	0
+687620	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	1282.9247311827958	1
+687620	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	2415.3629032258063	1
+687620	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	243.7858422939068	0.992831541218638
+528599	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	1780.682316118936	1
+528599	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	1350.2175273865414	1
+528599	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	893.7159624413146	1
+1852908	K02567	nitrate reductase (cytochrome) [EC:1.9.6.1]	St1_S4B	4.248333333333333	0.4108333333333334
+1852908	K02567	nitrate reductase (cytochrome) [EC:1.9.6.1]	St1_S4M	2.224166666666666	0.28
+1852908	K02567	nitrate reductase (cytochrome) [EC:1.9.6.1]	St1_S4S	20.109166666666667	0.6708333333333333
+707695	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	41.85704022988506	0.9913793103448276
+707695	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	69.13577586206897	0.994971264367816
+707695	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	12.557471264367816	0.4568965517241379
+1401364	K02305	nitric oxide reductase subunit C	St1_S4B	8.46043165467626	0.8393285371702638
+1401364	K02305	nitric oxide reductase subunit C	St1_S4M	3.2278177458033572	0.5011990407673861
+1401364	K02305	nitric oxide reductase subunit C	St1_S4S	0	0
+1743784	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St1_S4B	11.082677165354331	0.8464566929133859
+1743784	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St1_S4M	4.670603674540683	0.5341207349081365
+1743784	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St1_S4S	1.3333333333333333	0.16666666666666666
+189833	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	16223.036231884058	1
+189833	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	32930.335144927536	1
+189833	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	3152.751811594203	0.9764492753623188
+648640	K02568	nitrate reductase (cytochrome), electron transfer subunit	St1_S4B	5.2407407407407405	1
+648640	K02568	nitrate reductase (cytochrome), electron transfer subunit	St1_S4M	2.0864197530864197	0.35802469135802467
+648640	K02568	nitrate reductase (cytochrome), electron transfer subunit	St1_S4S	0	0
+994614	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	1.9337016574585637	0.27624309392265195
+994614	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	17.482504604051567	0.9116022099447514
+994614	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	0	0
+1787639	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	9.673789173789174	0.7044159544159544
+1787639	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	18.67165242165242	0.97435897435897445
+1787639	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	17.903133903133902	0.51994301994302
+742644	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	691.1525821596244	1
+742644	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	522.5735524256651	1
+742644	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	229.55790297339593	1
+742645	K00370	nitrate reductase / nitrite oxidoreductase, alpha subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	878.6660889659156	1
+742645	K00370	nitrate reductase / nitrite oxidoreductase, alpha subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	1009.9220103986136	1
+742645	K00370	nitrate reductase / nitrite oxidoreductase, alpha subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	251.11669555170425	1
+1228756	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	78.42403100775194	1
+1228756	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	116.43953488372092	1
+1228756	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	19.891472868217058	0.665891472868217
+1445710	K02305	nitric oxide reductase subunit C	St1_S4B	14.920077972709551	0.7953216374269005
+1445710	K02305	nitric oxide reductase subunit C	St1_S4M	16.690058479532162	1
+1445710	K02305	nitric oxide reductase subunit C	St1_S4S	2.8947368421052633	0.22807017543859648
+540786	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St1_S4B	3.420038535645472	0.766859344894027
+540786	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St1_S4M	7.739884393063584	0.651252408477842
+540786	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St1_S4S	0.7167630057803468	0.11946050096339114
+772410	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	12746.270735524256	1
+772410	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	12521.71987480438	1
+772410	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	4925.970266040688	1
+1168575	K02568	nitrate reductase (cytochrome), electron transfer subunit	St1_S4B	5.908277404921701	0.7986577181208053
+1168575	K02568	nitrate reductase (cytochrome), electron transfer subunit	St1_S4M	11.02013422818792	0.610738255033557
+1168575	K02568	nitrate reductase (cytochrome), electron transfer subunit	St1_S4S	1.5838926174496644	0.27069351230425054
+1433084	K02567	nitrate reductase (cytochrome) [EC:1.9.6.1]	St1_S4B	12.626302083333334	0.9934895833333334
+1433084	K02567	nitrate reductase (cytochrome) [EC:1.9.6.1]	St1_S4M	2.146484375	0.2942708333333333
+1433084	K02567	nitrate reductase (cytochrome) [EC:1.9.6.1]	St1_S4S	0	0
+823538	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	935.0734908136484	1
+823538	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	1874.6679790026249	1
+823538	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	392.6049868766404	0.9724409448818898
+1348289	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	19.225225225225227	0.9495495495495496
+1348289	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	17.71171171171171	0.954954954954955
+1348289	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	3.4054054054054053	0.12162162162162164
+110498	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St1_S4B	5.294117647058823	0.7557932263814616
+110498	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St1_S4M	8.13903743315508	0.9768270944741532
+110498	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St1_S4S	0	0
+85995	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	7687.834115805947	1
+85995	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	7547.897496087637	1
+85995	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	2080.317683881064	1
+296938	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St1_S4B	23.396135265700483	0.997584541062802
+296938	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St1_S4M	8.46376811594203	0.8043478260869565
+296938	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St1_S4S	4.346618357487923	0.18357487922705315
+1031617	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	689.896265560166	1
+1031617	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	1204.789764868603	1
+1031617	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	165.6265560165975	0.9723374827109268
+433983	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	8190.775430359938	1
+433983	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	7206.544600938967	1
+433983	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	2536.752738654147	1
+793456	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St1_S4B	8.938547486033519	0.9739292364990688
+793456	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St1_S4M	0	0
+793456	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St1_S4S	0	0
+87959	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	10915.162983425414	1
+87959	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	11415.024861878454	1
+87959	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	4717.441068139963	1
+441287	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	145.19407008086253	1
+441287	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	279.38814016172506	1
+441287	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	10.426774483378257	0.35399820305480684
+854256	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	11.416666666666666	0.9311594202898552
+854256	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	3.3309178743961354	0.6799516908212561
+854256	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	5.3478260869565215	0.3079710144927536
+700737	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	2478.6865942028985	1
+700737	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	2384.1485507246375	1
+700737	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	1253.8170289855072	0.7047101449275363
+691166	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	165.5046197583511	1
+691166	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	334.5195451314854	1
+691166	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	13.31769722814499	0.6105188343994314
+123436	K00374	nitrate reductase gamma subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	0	0
+123436	K00374	nitrate reductase gamma subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	4.477401129943503	0.8050847457627118
+123436	K00374	nitrate reductase gamma subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	18.098870056497177	0.8700564971751412
+123437	K00374	nitrate reductase gamma subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	4.627285513361462	0.3234880450070324
+123437	K00373	nitrate reductase molybdenum cofactor assembly chaperone NarJ/NarW	St1_S4B	4.627285513361462	0.3234880450070324
+123437	K00374	nitrate reductase gamma subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	7.163150492264417	0.8241912798874824
+123437	K00373	nitrate reductase molybdenum cofactor assembly chaperone NarJ/NarW	St1_S4M	7.163150492264417	0.8241912798874824
+123437	K00374	nitrate reductase gamma subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	29.04781997187061	0.9240506329113924
+123437	K00373	nitrate reductase molybdenum cofactor assembly chaperone NarJ/NarW	St1_S4S	29.04781997187061	0.9240506329113924
+1705673	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	344.4583333333333	0.9989837398373984
+1705673	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	682.0182926829268	0.9989837398373984
+1705673	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	178.385162601626	0.931910569105691
+239047	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St1_S4B	16.09310986964618	0.8463687150837989
+239047	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St1_S4M	8.259776536312849	0.7932960893854749
+239047	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St1_S4S	3.631284916201117	0.19646182495344505
+474316	K00374	nitrate reductase gamma subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	1.315712187958884	0.22026431718061673
+474316	K00374	nitrate reductase gamma subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	6.274596182085169	0.9941262848751836
+474316	K00374	nitrate reductase gamma subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	3.195301027900147	0.15712187958883994
+685198	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St1_S4B	17.10105580693816	1
+685198	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St1_S4M	0.22322775263951736	0.22322775263951736
+685198	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St1_S4S	0	0
+594150	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	2.4504950495049505	0.47194719471947194
+594150	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	14.287128712871286	0.9075907590759076
+594150	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	6.34983498349835	0.40264026402640263
+1431702	K02568	nitrate reductase (cytochrome), electron transfer subunit	St1_S4B	7.023474178403756	0.9460093896713616
+1431702	K02568	nitrate reductase (cytochrome), electron transfer subunit	St1_S4M	4.450704225352113	0.8661971830985915
+1431702	K02568	nitrate reductase (cytochrome), electron transfer subunit	St1_S4S	0	0
+144516	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	55.76307692307692	1
+144516	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	69.10358974358974	0.8974358974358975
+144516	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	41.323076923076925	0.6697435897435897
+882932	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	14.216117216117215	0.9945054945054944
+882932	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	18.08974358974359	0.7142857142857143
+882932	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	8.263736263736265	0.27472527472527475
+1468402	K15864	nitrite reductase (NO-forming) / hydroxylamine reductase [EC:1.7.2.1 1.7.99.1]	St1_S4B	9.089108910891088	0.8063806380638063
+1468402	K15864	nitrite reductase (NO-forming) / hydroxylamine reductase [EC:1.7.2.1 1.7.99.1]	St1_S4M	5.81078107810781	0.5896589658965896
+1468402	K15864	nitrite reductase (NO-forming) / hydroxylamine reductase [EC:1.7.2.1 1.7.99.1]	St1_S4S	5.574257425742574	0.6556655665566556
+1814075	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	69.73137254901961	1
+1814075	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	164.8156862745098	1
+1814075	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	0	0
+374090	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St1_S4B	9.870192307692308	0.8589743589743589
+374090	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St1_S4M	1.9230769230769231	0.4198717948717949
+374090	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St1_S4S	0	0
+895831	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	49445.2245210728	1
+895831	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	52866.89195402299	1
+895831	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	44637.372413793106	1
+65438	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	6.364341085271318	0.813953488372093
+65438	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	5.162790697674419	0.5581395348837209
+65438	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	6.0813953488372094	0.45542635658914726
+516928	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	14.622467771639045	0.8895027624309392
+516928	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	4.139963167587477	0.47697974217311234
+516928	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	0	0
+1617538	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	14.714135021097048	0.9862869198312236
+1617538	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	12.2626582278481	0.8723628691983122
+1617538	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	18.9873417721519	0.3934599156118144
+815414	K00374	nitrate reductase gamma subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	0	0
+815414	K00373	nitrate reductase molybdenum cofactor assembly chaperone NarJ/NarW	St1_S4B	0	0
+815414	K00374	nitrate reductase gamma subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	8.064516129032258	0.7473118279569892
+815414	K00373	nitrate reductase molybdenum cofactor assembly chaperone NarJ/NarW	St1_S4M	8.064516129032258	0.7473118279569892
+815414	K00374	nitrate reductase gamma subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	24.438172043010752	0.9166666666666666
+815414	K00373	nitrate reductase molybdenum cofactor assembly chaperone NarJ/NarW	St1_S4S	24.438172043010752	0.9166666666666666
+815415	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	0.7501618122977346	0.29385113268608415
+815415	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	9.272491909385112	0.8822006472491909
+815415	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	26.97346278317152	0.6957928802588996
+941749	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	38.1338199513382	0.8333333333333334
+941749	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	27.693430656934307	0.7019464720194647
+941749	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	5.357664233576642	0.3150851581508516
+468297	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St1_S4B	11.629800307219664	1
+468297	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St1_S4M	5.9308755760368665	0.445468509984639
+468297	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St1_S4S	0	0
+26013	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	12.495169082125605	0.9384057971014492
+26013	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	12.818840579710145	0.8756038647342995
+26013	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	15.18599033816425	0.6268115942028986
+894284	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	523.0258215962441	1
+894284	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	645.8184663536776	1
+894284	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	215.07511737089203	0.9960876369327074
+1271679	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St1_S4B	11.49557522123894	0.8097345132743363
+1271679	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St1_S4M	3.53834808259587	0.7802359882005899
+1271679	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St1_S4S	0	0
+411974	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	12.597701149425289	0.8374384236453202
+411974	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	27.541871921182267	0.9589490968801314
+411974	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	0	0
