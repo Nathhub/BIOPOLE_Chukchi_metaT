@@ -1250,7 +1250,7 @@ final_table <- cov_long %>%
 # write_tsv(final_table, "St2_housekeeping_final_table.tsv")
 ```
 
-```{r, eval=FALSE, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 
 # files
@@ -1303,10 +1303,202 @@ normalized_targets <- targets %>%
 ```
 
 
-```{r, eval=FALSE, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE}
 
-St2_cov <- read_tsv("data/St2_housekeeping_final_table.tsv", show_col_types = FALSE)
+ko_expression <- normalized_targets %>%
+  group_by(station, sample, pathway, KO_ID, `function`) %>%
+  summarise(
+    total_expression = sum(normalized_coverage, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+ko_labels <- c(
+  K00368 = "nirK",
+  K15864 = "nirS",
+  K00370 = "narG",
+  K00371 = "narH",
+  K00374 = "narI",
+  K00376 = "nosZ",
+  K02305 = "norC",
+  K02567 = "napB",
+  K02568 = "napC",
+  K04561 = "norB",
+  K20932 = "hzsA",
+  K20934 = "hzsB"
+)
+
+ko_expression$KO_label <- ko_labels[ko_expression$KO_ID]
+
+ko_expression$KO_label <- factor(
+  ko_expression$KO_label,
+  levels = c("narG","narH","narI","napA","napB","napC",
+             "nirK","nirS","norB","nosZ",
+             "hzsA","hzsB")
+)
+
+ggplot(ko_expression,
+       aes(x = KO_label, y = total_expression, fill = pathway)) +
+  geom_boxplot(outlier.shape = NA, alpha = 0.8) +
+  scale_y_log10() +
+  labs(
+    x = "Gene",
+    y = "Normalized expression (relative to housekeeping)",
+    fill = "Pathway", title = "Overall Relative Expression of Denitrification and Anammox Genes"
+  ) +
+  theme_bw(base_size = 12) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    panel.grid.minor = element_blank()
+  )
+
 ```
+```{r, message=FALSE, warning=FALSE}
+ggplot(ko_expression,
+       aes(x = sample, y = total_expression, color = KO_ID, group = KO_ID)) +
+  geom_line() +
+  geom_point() +
+  theme_bw()
+```
+  
+#### Heatmap of normalized denitrification gene expression across stations and depths.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
+library(dplyr)
+library(tidyr)
+library(tibble)
+library(pheatmap)
+library(grid)
+
+# denitrification only
+heatmap_df <- ko_expression %>%
+  filter(pathway == "denitrification") %>%
+  select(KO_ID, sample, total_expression) %>%
+  pivot_wider(names_from = sample, values_from = total_expression)
+
+heatmap_df[is.na(heatmap_df)] <- 0
+
+heatmap_matrix <- heatmap_df %>%
+  column_to_rownames("KO_ID") %>%
+  as.matrix()
+
+# log-transform
+heatmap_matrix <- log10(heatmap_matrix + 1)
+
+# order rows
+ko_order <- c(
+  "K00370",  # narG
+  "K00371",  # narH
+  "K00374",  # narI
+  "K02567",  # napB
+  "K02568",  # napC
+  "K00368",  # nirK
+  "K15864",  # nirS
+  "K04561",  # norB
+  "K02305",  # norC / napA-like in your previous setup
+  "K00376"   # nosZ
+)
+
+ko_order_present <- ko_order[ko_order %in% rownames(heatmap_matrix)]
+heatmap_matrix <- heatmap_matrix[ko_order_present, , drop = FALSE]
+
+# replace KO IDs with gene names
+ko_labels <- c(
+  K00370 = "narG",
+  K00371 = "narH",
+  K00374 = "narI",
+  K02567 = "napB",
+  K02568 = "napC",
+  K00368 = "nirK",
+  K15864 = "nirS",
+  K04561 = "norB",
+  K02305 = "norC",
+  K00376 = "nosZ"
+)
+
+rownames(heatmap_matrix) <- ko_labels[rownames(heatmap_matrix)]
+
+# order columns
+sample_order <- c(
+  "St1_S4S", "St1_S4M", "St1_S4B",
+  "St2_S13M", "St2_S13B",
+  "St3_S14S", "St3_S14M", "St3_S14B"
+)
+
+sample_order_present <- sample_order[sample_order %in% colnames(heatmap_matrix)]
+heatmap_matrix <- heatmap_matrix[, sample_order_present, drop = FALSE]
+
+# row annotations
+gene_annotation <- data.frame(
+  Step = c(
+    "Nitrate reduction",
+    "Nitrate reduction",
+    "Nitrate reduction",
+    "Nitrate reduction",
+    "Nitrate reduction",
+    "Nitrite reduction",
+    "Nitrite reduction",
+    "NO reduction",
+    "NO reduction",
+    "N2O reduction"
+  )[match(ko_order_present, ko_order)]
+)
+
+rownames(gene_annotation) <- rownames(heatmap_matrix)
+
+gene_annotation$Step <- factor(
+  gene_annotation$Step,
+  levels = c("Nitrate reduction", "Nitrite reduction", "NO reduction", "N2O reduction")
+)
+
+ann_colors <- list(
+  Step = c(
+    "Nitrate reduction" = "#d97ce8",
+    "Nitrite reduction" = "#00c98b",
+    "NO reduction"      = "#22b7e8",
+    "N2O reduction"     = "#f28e8e"
+  )
+)
+
+# smoother color scale
+breaks <- seq(0, max(heatmap_matrix, na.rm = TRUE), length.out = 100)
+
+pheatmap(
+  heatmap_matrix,
+  cluster_rows = FALSE,
+  cluster_cols = FALSE,
+  annotation_row = gene_annotation,
+  annotation_colors = ann_colors,
+  border_color = "white",
+  cellwidth = 42,
+  cellheight = 26,
+  fontsize = 11,
+  fontsize_row = 11,
+  fontsize_col = 10,
+  angle_col = 315,
+  gaps_col = c(3, 5),
+  legend = TRUE,
+  breaks = breaks,
+  main = "Normalized expression of denitrification genes"
+)
+```
+
+::: {.callout-note title="Discussion"}
+
+**Context and normalization approach**
+
+To assess the relative expression of denitrification genes across samples, gene coverages derived from metatranscriptomic data were normalized against housekeeping genes. Specifically, coverage values for each gene were divided by the geometric mean of the coverage of rpoB (K03043) and gyrB (K02470), two conserved single-copy genes involved in core cellular processes. This approach accounts for differences in sequencing depth and overall transcriptional activity, allowing gene expression to be interpreted relative to baseline cellular function. Normalized coverages were then summed per KEGG Orthology (KO) identifier within each sample to estimate the total community-level expression of each enzymatic step in the denitrification pathway. The resulting values were log-transformed to facilitate comparison across genes and samples with different expression magnitudes.
+
+**Interpretation of denitrification gene expression patterns**
+The heatmap reveals that denitrification activity is dominated by the nitrite reduction step, with nirK (K00368) showing consistently higher normalized expression than other genes, particularly in mid-depth samples such as St3_S14M. In contrast, genes involved in nitrate reduction (nar and nap complexes) exhibit moderate and more uniform expression across samples, suggesting that upstream substrate availability may not be limiting. Notably, expression of nosZ (K00376), responsible for the final reduction of N₂O to N₂, is consistently low or absent, indicating that denitrification may be incomplete and potentially leading to the accumulation of nitrous oxide. Overall, the observed patterns suggest that denitrification is actively expressed in the studied water column, with pronounced variability across depths and stations, and a potential imbalance between upstream and downstream steps of the pathway.
+:::
+
+
+
+
+
+
+
+
 
 
 ## Mapping transcripts to genomes of potential denitrifiers
