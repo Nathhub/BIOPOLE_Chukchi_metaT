@@ -1,0 +1,291 @@
+gene_callers_id	KO_ID	function	sample	coverage	detection
+1306759	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13B	384.9945736434108	1
+1306759	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13M	90.5984496124031	0.7627906976744186
+1601181	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	11.978902953586498	1
+1601181	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	0	0
+2061765	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13B	11.33898305084746	1
+2061765	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13M	0	0
+1270286	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	5727.326565143824	1
+1270286	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	7407.02538071066	0.9983079526226736
+2424048	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	114.97820163487738	1
+2424048	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	44.271571298819254	0.48319709355131696
+2519190	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	114.05887032617343	1
+2519190	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	3.054892601431981	0.0954653937947494
+1081191	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	11.32063492063492	1
+1081191	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	0	0
+1878822	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13B	9.543071161048688	1
+1878822	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13M	39.77902621722846	0.7790262172284644
+599773	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13B	1.7160493827160497	1
+599773	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13M	0	0
+1764210	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	9.075329566854991	1
+1764210	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	0	0
+40339	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	14.601333333333333	1
+40339	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	0	0
+2206329	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	54.8865836791148	1
+2206329	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	92.85753803596128	0.9889349930843708
+310667	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	10.482704402515724	0.9779874213836478
+310667	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	0	0
+1961121	K02567	nitrate reductase (cytochrome) [EC:1.9.6.1]	St2_S13B	16.395997893628227	1
+1961121	K02567	nitrate reductase (cytochrome) [EC:1.9.6.1]	St2_S13M	23.36756187467088	0.330173775671406
+774869	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13B	317.1085271317829	1
+774869	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13M	24.93798449612403	0.5852713178294574
+1080629	K02567	nitrate reductase (cytochrome) [EC:1.9.6.1]	St2_S13B	26.072115384615383	1
+1080629	K02567	nitrate reductase (cytochrome) [EC:1.9.6.1]	St2_S13M	0	0
+506383	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	4.907918968692449	1
+506383	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	0	0
+391276	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	14.613953488372092	0.9689922480620154
+391276	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	0	0
+997108	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	5.048309178743962	0.8856682769726248
+997108	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	0	0
+1639940	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	14.650234741784038	1
+1639940	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	0	0
+322701	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	251.78304239401496	1
+322701	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	377.3724023275145	0.99833748960931
+791462	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	21.07807807807808	1
+791462	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	0	0
+574195	K02305	nitric oxide reductase subunit C	St2_S13B	21.95808383233533	0.9141716566866268
+574195	K02305	nitric oxide reductase subunit C	St2_S13M	5.3053892215568865	0.2994011976047904
+546096	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	13.939516129032258	1
+546096	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	0	0
+742859	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	18.953242835595777	1
+742859	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	4.072398190045249	0.22624434389140272
+583293	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	11.185374149659864	1
+583293	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	0	0
+2085985	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13B	7659.476525821597	1
+2085985	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13M	4453.226134585289	1
+1618381	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	26.374429223744293	1
+1618381	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	5.561643835616438	0.1324200913242009
+2530302	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13B	16.277027027027028	1
+2530302	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13M	20.26126126126126	0.5900900900900901
+686644	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13B	52.34272300469483	1
+686644	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13M	0.11267605633802816	0.11267605633802816
+985890	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	47.27218934911242	0.970414201183432
+985890	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	0	0
+1022160	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	16.661812297734627	0.9684466019417476
+1022160	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	2.1844660194174756	0.12135922330097088
+1561147	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	18.988396624472575	1
+1561147	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	0	0
+2430721	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	23.35909090909091	1
+2430721	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	19.524242424242424	0.4621212121212121
+1956955	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	12.603839441535776	1
+1956955	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	0	0
+877233	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	89.63661202185793	1
+877233	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	180.0532786885246	0.9617486338797814
+2572937	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	22.639676113360323	1
+2572937	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	0	0
+1825774	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	17.02	1
+1825774	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	0	0
+2106842	K02305	nitric oxide reductase subunit C	St2_S13B	10.497685185185183	1
+2106842	K02305	nitric oxide reductase subunit C	St2_S13M	0	0
+912139	K00370	nitrate reductase / nitrite oxidoreductase, alpha subunit [EC:1.7.5.1 1.7.99.-]	St2_S13B	15.961538461538462	1
+912139	K00370	nitrate reductase / nitrite oxidoreductase, alpha subunit [EC:1.7.5.1 1.7.99.-]	St2_S13M	14.374643874643874	0.2136752136752137
+1240323	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	10.27217125382263	0.9831804281345564
+1240323	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	16.972477064220183	0.4128440366972478
+344188	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13B	8.097674418604651	1
+344188	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13M	0	0
+837789	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	43830.05101327743	1
+837789	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	38809.439552760305	1
+918819	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	15.684491978609625	1
+918819	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	0	0
+120712	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	28.89402697495183	1
+120712	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	10.327552986512524	0.14547206165703275
+719725	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	26.3463687150838	0.9981378026070764
+719725	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	0	0
+562266	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	2.187793427230047	0.9953051643192488
+562266	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	0	0
+414561	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	4494.638528138528	1
+414561	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	5765.919191919192	1
+168770	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	3125.7943722943724	1
+168770	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	3178.601731601731	1
+2391504	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	41.628136200716845	1
+2391504	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	0	0
+1521983	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	57.01576576576576	1
+1521983	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	73.18018018018019	0.9414414414414416
+786120	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	216.50677506775068	1
+786120	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	0	0
+1421858	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13B	10.707650273224044	1
+1421858	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13M	0	0
+2425700	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	23.403389830508473	1
+2425700	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	0	0
+937882	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13B	2431.6731549067317	1
+937882	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13M	801.0129764801297	0.9967558799675588
+1014350	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13B	121.0508607198748	1
+1014350	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13M	0	0
+1590745	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	99.83656509695292	1
+1590745	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	45.48014773776546	0.5623268698060941
+2422413	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	18.744837758112094	0.986725663716814
+2422413	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	0	0
+22156	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	4.822764227642277	0.5934959349593496
+22156	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	17.16747967479675	0.40487804878048783
+1738715	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	43.8310502283105	1
+1738715	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	0	0
+1987182	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	14.47080979284369	1
+1987182	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	0	0
+1850275	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	7.916666666666667	1
+1850275	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	0.6343283582089553	0.10572139303482588
+98994	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	13.861491628614916	1
+98994	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	0	0
+161373	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	18.08831908831909	0.9914529914529916
+161373	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	0	0
+1708452	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	16.28240740740741	1
+1708452	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	0	0
+1204882	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	8.831275720164609	0.9451303155006858
+1204882	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	0	0
+1874322	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	7.852852852852853	1
+1874322	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	0	0
+598544	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	16.272844272844274	1
+598544	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	0	0
+463269	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	26.419103313840157	0.8323586744639376
+463269	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	27.783625730994153	0.4619883040935672
+1480719	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	27.665997322623827	0.9812583668005356
+1480719	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	0	0
+965607	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13B	12.488304093567251	1
+965607	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13M	0	0
+813369	K02305	nitric oxide reductase subunit C	St2_S13B	23.37530864197531	1
+813369	K02305	nitric oxide reductase subunit C	St2_S13M	0	0
+2013728	K02567	nitrate reductase (cytochrome) [EC:1.9.6.1]	St2_S13B	9.626436781609195	0.946360153256705
+2013728	K02567	nitrate reductase (cytochrome) [EC:1.9.6.1]	St2_S13M	0	0
+2290077	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	9119.114180478822	1
+2290077	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	8907.052486187846	1
+1418801	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	163.5407026563839	1
+1418801	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	43.35646958011996	0.5424164524421594
+2018951	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	21.554585152838428	1
+2018951	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	0	0
+2210362	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	38.83107497741644	1
+2210362	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	12.731707317073171	0.2872628726287263
+1631676	K15864	nitrite reductase (NO-forming) / hydroxylamine reductase [EC:1.7.2.1 1.7.99.1]	St2_S13B	10.63901018922853	0.9213973799126638
+1631676	K15864	nitrite reductase (NO-forming) / hydroxylamine reductase [EC:1.7.2.1 1.7.99.1]	St2_S13M	0	0
+1584359	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	42.59625468164794	1
+1584359	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	44.678651685393255	0.7737827715355805
+2412112	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13B	14.446428571428571	1
+2412112	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13M	0	0
+2171711	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	14.442401960784316	1
+2171711	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	0	0
+1590238	K02305	nitric oxide reductase subunit C	St2_S13B	5.023121387283237	0.8497109826589595
+1590238	K02305	nitric oxide reductase subunit C	St2_S13M	20.886319845857415	0.28709055876685935
+163373	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	16.59153005464481	1
+163373	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	38.954918032786885	0.3975409836065574
+678080	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13B	3.6405228758169934	1
+678080	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13M	0	0
+1824372	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13B	384.4372093023256	1
+1824372	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13M	52.992248062015506	0.7682170542635659
+1094781	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13B	15727.847417840376	1
+1094781	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13M	8005.466353677622	1
+2332334	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13B	99.9866979655712	1
+2332334	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13M	14.769953051643192	0.29029733959311427
+744452	K02305	nitric oxide reductase subunit C	St2_S13B	7.520710059171598	1
+744452	K02305	nitric oxide reductase subunit C	St2_S13M	0.591715976331361	0.2958579881656805
+574423	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	92.6695278969957	1
+574423	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	196.61158798283265	0.9856938483547926
+288202	K02305	nitric oxide reductase subunit C	St2_S13B	18.1984126984127	1
+288202	K02305	nitric oxide reductase subunit C	St2_S13M	25.035714285714285	0.4265873015873016
+435135	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	70.34745762711864	1
+435135	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	21.37641242937853	0.326271186440678
+1435882	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13B	14.319444444444445	1
+1435882	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13M	0	0
+773984	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	9.2984496124031	1
+773984	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	0	0
+1991999	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13B	21.115853658536587	1
+1991999	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13M	0	0
+1688715	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	14.248299319727892	1
+1688715	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	0	0
+838930	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	11.231433506044905	1
+838930	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	0	0
+1185798	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	28.050595238095237	0.9955357142857144
+1185798	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	32.22767857142857	0.6592261904761905
+841939	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	10.830795262267344	0.9035532994923858
+841939	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	0	0
+931374	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	10.080979284369114	1
+931374	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	0	0
+1696038	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	54.1427255985267	1
+1696038	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	5.196132596685083	0.14825046040515655
+174546	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	50.024179620034545	1
+174546	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	10.360967184801382	0.25906735751295334
+666396	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	623.026455026455	1
+666396	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	720.0867724867725	0.9777777777777776
+2388297	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	12.557539682539682	0.9623015873015872
+2388297	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	79.94642857142857	0.8452380952380952
+659565	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13B	30.885313531353138	0.900990099009901
+659565	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13M	79.38696369636963	0.7475247524752475
+659566	K00370	nitrate reductase / nitrite oxidoreductase, alpha subunit [EC:1.7.5.1 1.7.99.-]	St2_S13B	98.99553969669938	0.999702646446625
+659566	K00370	nitrate reductase / nitrite oxidoreductase, alpha subunit [EC:1.7.5.1 1.7.99.-]	St2_S13M	46.664882545346416	0.6366339577757955
+1866615	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	163.49171270718233	0.996316758747698
+1866615	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	7.6040515653775325	0.23941068139963168
+1966268	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	29.107017543859648	0.968421052631579
+1966268	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	0	0
+419316	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13B	1270.8937329700273	1
+419316	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13M	401.2161671207993	0.7956403269754768
+2343082	K02305	nitric oxide reductase subunit C	St2_S13B	16.412780656303973	1
+2343082	K02305	nitric oxide reductase subunit C	St2_S13M	5.699481865284974	0.32642487046632124
+677555	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13B	89.77151799687012	1
+677555	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13M	50.80203442879499	0.52660406885759
+371414	K02305	nitric oxide reductase subunit C	St2_S13B	18.940988835725676	1
+371414	K02305	nitric oxide reductase subunit C	St2_S13M	0.23923444976076555	0.23923444976076555
+189553	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	11.019969278033797	1
+189553	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	0	0
+2362307	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	710.1470588235294	1
+2362307	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	542.3333333333334	0.996078431372549
+865141	K02305	nitric oxide reductase subunit C	St2_S13B	9.940409683426443	0.9217877094972068
+865141	K02305	nitric oxide reductase subunit C	St2_S13M	0	0
+541901	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	3614.315831344471	1
+541901	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	2636.428798727128	1
+1425850	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	8.3422391857506355	1
+1425850	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	0	0
+854645	K02305	nitric oxide reductase subunit C	St2_S13B	29.91111111111111	0.9133333333333332
+854645	K02305	nitric oxide reductase subunit C	St2_S13M	0	0
+1821176	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	17.366300366300365	1
+1821176	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	0	0
+1787011	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	24.127147766323024	1
+1787011	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	0	0
+1624701	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	93.27224008574493	1
+1624701	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	0	0
+2172851	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	81.96275605214153	0.9739292364990688
+2172851	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	83.78026070763501	0.925512104283054
+798212	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	10.5	1
+798212	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	0	0
+594548	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13B	44.55320813771518	1
+594548	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13M	0.01564945226917058	0.01564945226917058
+496996	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	12.026094276094277	0.9713804713804712
+496996	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	17.423400673400675	0.3787878787878788
+2241189	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13B	2560.9773082942097	1
+2241189	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13M	730.697965571205	1
+2458663	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	17.064412238325282	1
+2458663	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	0	0
+630301	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	974.451197053407	1
+630301	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	969.330570902394	0.9769797421731125
+2113065	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	22.971337579617835	0.9808917197452228
+2113065	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	12.41932059447983	0.1921443736730361
+210469	K00370	nitrate reductase / nitrite oxidoreductase, alpha subunit [EC:1.7.5.1 1.7.99.-]	St2_S13B	350.69878787878787	1
+210469	K00370	nitrate reductase / nitrite oxidoreductase, alpha subunit [EC:1.7.5.1 1.7.99.-]	St2_S13M	96.53939393939396	0.5172727272727272
+534673	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	6.505050505050505	1
+534673	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	0	0
+631195	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	8.440251572327044	0.9937106918238994
+631195	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	0	0
+2015867	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13B	4.111111111111111	1
+2015867	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13M	0	0
+915792	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13B	17.278145695364238	1
+915792	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13M	0	0
+393052	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13B	13.382222222222222	1
+393052	K00376	nitrous-oxide reductase [EC:1.7.2.4]	St2_S13M	0	0
+2096924	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13B	389.65571205007825	1
+2096924	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13M	261.84507042253523	0.9655712050078248
+524270	K02305	nitric oxide reductase subunit C	St2_S13B	27.626666666666665	0.9466666666666668
+524270	K02305	nitric oxide reductase subunit C	St2_S13M	0	0
+531120	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	36.82603815937149	0.9292929292929292
+531120	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	11.946127946127946	0.3176206509539843
+2005999	K15864	nitrite reductase (NO-forming) / hydroxylamine reductase [EC:1.7.2.1 1.7.99.1]	St2_S13B	18.365079365079364	1
+2005999	K15864	nitrite reductase (NO-forming) / hydroxylamine reductase [EC:1.7.2.1 1.7.99.1]	St2_S13M	0	0
+343404	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13B	85.33724569640063	1
+343404	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13M	11.391236306729263	0.2347417840375587
+1883166	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13B	12.88095238095238	1
+1883166	K04561	nitric oxide reductase subunit B [EC:1.7.2.5]	St2_S13M	0	0
+659599	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13B	25.651685393258425	1
+659599	K02568	nitrate reductase (cytochrome), electron transfer subunit	St2_S13M	0	0
+2065205	K00370	nitrate reductase / nitrite oxidoreductase, alpha subunit [EC:1.7.5.1 1.7.99.-]	St2_S13B	61.61120739456961	1
+2065205	K00370	nitrate reductase / nitrite oxidoreductase, alpha subunit [EC:1.7.5.1 1.7.99.-]	St2_S13M	0	0
+2065206	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13B	56.63145539906103	1
+2065206	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St2_S13M	0	0
+2523618	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13B	41.42553191489362	1
+2523618	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St2_S13M	11.636524822695035	0.26595744680851063
+1603792	K15864	nitrite reductase (NO-forming) / hydroxylamine reductase [EC:1.7.2.1 1.7.99.1]	St2_S13B	29.66367444643926	1
+1603792	K15864	nitrite reductase (NO-forming) / hydroxylamine reductase [EC:1.7.2.1 1.7.99.1]	St2_S13M	0	0

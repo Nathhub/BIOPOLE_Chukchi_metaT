@@ -1155,18 +1155,18 @@ anvi-export-gene-coverage-and-detection   -p St1_MERGED/PROFILE.db   -c St1_cont
 ```
 
 ```{r, eval=FALSE, message=FALSE, warning=FALSE}
-# This script has been run for each Station and for both Denitrification and anammox data.
+# This script has been run for each Station and for denitrification and anammox data.
 # We will use the resulting tables in the next code chunk
 library(tidyverse)
 
 # read function annotations
-functions <- read_tsv("St1_gene_functions.tsv", show_col_types = FALSE)
+functions <- read_tsv("St3_gene_functions.tsv", show_col_types = FALSE)
 
 # read coverages
-cov <- read_tsv("St1_anammox-GENE-COVERAGES.txt", show_col_types = FALSE)
+cov <- read_tsv("St3_anammox-GENE-COVERAGES.txt", show_col_types = FALSE)
 
 # read detection
-det <- read_tsv("St1_anammox-GENE-DETECTION.txt", show_col_types = FALSE)
+det <- read_tsv("St3_anammox-GENE-DETECTION.txt", show_col_types = FALSE)
 
 # convert wide -> long
 cov_long <- cov %>%
@@ -1186,18 +1186,23 @@ det_long <- det %>%
 target_gene_ids <- unique(cov_long$gene_callers_id)
 
 functions_ko_target <- functions %>%
-  filter(gene_callers_id %in% target_gene_ids) %>%
-  filter(grepl("^K\\d+", accession)) %>%
-  select(gene_callers_id, KO_ID = accession, `function`) %>%
-  distinct()
+  dplyr::filter(gene_callers_id %in% target_gene_ids) %>%
+  dplyr::filter(source == "KOfam") %>%
+  dplyr::filter(accession %in% c("K00368", "K15864", "K20932", "K20933",
+                                 "K20934", "K20935")) %>%
+  dplyr::select(gene_callers_id, KO_ID = accession, `function`) %>%
+  dplyr::distinct()
+
+  # dplyr::filter(accession %in% c("K00370", "K00371", "K00374", "K02567","K02568", # KOs denitrif
+  #                                "K00368", "K15864", "K04561", "K02305", "K00376")) %>%
 
 # merge everything
 final_table <- cov_long %>%
   left_join(det_long, by = c("gene_callers_id", "sample")) %>%
-  left_join(functions_ko_target, by = "gene_callers_id", relationship = "many-to-many") %>%
+  left_join(functions_ko_target, by = "gene_callers_id") %>%
   select(gene_callers_id, KO_ID, `function`, sample, coverage, detection)
 
-# write_tsv(final_table, "St1_anammox_final_table.tsv")
+write_tsv(final_table, "St3_anammox_final_table.tsv")
 ```
 
 Same for the housekeeping genes:
@@ -1205,11 +1210,12 @@ Same for the housekeeping genes:
 ```{r, eval=FALSE, message=FALSE, warning=FALSE}
 # This script has been run for each Station.
 # We will use the resulting tables in the next code chunk
+
 # read coverages
-cov <- read_tsv("St2_housekeeping-GENE-COVERAGES.txt", show_col_types = FALSE)
+cov <- read_tsv("St3_housekeeping-GENE-COVERAGES.txt", show_col_types = FALSE)
 
 # read detection
-det <- read_tsv("St2_housekeeping-GENE-DETECTION.txt", show_col_types = FALSE)
+det <- read_tsv("St3_housekeeping-GENE-DETECTION.txt", show_col_types = FALSE)
 
 # convert wide -> long
 cov_long <- cov %>%
@@ -1228,16 +1234,17 @@ det_long <- det %>%
 
 target_gene_ids <- unique(cov_long$gene_callers_id)
 
-functions_ko_target <- functions %>%
-  filter(gene_callers_id %in% target_gene_ids) %>%
-  filter(grepl("^K\\d+", accession)) %>%
-  select(gene_callers_id, KO_ID = accession, `function`) %>%
-  distinct()
+functions_hk_target <- functions %>%
+  dplyr::filter(gene_callers_id %in% target_gene_ids) %>%
+  dplyr::filter(source == "KOfam") %>%
+  dplyr::filter(accession %in% c("K03043", "K02470")) %>%
+  dplyr::select(gene_callers_id, KO_ID = accession, `function`) %>%
+  dplyr::distinct()
 
 # merge everything
 final_table <- cov_long %>%
   left_join(det_long, by = c("gene_callers_id", "sample")) %>%
-  left_join(functions_ko_target, by = "gene_callers_id", relationship = "many-to-many") %>%
+  left_join(functions_hk_target, by = "gene_callers_id") %>%
   select(gene_callers_id, KO_ID, `function`, sample, coverage, detection)
 
 # write_tsv(final_table, "St2_housekeeping_final_table.tsv")
