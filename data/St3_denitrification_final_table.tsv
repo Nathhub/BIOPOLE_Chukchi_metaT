@@ -126,11 +126,8 @@ gene_callers_id	KO_ID	function	sample	coverage	detection
 1386808	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St3_S14M	10.383620689655173	0.7083333333333334
 1386808	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St3_S14S	42.014367816091955	0.9353448275862069
 1386807	K00374	nitrate reductase gamma subunit [EC:1.7.5.1 1.7.99.-]	St3_S14B	0.7518796992481203	0.543859649122807
-1386807	K00373	nitrate reductase molybdenum cofactor assembly chaperone NarJ/NarW	St3_S14B	0.7518796992481203	0.543859649122807
 1386807	K00374	nitrate reductase gamma subunit [EC:1.7.5.1 1.7.99.-]	St3_S14M	9.904761904761903	0.8796992481203008
-1386807	K00373	nitrate reductase molybdenum cofactor assembly chaperone NarJ/NarW	St3_S14M	9.904761904761903	0.8796992481203008
 1386807	K00374	nitrate reductase gamma subunit [EC:1.7.5.1 1.7.99.-]	St3_S14S	2.8421052631578947	0.20300751879699247
-1386807	K00373	nitrate reductase molybdenum cofactor assembly chaperone NarJ/NarW	St3_S14S	2.8421052631578947	0.20300751879699247
 1833581	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St3_S14B	496.6576576576576	1
 1833581	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St3_S14M	307.37312312312315	1
 1833581	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St3_S14S	58.01426426426426	0.7424924924924925
