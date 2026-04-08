@@ -1291,10 +1291,6 @@ housekeeping_summary <- housekeeping %>%
   ) %>%
   select(station, sample, rpoB_cov, gyrB_cov, hk_geom)
 
-# inspect whether any samples are missing one housekeeping gene
-housekeeping_summary %>%
-  filter(is.na(rpoB_cov) | is.na(gyrB_cov))
-
 normalized_targets <- targets %>%
   left_join(housekeeping_summary, by = c("station", "sample")) %>%
   mutate(
@@ -1320,8 +1316,8 @@ ko_labels <- c(
   K00374 = "narI",
   K00376 = "nosZ",
   K02305 = "norC",
-  K02567 = "napB",
-  K02568 = "napC",
+  K02567 = "napA",
+  K02568 = "napB",
   K04561 = "norB",
   K20932 = "hzsA",
   K20934 = "hzsB"
@@ -1331,8 +1327,8 @@ ko_expression$KO_label <- ko_labels[ko_expression$KO_ID]
 
 ko_expression$KO_label <- factor(
   ko_expression$KO_label,
-  levels = c("narG","narH","narI","napA","napB","napC",
-             "nirK","nirS","norB","nosZ",
+  levels = c("narG","narH","narI","napA","napB",
+             "nirK","nirS","norB","norC","nosZ",
              "hzsA","hzsB")
 )
 
@@ -1354,7 +1350,7 @@ ggplot(ko_expression,
 ```
 ```{r, message=FALSE, warning=FALSE}
 ggplot(ko_expression,
-       aes(x = sample, y = total_expression, color = KO_ID, group = KO_ID)) +
+       aes(x = sample, y = total_expression, color = KO_label, group = KO_label)) +
   geom_line() +
   geom_point() +
   theme_bw()
@@ -1389,12 +1385,12 @@ ko_order <- c(
   "K00370",  # narG
   "K00371",  # narH
   "K00374",  # narI
-  "K02567",  # napB
-  "K02568",  # napC
+  "K02567",  # napA
+  "K02568",  # napB
   "K00368",  # nirK
   "K15864",  # nirS
   "K04561",  # norB
-  "K02305",  # norC / napA-like in your previous setup
+  "K02305",  # norC
   "K00376"   # nosZ
 )
 
@@ -1406,8 +1402,8 @@ ko_labels <- c(
   K00370 = "narG",
   K00371 = "narH",
   K00374 = "narI",
-  K02567 = "napB",
-  K02568 = "napC",
+  K02567 = "napA",
+  K02568 = "napB",
   K00368 = "nirK",
   K15864 = "nirS",
   K04561 = "norB",
@@ -1459,8 +1455,13 @@ ann_colors <- list(
   )
 )
 
-# smoother color scale
-breaks <- seq(0, max(heatmap_matrix, na.rm = TRUE), length.out = 100)
+library(RColorBrewer)
+
+breaks <- seq(0, max(heatmap_matrix, na.rm = TRUE), length.out = 200)
+
+colors <- colorRampPalette(
+  c("white", brewer.pal(9, "YlOrRd"))
+)(length(breaks) - 1)
 
 pheatmap(
   heatmap_matrix,
@@ -1478,6 +1479,7 @@ pheatmap(
   gaps_col = c(3, 5),
   legend = TRUE,
   breaks = breaks,
+  color = colors,
   main = "Normalized expression of denitrification genes"
 )
 ```
@@ -1492,13 +1494,62 @@ To assess the relative expression of denitrification genes across samples, gene 
 The heatmap reveals that denitrification activity is dominated by the nitrite reduction step, with nirK (K00368) showing consistently higher normalized expression than other genes, particularly in mid-depth samples such as St3_S14M. In contrast, genes involved in nitrate reduction (nar and nap complexes) exhibit moderate and more uniform expression across samples, suggesting that upstream substrate availability may not be limiting. Notably, expression of nosZ (K00376), responsible for the final reduction of N₂O to N₂, is consistently low or absent, indicating that denitrification may be incomplete and potentially leading to the accumulation of nitrous oxide. Overall, the observed patterns suggest that denitrification is actively expressed in the studied water column, with pronounced variability across depths and stations, and a potential imbalance between upstream and downstream steps of the pathway.
 :::
 
+### Final figure: functional classification
+
+Let's use discret values instead of a continuous gradient of normailsed expression.
+
+- Values around 0.1–1 → very strong expression
+- Values around 0.01–0.1 → moderate 
+- Values <0.001 → low but detectable 
+- Values ≈0 → absent / negligible
 
 
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
+heatmap_cat <- heatmap_matrix
+
+heatmap_cat[heatmap_matrix == 0] <- "Absent"
+heatmap_cat[heatmap_matrix > 0 & heatmap_matrix < 1e-2] <- "Low"
+heatmap_cat[heatmap_matrix >= 1e-2 & heatmap_matrix < 1e-1] <- "Moderate"
+heatmap_cat[heatmap_matrix >= 1e-1] <- "High"
+
+expr_colors <- c(
+  "Absent"   = "#f0f0f0",  # light grey
+  "Low"      = "#74add1",  # blue
+  "Moderate" = "#fdae61",  # orange
+  "High"     = "#d73027"   # red
+)
+
+heatmap_num <- matrix(
+  as.numeric(factor(heatmap_cat, levels = c("Absent","Low","Moderate","High"))),
+  nrow = nrow(heatmap_cat),
+  dimnames = dimnames(heatmap_cat)
+)
+
+pheatmap(
+  heatmap_num,
+  cluster_rows = FALSE,
+  cluster_cols = FALSE,
+  annotation_row = gene_annotation,
+  annotation_colors = ann_colors,
+  border_color = "white",
+  cellwidth = 42,
+  cellheight = 26,
+  fontsize = 11,
+  fontsize_row = 11,
+  fontsize_col = 10,
+  angle_col = 315,
+  gaps_col = c(3, 5),
+  color = expr_colors,
+  breaks = c(0.5, 1.5, 2.5, 3.5, 4.5),
+  legend_breaks = c(1,2,3,4),
+  legend_labels = c("Absent","Low","Moderate","High"),
+  main = "Categorized expression of denitrification genes"
+)
+
+```
 
 
-
-
-
+Expression levels were categorized into four classes based on normalized coverage: absent (0), low (<0.1%), moderate (10⁻²–10⁻¹), and high (>10⁻¹), allowing visualization of relative transcriptional activity across denitrification steps.
 
 
 ## Mapping transcripts to genomes of potential denitrifiers
