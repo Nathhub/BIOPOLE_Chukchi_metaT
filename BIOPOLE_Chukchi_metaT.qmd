@@ -1455,13 +1455,8 @@ ann_colors <- list(
   )
 )
 
-library(RColorBrewer)
-
-breaks <- seq(0, max(heatmap_matrix, na.rm = TRUE), length.out = 200)
-
-colors <- colorRampPalette(
-  c("white", brewer.pal(9, "YlOrRd"))
-)(length(breaks) - 1)
+# smoother color scale
+breaks <- seq(0, max(heatmap_matrix, na.rm = TRUE), length.out = 100)
 
 pheatmap(
   heatmap_matrix,
@@ -1479,7 +1474,6 @@ pheatmap(
   gaps_col = c(3, 5),
   legend = TRUE,
   breaks = breaks,
-  color = colors,
   main = "Normalized expression of denitrification genes"
 )
 ```
