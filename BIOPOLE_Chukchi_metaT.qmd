@@ -1377,8 +1377,8 @@ heatmap_matrix <- heatmap_df %>%
   column_to_rownames("KO_ID") %>%
   as.matrix()
 
-# log-transform
-heatmap_matrix <- log10(heatmap_matrix + 1)
+# # log-transform
+# heatmap_matrix <- log10(heatmap_matrix + 1)
 
 # order rows
 ko_order <- c(
@@ -1455,8 +1455,20 @@ ann_colors <- list(
   )
 )
 
-# smoother color scale
-breaks <- seq(0, max(heatmap_matrix, na.rm = TRUE), length.out = 100)
+# define max
+max_val <- max(heatmap_matrix, na.rm = TRUE)
+
+# breaks (include 0 explicitly)
+breaks <- c(
+  0,
+  seq(1e-6, max_val, length.out = 99)  # small offset to separate zero
+)
+
+# color palette: first color = grey (for zero), rest = gradient
+colors <- c(
+  "darkgrey",  # zero values
+  colorRampPalette(c("lightgrey", "yellow", "orange", "red"))(99)
+)
 
 pheatmap(
   heatmap_matrix,
@@ -1474,8 +1486,19 @@ pheatmap(
   gaps_col = c(3, 5),
   legend = TRUE,
   breaks = breaks,
+  color = colors,
+  display_numbers = TRUE,
   main = "Normalized expression of denitrification genes"
 )
+
+# draw custom legend for zero = absent
+grid.text("Absent", 
+          x = 0.85, y = 0.40, 
+          gp = gpar(fontsize = 10))
+
+grid.rect(x = 0.80, y = 0.40, 
+          width = 0.02, height = 0.02,
+          gp = gpar(fill = "darkgrey", col = "darkgrey"))
 ```
 
 ::: {.callout-note title="Discussion"}
@@ -1545,6 +1568,150 @@ pheatmap(
 
 Expression levels were categorized into four classes based on normalized coverage: absent (0), low (<0.1%), moderate (10⁻²–10⁻¹), and high (>10⁻¹), allowing visualization of relative transcriptional activity across denitrification steps.
 
+#### Heatmap of normalized anammox gene expression across stations and depths.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
+library(dplyr)
+library(tidyr)
+library(tibble)
+library(pheatmap)
+library(grid)
+
+# anammox only
+heatmap_df <- ko_expression %>%
+  filter(pathway == "anammox") %>%
+  select(KO_ID, sample, total_expression) %>%
+  pivot_wider(names_from = sample, values_from = total_expression)
+
+heatmap_df[is.na(heatmap_df)] <- 0
+
+heatmap_matrix <- heatmap_df %>%
+  column_to_rownames("KO_ID") %>%
+  as.matrix()
+
+# # log-transform
+# heatmap_matrix <- log10(heatmap_matrix + 1)
+
+# order rows
+ko_order <- c(
+  "K00368",  # nirK
+  "K15864",  # nirS
+  "K20932",  # hzsA
+  "K20933",  # hzsB
+  "K20934",  # hzsC
+  "K20935"   # hdh
+)
+
+missing_kos <- setdiff(ko_order, rownames(heatmap_matrix))
+
+if(length(missing_kos) > 0){
+  zero_rows <- matrix(
+    0,
+    nrow = length(missing_kos),
+    ncol = ncol(heatmap_matrix),
+    dimnames = list(missing_kos, colnames(heatmap_matrix))
+  )
+  
+  heatmap_matrix <- rbind(heatmap_matrix, zero_rows)
+}
+
+ko_order_present <- ko_order[ko_order %in% rownames(heatmap_matrix)]
+heatmap_matrix <- heatmap_matrix[ko_order_present, , drop = FALSE]
+
+# replace KO IDs with gene names
+ko_labels <- c(
+  K00368 = "nirK",
+  K15864 = "nirS",
+  K20932 = "hzsA",
+  K20933 = "hzsB",
+  K20934 = "hzsC",
+  K20935 = "hdh"
+)
+
+rownames(heatmap_matrix) <- ko_labels[rownames(heatmap_matrix)]
+
+# order columns
+sample_order <- c(
+  "St1_S4S", "St1_S4M", "St1_S4B",
+  "St2_S13M", "St2_S13B",
+  "St3_S14S", "St3_S14M", "St3_S14B"
+)
+
+sample_order_present <- sample_order[sample_order %in% colnames(heatmap_matrix)]
+heatmap_matrix <- heatmap_matrix[, sample_order_present, drop = FALSE]
+
+# row annotation
+gene_annotation <- data.frame(
+  Step = c(
+    "Nitrite reduction",
+    "Nitrite reduction",
+    "Hydrazine synthesis",
+    "Hydrazine synthesis",
+    "Hydrazine synthesis",
+    "Hydrazine oxidation"
+  )[match(ko_order_present, ko_order)]
+)
+
+rownames(gene_annotation) <- rownames(heatmap_matrix)
+
+gene_annotation$Step <- factor(
+  gene_annotation$Step,
+  levels = c("Nitrite reduction", "Hydrazine synthesis", "Hydrazine oxidation")
+)
+
+ann_colors <- list(
+  Step = c(
+    "Nitrite reduction"   = "#00c98b",
+    "Hydrazine synthesis" = "#8c6cff",
+    "Hydrazine oxidation" = "#f28e2b"
+  )
+)
+
+# define max
+max_val <- max(heatmap_matrix, na.rm = TRUE)
+
+# breaks (include 0 explicitly)
+breaks <- c(
+  0,
+  seq(1e-6, max_val, length.out = 99)  # small offset to separate zero
+)
+
+# color palette: first color = grey (for zero), rest = gradient
+colors <- c(
+  "darkgrey",  # zero values
+  colorRampPalette(c("lightgrey", "yellow", "orange", "red"))(99)
+)
+
+pheatmap(
+  heatmap_matrix,
+  cluster_rows = FALSE,
+  cluster_cols = FALSE,
+  annotation_row = gene_annotation,
+  annotation_colors = ann_colors,
+  border_color = "white",
+  cellwidth = 42,
+  cellheight = 26,
+  fontsize = 11,
+  fontsize_row = 11,
+  fontsize_col = 10,
+  angle_col = 315,
+  gaps_col = c(3, 5),
+  legend = TRUE,
+  breaks = breaks,
+  color = colors,
+  display_numbers = TRUE,
+  main = "Normalized expression of anammox genes"
+)
+
+# draw custom legend for zero = absent
+grid.text("Absent", 
+          x = 0.85, y = 0.40, 
+          gp = gpar(fontsize = 10))
+
+grid.rect(x = 0.80, y = 0.40, 
+          width = 0.02, height = 0.02,
+          gp = gpar(fill = "darkgrey", col = "darkgrey"))
+```
 
 ## Mapping transcripts to genomes of potential denitrifiers
 
