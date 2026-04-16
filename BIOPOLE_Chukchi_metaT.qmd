@@ -1466,9 +1466,25 @@ breaks <- c(
 
 # color palette: first color = grey (for zero), rest = gradient
 colors <- c(
-  "darkgrey",  # zero values
+  "white",  # zero values
   colorRampPalette(c("lightgrey", "yellow", "orange", "red"))(99)
 )
+
+number_matrix <- matrix(
+  ifelse(
+    heatmap_matrix == 0,
+    "N.D.",
+    ifelse(
+      heatmap_matrix < 0.01,
+      "<0.01",
+      sprintf("%.2f", heatmap_matrix)
+    )
+  ),
+  nrow = nrow(heatmap_matrix)
+)
+
+rownames(number_matrix) <- rownames(heatmap_matrix)
+colnames(number_matrix) <- colnames(heatmap_matrix)
 
 pheatmap(
   heatmap_matrix,
@@ -1487,18 +1503,11 @@ pheatmap(
   legend = TRUE,
   breaks = breaks,
   color = colors,
-  display_numbers = TRUE,
+  display_numbers = number_matrix,
+  number_color = "black",
   main = "Normalized expression of denitrification genes"
 )
 
-# draw custom legend for zero = absent
-grid.text("Absent", 
-          x = 0.85, y = 0.40, 
-          gp = gpar(fontsize = 10))
-
-grid.rect(x = 0.80, y = 0.40, 
-          width = 0.02, height = 0.02,
-          gp = gpar(fill = "darkgrey", col = "darkgrey"))
 ```
 
 ::: {.callout-note title="Discussion"}
@@ -1678,9 +1687,25 @@ breaks <- c(
 
 # color palette: first color = grey (for zero), rest = gradient
 colors <- c(
-  "darkgrey",  # zero values
+  "white",  # zero values
   colorRampPalette(c("lightgrey", "yellow", "orange", "red"))(99)
 )
+
+number_matrix <- matrix(
+  ifelse(
+    heatmap_matrix == 0,
+    "N.D.",
+    ifelse(
+      heatmap_matrix < 0.01,
+      "<0.01",
+      sprintf("%.2f", heatmap_matrix)
+    )
+  ),
+  nrow = nrow(heatmap_matrix)
+)
+
+rownames(number_matrix) <- rownames(heatmap_matrix)
+colnames(number_matrix) <- colnames(heatmap_matrix)
 
 pheatmap(
   heatmap_matrix,
@@ -1699,18 +1724,11 @@ pheatmap(
   legend = TRUE,
   breaks = breaks,
   color = colors,
-  display_numbers = TRUE,
+  display_numbers = number_matrix,
+  number_color = "black",
   main = "Normalized expression of anammox genes"
 )
 
-# draw custom legend for zero = absent
-grid.text("Absent", 
-          x = 0.85, y = 0.40, 
-          gp = gpar(fontsize = 10))
-
-grid.rect(x = 0.80, y = 0.40, 
-          width = 0.02, height = 0.02,
-          gp = gpar(fill = "darkgrey", col = "darkgrey"))
 ```
 
 ## Mapping transcripts to genomes of potential denitrifiers
