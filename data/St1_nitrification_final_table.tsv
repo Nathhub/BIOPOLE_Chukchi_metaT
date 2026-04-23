@@ -1,0 +1,307 @@
+gene_callers_id	KO_ID	function	sample	coverage	detection
+1460728	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4B	14.476359338061464	0.925531914893617
+1460728	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4M	16.38179669030733	0.735224586288416
+1460728	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4S	0.9929078014184396	0.06619385342789598
+854256	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	11.416666666666666	0.9311594202898552
+854256	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	3.3309178743961354	0.6799516908212561
+854256	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	5.3478260869565215	0.3079710144927536
+1843086	K10946	methane/ammonia monooxygenase subunit C	St1_S4B	955.015325670498	1
+1843086	K10946	methane/ammonia monooxygenase subunit C	St1_S4M	1349.0421455938697	1
+1843086	K10946	methane/ammonia monooxygenase subunit C	St1_S4S	266.6704980842912	0.9655172413793104
+441287	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	145.19407008086253	1
+441287	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	279.38814016172506	1
+441287	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	10.426774483378257	0.35399820305480684
+528599	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	1780.682316118936	1
+528599	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	1350.2175273865414	1
+528599	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	893.7159624413146	1
+1705673	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	344.4583333333333	0.9989837398373984
+1705673	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	682.0182926829268	0.9989837398373984
+1705673	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	178.385162601626	0.931910569105691
+1462613	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4B	447.6115485564304	1
+1462613	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4M	553.5695538057743	1
+1462613	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4S	166.35433070866142	1
+26013	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	12.495169082125605	0.9384057971014492
+26013	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	12.818840579710145	0.8756038647342995
+26013	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	15.18599033816425	0.6268115942028986
+54111	K10946	methane/ammonia monooxygenase subunit C	St1_S4B	52.27225130890052	1
+54111	K10946	methane/ammonia monooxygenase subunit C	St1_S4M	25.03315881326353	0.9738219895287958
+54111	K10946	methane/ammonia monooxygenase subunit C	St1_S4S	6.806282722513089	0.3542757417102967
+1306579	K10945	methane/ammonia monooxygenase subunit B	St1_S4B	1664.16354556804	1
+1306579	K10945	methane/ammonia monooxygenase subunit B	St1_S4M	1533.003745318352	1
+1306579	K10945	methane/ammonia monooxygenase subunit B	St1_S4S	344.85393258426967	1
+891404	K10946	methane/ammonia monooxygenase subunit C	St1_S4B	105.69444444444444	1
+891404	K10946	methane/ammonia monooxygenase subunit C	St1_S4M	84.29305555555555	1
+891404	K10946	methane/ammonia monooxygenase subunit C	St1_S4S	24.154166666666665	0.4652777777777778
+994614	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	1.9337016574585637	0.27624309392265195
+994614	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	17.482504604051567	0.9116022099447514
+994614	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	0	0
+813995	K10535	hydroxylamine dehydrogenase [EC:1.7.2.6]	St1_S4B	19.61919504643963	1
+813995	K10535	hydroxylamine dehydrogenase [EC:1.7.2.6]	St1_S4M	16.30546955624355	0.8555211558307534
+813995	K10535	hydroxylamine dehydrogenase [EC:1.7.2.6]	St1_S4S	9.673890608875128	0.3560371517027864
+433983	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	8190.775430359938	1
+433983	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	7206.544600938967	1
+433983	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	2536.752738654147	1
+1322977	K10946	methane/ammonia monooxygenase subunit C	St1_S4B	439.6379928315412	1
+1322977	K10946	methane/ammonia monooxygenase subunit C	St1_S4M	690.926523297491	1
+1322977	K10946	methane/ammonia monooxygenase subunit C	St1_S4S	166.83512544802866	0.9838709677419356
+787797	K10945	methane/ammonia monooxygenase subunit B	St1_S4B	14056.320512820514	1
+787797	K10945	methane/ammonia monooxygenase subunit B	St1_S4M	13404.485347985348	1
+787797	K10945	methane/ammonia monooxygenase subunit B	St1_S4S	8741.021978021978	1
+787798	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4B	13228.429602888087	1
+787798	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4M	9069.93501805054	1
+787798	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4S	3832.279181708785	1
+189833	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	16223.036231884058	1
+189833	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	32930.335144927536	1
+189833	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	3152.751811594203	0.9764492753623188
+532820	K10945	methane/ammonia monooxygenase subunit B	St1_S4B	2368.440329218107	1
+532820	K10945	methane/ammonia monooxygenase subunit B	St1_S4M	2403.3343621399176	1
+532820	K10945	methane/ammonia monooxygenase subunit B	St1_S4S	1121.875514403292	1
+1031617	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	689.896265560166	1
+1031617	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	1204.789764868603	1
+1031617	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	165.6265560165975	0.9723374827109268
+1365488	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4B	8.393162393162394	0.9943019943019944
+1365488	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4M	2.1623931623931623	0.7207977207977208
+1365488	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4S	0	0
+1365487	K10946	methane/ammonia monooxygenase subunit C	St1_S4B	44.5511432009627	1
+1365487	K10946	methane/ammonia monooxygenase subunit C	St1_S4M	22.45006016847172	1
+1365487	K10946	methane/ammonia monooxygenase subunit C	St1_S4S	5.565583634175692	0.4536702767749699
+528303	K10945	methane/ammonia monooxygenase subunit B	St1_S4B	8709.778929188256	1
+528303	K10945	methane/ammonia monooxygenase subunit B	St1_S4M	10441.981001727116	1
+528303	K10945	methane/ammonia monooxygenase subunit B	St1_S4S	1558.7443868739206	0.993091537132988
+1441818	K10946	methane/ammonia monooxygenase subunit C	St1_S4B	416.8229166666667	1
+1441818	K10946	methane/ammonia monooxygenase subunit C	St1_S4M	273.5954861111111	1
+1441818	K10946	methane/ammonia monooxygenase subunit C	St1_S4S	81.67708333333333	0.9114583333333334
+1617538	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	14.714135021097048	0.9862869198312236
+1617538	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	12.2626582278481	0.8723628691983122
+1617538	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	18.9873417721519	0.3934599156118144
+182883	K10945	methane/ammonia monooxygenase subunit B	St1_S4B	14.912186379928317	1
+182883	K10945	methane/ammonia monooxygenase subunit B	St1_S4M	10.738351254480287	0.3996415770609319
+182883	K10945	methane/ammonia monooxygenase subunit B	St1_S4S	4.749103942652329	0.13978494623655913
+1094130	K10945	methane/ammonia monooxygenase subunit B	St1_S4B	29.264116575591984	0.9344262295081968
+1094130	K10945	methane/ammonia monooxygenase subunit B	St1_S4M	85.32058287795992	1
+1094130	K10945	methane/ammonia monooxygenase subunit B	St1_S4S	22.162112932604735	0.8324225865209471
+875592	K10945	methane/ammonia monooxygenase subunit B	St1_S4B	22.10619469026549	0.976401179941003
+875592	K10945	methane/ammonia monooxygenase subunit B	St1_S4M	3.616519174041298	0.6755162241887905
+875592	K10945	methane/ammonia monooxygenase subunit B	St1_S4S	0	0
+1304976	K10945	methane/ammonia monooxygenase subunit B	St1_S4B	63.79889152810768	1
+1304976	K10945	methane/ammonia monooxygenase subunit B	St1_S4M	34.98416468725257	0.978622327790974
+1304976	K10945	methane/ammonia monooxygenase subunit B	St1_S4S	10.723673792557404	0.6152019002375297
+772410	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	12746.270735524256	1
+772410	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	12521.71987480438	1
+772410	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	4925.970266040688	1
+65438	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	6.364341085271318	0.813953488372093
+65438	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	5.162790697674419	0.5581395348837209
+65438	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	6.0813953488372094	0.45542635658914726
+228077	K10945	methane/ammonia monooxygenase subunit B	St1_S4B	38.51971326164875	0.8942652329749103
+228077	K10945	methane/ammonia monooxygenase subunit B	St1_S4M	17.28673835125448	0.9587813620071683
+228077	K10945	methane/ammonia monooxygenase subunit B	St1_S4S	6.365591397849462	0.30286738351254483
+707695	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	41.85704022988506	0.9913793103448276
+707695	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	69.13577586206897	0.994971264367816
+707695	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	12.557471264367816	0.4568965517241379
+1562016	K10946	methane/ammonia monooxygenase subunit C	St1_S4B	3.981981981981982	0.8626126126126126
+1562016	K10946	methane/ammonia monooxygenase subunit C	St1_S4M	13.326576576576576	0.9166666666666666
+1562016	K10946	methane/ammonia monooxygenase subunit C	St1_S4S	2.454954954954955	0.24549549549549549
+1709903	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	105.22755227552275	1
+1709903	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	88.92373923739237	0.9052890528905287
+1709903	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	34.8610086100861	0.4907749077490775
+1796751	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4B	7.110032362459547	0.8592233009708737
+1796751	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4M	7.941747572815534	0.7928802588996764
+1796751	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4S	0	0
+895831	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	49445.2245210728	1
+895831	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	52866.89195402299	1
+895831	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	44637.372413793106	1
+249503	K10945	methane/ammonia monooxygenase subunit B	St1_S4B	3.6238938053097343	0.8731563421828908
+249503	K10945	methane/ammonia monooxygenase subunit B	St1_S4M	5.741887905604719	0.7286135693215339
+249503	K10945	methane/ammonia monooxygenase subunit B	St1_S4S	0	0
+273762	K10946	methane/ammonia monooxygenase subunit C	St1_S4B	63474.36571428571	1
+273762	K10946	methane/ammonia monooxygenase subunit C	St1_S4M	64153.93142857143	1
+273762	K10946	methane/ammonia monooxygenase subunit C	St1_S4S	47215.85333333333	1
+1993161	K10945	methane/ammonia monooxygenase subunit B	St1_S4B	46.0843137254902	0.9666666666666668
+1993161	K10945	methane/ammonia monooxygenase subunit B	St1_S4M	53.02745098039216	0.9725490196078432
+1993161	K10945	methane/ammonia monooxygenase subunit B	St1_S4S	6.456862745098039	0.5490196078431373
+176550	K10946	methane/ammonia monooxygenase subunit C	St1_S4B	5493.954212454212	1
+176550	K10946	methane/ammonia monooxygenase subunit C	St1_S4M	7101.520146520146	1
+176550	K10946	methane/ammonia monooxygenase subunit C	St1_S4S	1043.0970695970695	1
+888296	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	40.101851851851855	1
+888296	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	45.632407407407406	1
+888296	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	5.362962962962963	0.3712962962962963
+1180783	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4B	58.3543990086741	0.980173482032218
+1180783	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4M	37.62577447335811	0.9838909541511772
+1180783	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4S	11.028500619578686	0.31226765799256506
+1180782	K10945	methane/ammonia monooxygenase subunit B	St1_S4B	74.71338083927158	1
+1180782	K10945	methane/ammonia monooxygenase subunit B	St1_S4M	82.59540775930324	1
+1180782	K10945	methane/ammonia monooxygenase subunit B	St1_S4S	21.517814726840857	0.5605700712589073
+1719329	K10946	methane/ammonia monooxygenase subunit C	St1_S4B	137.4716049382716	0.925925925925926
+1719329	K10946	methane/ammonia monooxygenase subunit C	St1_S4M	140.70987654320987	1
+1719329	K10946	methane/ammonia monooxygenase subunit C	St1_S4S	60.04197530864197	0.8209876543209876
+1315075	K10946	methane/ammonia monooxygenase subunit C	St1_S4B	18.87745098039216	1
+1315075	K10946	methane/ammonia monooxygenase subunit C	St1_S4M	39.65196078431372	1
+1315075	K10946	methane/ammonia monooxygenase subunit C	St1_S4S	11.867647058823527	0.4791666666666667
+1315076	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4B	6.451612903225806	0.8844086021505376
+1315076	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4M	6.935483870967742	0.7311827956989247
+1315076	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4S	0	0
+516928	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	14.622467771639045	0.8895027624309392
+516928	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	4.139963167587477	0.47697974217311234
+516928	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	0	0
+1185346	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	28.957918050941306	0.9966777408637874
+1185346	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	5.829457364341085	0.4839424141749723
+1185346	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	7.43078626799557	0.4496124031007752
+771826	K10945	methane/ammonia monooxygenase subunit B	St1_S4B	23.08286252354049	0.9397363465160076
+771826	K10945	methane/ammonia monooxygenase subunit B	St1_S4M	12.779661016949152	0.8531073446327684
+771826	K10945	methane/ammonia monooxygenase subunit B	St1_S4S	25.704331450094163	0.5386064030131826
+894284	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	523.0258215962441	1
+894284	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	645.8184663536776	1
+894284	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	215.07511737089203	0.9960876369327074
+1006041	K10945	methane/ammonia monooxygenase subunit B	St1_S4B	304.2677304964539	1
+1006041	K10945	methane/ammonia monooxygenase subunit B	St1_S4M	454.1223404255319	1
+1006041	K10945	methane/ammonia monooxygenase subunit B	St1_S4S	43.9468085106383	0.99822695035461
+215038	K10946	methane/ammonia monooxygenase subunit C	St1_S4B	29.36543209876543	1
+215038	K10946	methane/ammonia monooxygenase subunit C	St1_S4M	16.460493827160494	0.9012345679012346
+215038	K10946	methane/ammonia monooxygenase subunit C	St1_S4S	7.027160493827161	0.24074074074074073
+1814075	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	69.73137254901961	1
+1814075	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	164.8156862745098	1
+1814075	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	0	0
+772281	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4B	103.08018867924528	1
+772281	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4M	109.48899371069184	0.9937106918238994
+772281	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4S	10.528301886792454	0.4827044025157233
+1787639	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	9.673789173789174	0.7044159544159544
+1787639	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	18.67165242165242	0.97435897435897445
+1787639	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	17.903133903133902	0.51994301994302
+206835	K10945	methane/ammonia monooxygenase subunit B	St1_S4B	15660.941314553991	1
+206835	K10945	methane/ammonia monooxygenase subunit B	St1_S4M	17727.38145539906	1
+206835	K10945	methane/ammonia monooxygenase subunit B	St1_S4S	5987.890845070423	1
+815415	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	0.7501618122977346	0.29385113268608415
+815415	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	9.272491909385112	0.8822006472491909
+815415	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	26.97346278317152	0.6957928802588996
+1655835	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4B	3636.45015576324	1
+1655835	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4M	5883.671339563863	1
+1655835	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4S	736.1308411214953	0.9080996884735204
+742644	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	691.1525821596244	1
+742644	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	522.5735524256651	1
+742644	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	229.55790297339593	1
+742645	K00370	nitrate reductase / nitrite oxidoreductase, alpha subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	878.6660889659156	1
+742645	K00370	nitrate reductase / nitrite oxidoreductase, alpha subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	1009.9220103986136	1
+742645	K00370	nitrate reductase / nitrite oxidoreductase, alpha subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	251.11669555170425	1
+87959	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	10915.162983425414	1
+87959	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	11415.024861878454	1
+87959	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	4717.441068139963	1
+918176	K10946	methane/ammonia monooxygenase subunit C	St1_S4B	37183.870573870576	1
+918176	K10946	methane/ammonia monooxygenase subunit C	St1_S4M	25202.452991452992	1
+918176	K10946	methane/ammonia monooxygenase subunit C	St1_S4S	8505.481074481075	1
+1344640	K10535	hydroxylamine dehydrogenase [EC:1.7.2.6]	St1_S4B	13.29934640522876	0.8745098039215686
+1344640	K10535	hydroxylamine dehydrogenase [EC:1.7.2.6]	St1_S4M	7.3241830065359474	0.8117647058823529
+1344640	K10535	hydroxylamine dehydrogenase [EC:1.7.2.6]	St1_S4S	3.6366013071895424	0.13986928104575164
+1215016	K10535	hydroxylamine dehydrogenase [EC:1.7.2.6]	St1_S4B	372.3800350262697	1
+1215016	K10535	hydroxylamine dehydrogenase [EC:1.7.2.6]	St1_S4M	305.58493870402805	1
+1215016	K10535	hydroxylamine dehydrogenase [EC:1.7.2.6]	St1_S4S	80.7606538237011	1
+941749	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	38.1338199513382	0.8333333333333334
+941749	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	27.693430656934307	0.7019464720194647
+941749	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	5.357664233576642	0.3150851581508516
+882932	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	14.216117216117215	0.9945054945054944
+882932	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	18.08974358974359	0.7142857142857143
+882932	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	8.263736263736265	0.27472527472527475
+1659333	K10945	methane/ammonia monooxygenase subunit B	St1_S4B	22.624595469255663	1
+1659333	K10945	methane/ammonia monooxygenase subunit B	St1_S4M	26.96925566343042	1
+1659333	K10945	methane/ammonia monooxygenase subunit B	St1_S4S	9.072815533980584	0.47249190938511326
+1559295	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4B	656.8691588785047	1
+1559295	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4M	723.2040498442368	1
+1559295	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4S	112.33021806853584	0.8847352024922118
+326316	K10945	methane/ammonia monooxygenase subunit B	St1_S4B	129.5669099756691	1
+326316	K10945	methane/ammonia monooxygenase subunit B	St1_S4M	115.11192214111922	1
+326316	K10945	methane/ammonia monooxygenase subunit B	St1_S4S	80.38442822384428	0.9367396593673966
+432357	K10946	methane/ammonia monooxygenase subunit C	St1_S4B	48258.404896421845	1
+432357	K10946	methane/ammonia monooxygenase subunit C	St1_S4M	51521.25612052731	1
+432357	K10946	methane/ammonia monooxygenase subunit C	St1_S4S	13199.934086629002	1
+142769	K10945	methane/ammonia monooxygenase subunit B	St1_S4B	57460.45438596491	1
+142769	K10945	methane/ammonia monooxygenase subunit B	St1_S4M	62394.81578947369	1
+142769	K10945	methane/ammonia monooxygenase subunit B	St1_S4S	11576.72807017544	1
+1796673	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4B	62698.995391705066	1
+1796673	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4M	63902.78494623656	1
+1796673	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4S	24831.929339477727	0.9923195084485408
+1511663	K10945	methane/ammonia monooxygenase subunit B	St1_S4B	8.947546531302876	0.9052453468697124
+1511663	K10945	methane/ammonia monooxygenase subunit B	St1_S4M	4.761421319796955	0.8663282571912013
+1511663	K10945	methane/ammonia monooxygenase subunit B	St1_S4S	2.6700507614213196	0.22504230118443316
+1359363	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	20.272357723577237	0.9532520325203252
+1359363	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	20.03048780487805	0.9329268292682928
+1359363	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	0	0
+691166	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	165.5046197583511	1
+691166	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	334.5195451314854	1
+691166	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	13.31769722814499	0.6105188343994314
+144516	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	55.76307692307692	1
+144516	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	69.10358974358974	0.8974358974358975
+144516	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	41.323076923076925	0.6697435897435897
+500736	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4B	81.91531531531531	0.9495495495495496
+500736	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4M	20.01801801801802	0.9369369369369368
+500736	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4S	0.34774774774774775	0.15675675675675677
+98859	K10946	methane/ammonia monooxygenase subunit C	St1_S4B	457.6111111111111	1
+98859	K10946	methane/ammonia monooxygenase subunit C	St1_S4M	567.8853046594982	1
+98859	K10946	methane/ammonia monooxygenase subunit C	St1_S4S	87.53584229390681	0.9731182795698924
+524372	K10945	methane/ammonia monooxygenase subunit B	St1_S4B	37.02311111111111	1
+524372	K10945	methane/ammonia monooxygenase subunit B	St1_S4M	32.66577777777778	0.9928888888888888
+524372	K10945	methane/ammonia monooxygenase subunit B	St1_S4S	23.84888888888889	0.8293333333333334
+413792	K10946	methane/ammonia monooxygenase subunit C	St1_S4B	12.320075757575758	0.9981060606060606
+413792	K10946	methane/ammonia monooxygenase subunit C	St1_S4M	27.19128787878788	1
+413792	K10946	methane/ammonia monooxygenase subunit C	St1_S4S	0	0
+700737	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	2478.6865942028985	1
+700737	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	2384.1485507246375	1
+700737	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	1253.8170289855072	0.7047101449275363
+1768944	K10535	hydroxylamine dehydrogenase [EC:1.7.2.6]	St1_S4B	17.484848484848484	0.9567099567099568
+1768944	K10535	hydroxylamine dehydrogenase [EC:1.7.2.6]	St1_S4M	23.76082251082251	0.8928571428571429
+1768944	K10535	hydroxylamine dehydrogenase [EC:1.7.2.6]	St1_S4S	9.74025974025974	0.22077922077922077
+1348289	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	19.225225225225227	0.9495495495495496
+1348289	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	17.71171171171171	0.954954954954955
+1348289	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	3.4054054054054053	0.12162162162162164
+1363937	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	10.211858279103398	0.8532176428054953
+1363937	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	3.342010122921186	0.3665943600867679
+1363937	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	16.68112798264642	0.5748373101952278
+60403	K10535	hydroxylamine dehydrogenase [EC:1.7.2.6]	St1_S4B	13.394321766561514	1
+60403	K10535	hydroxylamine dehydrogenase [EC:1.7.2.6]	St1_S4M	6.4079915878023135	0.45531019978969506
+60403	K10535	hydroxylamine dehydrogenase [EC:1.7.2.6]	St1_S4S	2.810725552050473	0.2071503680336488
+443514	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	34.88167388167388	0.9047619047619048
+443514	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	66.08946608946609	0.8672438672438673
+443514	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	4.24963924963925	0.4545454545454546
+233233	K10535	hydroxylamine dehydrogenase [EC:1.7.2.6]	St1_S4B	3341.58552247519	1
+233233	K10535	hydroxylamine dehydrogenase [EC:1.7.2.6]	St1_S4M	2499.0799766491537	1
+233233	K10535	hydroxylamine dehydrogenase [EC:1.7.2.6]	St1_S4S	1006.1079976649154	1
+1228756	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	78.42403100775194	1
+1228756	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	116.43953488372092	1
+1228756	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	19.891472868217058	0.665891472868217
+411974	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	12.597701149425289	0.8374384236453202
+411974	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	27.541871921182267	0.9589490968801314
+411974	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	0	0
+823538	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	935.0734908136484	1
+823538	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	1874.6679790026249	1
+823538	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	392.6049868766404	0.9724409448818898
+592369	K10945	methane/ammonia monooxygenase subunit B	St1_S4B	59.3068783068783	1
+592369	K10945	methane/ammonia monooxygenase subunit B	St1_S4M	93.78659611992946	1
+592369	K10945	methane/ammonia monooxygenase subunit B	St1_S4S	24.33862433862434	0.527336860670194
+1384624	K10945	methane/ammonia monooxygenase subunit B	St1_S4B	277.89716312056737	1
+1384624	K10945	methane/ammonia monooxygenase subunit B	St1_S4M	403.51241134751774	1
+1384624	K10945	methane/ammonia monooxygenase subunit B	St1_S4S	61.0886524822695	0.9893617021276596
+425405	K10946	methane/ammonia monooxygenase subunit C	St1_S4B	36.28177458033573	1
+425405	K10946	methane/ammonia monooxygenase subunit C	St1_S4M	53.723021582733814	0.9964028776978416
+425405	K10946	methane/ammonia monooxygenase subunit C	St1_S4S	26.133093525179856	0.6630695443645084
+655319	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4B	97.1498599439776	0.9943977591036416
+655319	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4M	39.44117647058823	0.9803921568627452
+655319	K10944	methane/ammonia monooxygenase subunit A [EC:1.14.18.3 1.14.99.39]	St1_S4S	40.1890756302521	0.7661064425770309
+594150	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	2.4504950495049505	0.47194719471947194
+594150	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	14.287128712871286	0.9075907590759076
+594150	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	6.34983498349835	0.40264026402640263
+85995	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4B	7687.834115805947	1
+85995	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4M	7547.897496087637	1
+85995	K00371	nitrate reductase / nitrite oxidoreductase, beta subunit [EC:1.7.5.1 1.7.99.-]	St1_S4S	2080.317683881064	1
+427769	K10946	methane/ammonia monooxygenase subunit C	St1_S4B	265.7472353870458	1
+427769	K10946	methane/ammonia monooxygenase subunit C	St1_S4M	374.5481832543444	1
+427769	K10946	methane/ammonia monooxygenase subunit C	St1_S4S	188.90205371248024	0.9478672985781992
+354669	K10946	methane/ammonia monooxygenase subunit C	St1_S4B	18.18857901726428	0.9760956175298804
+354669	K10946	methane/ammonia monooxygenase subunit C	St1_S4M	27.280212483399733	1
+354669	K10946	methane/ammonia monooxygenase subunit C	St1_S4S	0	0
+687620	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	1282.9247311827958	1
+687620	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	2415.3629032258063	1
+687620	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	243.7858422939068	0.992831541218638
+630060	K10946	methane/ammonia monooxygenase subunit C	St1_S4B	343.88796680497927	0.9861687413554634
+630060	K10946	methane/ammonia monooxygenase subunit C	St1_S4M	319.39280774550485	0.995850622406639
+630060	K10946	methane/ammonia monooxygenase subunit C	St1_S4S	136.23651452282158	0.9557399723374828
+19512	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4B	9.057777777777778	0.9866666666666668
+19512	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4M	9.224444444444444	0.8111111111111111
+19512	K00368	nitrite reductase (NO-forming) [EC:1.7.2.1]	St1_S4S	0	0
