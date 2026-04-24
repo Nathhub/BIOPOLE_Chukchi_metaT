@@ -1960,6 +1960,8 @@ pheatmap(
 )
 ```
 
+**Note**: the nxrB most abundant sequence, when blasted, is highly similar to oen from the NOB **Nitrospina sp.** Given that Nitrospina nitrite oxidising bacteria (NOB) usually carry the whole NXR complex (nxrA, nxrB and likely nxrC), the low apparent expression of nxrA might be due to Assembly fragmentation, Annotation issues, Differential transcription, Reverse operation in nitrate reducers (“nxrB-like” genes)...
+
 ```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
 
 library(tidyverse)
@@ -1997,6 +1999,15 @@ amoA and nirK normalized expression were strongly positively correlated across s
 
 This result suggests that nirK expression is linked to nitrifying archaea rather than classical denitrifiers
 
+#### Additionnal questions and notes:
+
+- How exactly do marine archaea oxidize hydroxylamine equivalents to nitrite without canonical HAO?
+- NO is required for archaeal ammonia oxidation...
+- Proposed archaeal pathway - Current model (simplified): NH3 → NH2OH → NO → NO2−
+- Nitrosopumilus maritimus and related AOA can generate small amounts of NO and N₂O especially under low oxygen conditions.
+- Hypothesis - AOA could be doing this: NH2OH + NO → N2O (enzyme remains unknown...) Probably low production though...
+
+
 
 ## Extraction of the community profile
 
@@ -2025,17 +2036,6 @@ bracken \
   -r 150 \
   -l F
 ```
-
-```{bash}
-#| eval: false   
-#| echo: true
-# 1) Convert Kraken2 output to Krona input
-cut -f2,3 St1_S4S_kraken.out > St1_S4S.krona.tsv
-
-# 2) Make the Krona HTML
-ktImportTaxonomy -t 2 -m 3 -o St1_S4S_krona.html St1_S4S.krona.tsv
-```
-
 
 Approximately **17%** of metatranscriptomic reads could be taxonomically classified using Kraken2 with the standard database (16 GB). Krona plots were therefore generated using classified reads only, and complementary family-level profiles were produced using Bracken.
 
@@ -2124,8 +2124,9 @@ ggplot(br_plot, aes(x = sample, y = rel_abund, fill = taxon)) +
   scale_y_continuous(labels = percent_format(accuracy = 1)) +
   labs(
     x = NULL,
-    y = "Relative abundance (Bracken; classified reads)",
-    fill = "Family"
+    y = "Relative abundance of classified transcripts",
+    fill = "Family",
+    title = "Taxonomic composition of expressed transcripts"
   ) +
   theme_bw()
 
@@ -2200,8 +2201,9 @@ ggplot(br_plot, aes(x = sample, y = rel_abund, fill = taxon)) +
   scale_y_continuous(labels = percent_format(accuracy = 1)) +
   labs(
     x = NULL,
-    y = "Relative abundance (Bracken; classified reads)",
-    fill = "Family"
+    y = "Relative abundance of classified transcripts",
+    fill = "Family",
+    title = "Taxonomic composition of expressed transcripts"
   ) +
   theme_bw()
 
@@ -2274,13 +2276,13 @@ ggplot(br_plot, aes(x = sample, y = rel_abund, fill = taxon)) +
   scale_y_continuous(labels = percent_format(accuracy = 1)) +
   labs(
     x = NULL,
-    y = "Relative abundance (Bracken; classified reads)",
-    fill = "Family"
+    y = "Relative abundance of classified transcripts",
+    fill = "Family",
+    title = "Taxonomic composition of expressed transcripts"
   ) +
   theme_bw()
 
 ```
-
 
 ### All stations together
 
@@ -2377,17 +2379,63 @@ ggplot(br_plot, aes(x = depth, y = rel_abund, fill = taxon)) +
   scale_y_continuous(labels = percent_format(accuracy = 1)) +
   labs(
     x = NULL,
-    y = "Relative abundance (Bracken; classified reads)",
-    fill = "Family"
+    y = "Relative abundance of classified transcripts",
+    fill = "Family",
+    title = "Taxonomic composition of expressed transcripts - Top 10 families"
   ) +
   theme_bw() +
     theme(
       legend.position = "bottom")
 ```
 
+### Investigating correlation between nirK and Nitrosopumilaceae
 
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
 
+nitroso_df <- br_all %>%
+  filter(name == "Nitrosopumilaceae") %>%
+  select(sample, new_est_reads)
 
+nirk_df <- heatmap_df %>%
+  filter(KO_ID == "K00368") %>%
+  pivot_longer(
+    cols = -KO_ID,
+    names_to = "sample",
+    values_to = "nirK_cov"
+  )
+
+nitroso_df2 <- nitroso_df %>%
+  mutate(
+    sample_key = str_extract(sample, "S[0-9]+[A-Z]$")
+  )
+
+nirk_df2 <- nirk_df %>%
+  mutate(
+    sample_key = str_extract(sample, "S[0-9]+[A-Z]$")
+  )
+
+corr_df <- left_join(nirk_df2, nitroso_df2, by = "sample_key")
+
+cor.test(
+  corr_df$nirK_cov,
+  corr_df$new_est_reads,
+  method = "spearman"
+)
+
+```
+
+```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
+ggplot(corr_df, aes(new_est_reads, nirK_cov, label = sample_key)) +
+  geom_point(size = 3) +
+  geom_text(nudge_y = 0.15) +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_bw() +
+  labs(
+    x = "Nitrosopumilaceae Bracken estimated reads",
+    y = "nirK coverage, K00368"
+  )
+```
 
 ## Tara Oceans Arctic data as reference
 
