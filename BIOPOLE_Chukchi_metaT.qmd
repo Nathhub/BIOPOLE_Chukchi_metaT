@@ -1155,18 +1155,18 @@ anvi-export-gene-coverage-and-detection   -p St1_MERGED/PROFILE.db   -c St1_cont
 ```
 
 ```{r, eval=FALSE, message=FALSE, warning=FALSE}
-# This script has been run for each Station and for both Denitrification and anammox data.
+# This script has been run for each Station and for denitrification and anammox data.
 # We will use the resulting tables in the next code chunk
 library(tidyverse)
 
 # read function annotations
-functions <- read_tsv("St1_gene_functions.tsv", show_col_types = FALSE)
+functions <- read_tsv("St3_gene_functions.tsv", show_col_types = FALSE)
 
 # read coverages
-cov <- read_tsv("St1_anammox-GENE-COVERAGES.txt", show_col_types = FALSE)
+cov <- read_tsv("St3_denitrification-GENE-COVERAGES.txt", show_col_types = FALSE)
 
 # read detection
-det <- read_tsv("St1_anammox-GENE-DETECTION.txt", show_col_types = FALSE)
+det <- read_tsv("St3_denitrification-GENE-DETECTION.txt", show_col_types = FALSE)
 
 # convert wide -> long
 cov_long <- cov %>%
@@ -1186,18 +1186,23 @@ det_long <- det %>%
 target_gene_ids <- unique(cov_long$gene_callers_id)
 
 functions_ko_target <- functions %>%
-  filter(gene_callers_id %in% target_gene_ids) %>%
-  filter(grepl("^K\\d+", accession)) %>%
-  select(gene_callers_id, KO_ID = accession, `function`) %>%
-  distinct()
+  dplyr::filter(gene_callers_id %in% target_gene_ids) %>%
+  dplyr::filter(source == "KOfam") %>%
+  dplyr::filter(accession %in% c("K00370", "K00371", "K00374", "K02567","K02568", # KOs denitrif
+                                 "K00368", "K15864", "K04561", "K02305", "K00376")) %>%
+  dplyr::select(gene_callers_id, KO_ID = accession, `function`) %>%
+  dplyr::distinct()
+
+  # dplyr::filter(accession %in% c("K00368", "K15864", "K20932", "K20933", # KOs anammox
+  #                                "K20934", "K20935")) %>%
 
 # merge everything
 final_table <- cov_long %>%
   left_join(det_long, by = c("gene_callers_id", "sample")) %>%
-  left_join(functions_ko_target, by = "gene_callers_id", relationship = "many-to-many") %>%
+  left_join(functions_ko_target, by = "gene_callers_id") %>%
   select(gene_callers_id, KO_ID, `function`, sample, coverage, detection)
 
-# write_tsv(final_table, "St1_anammox_final_table.tsv")
+write_tsv(final_table, "St3_denitrification_final_table.tsv")
 ```
 
 Same for the housekeeping genes:
@@ -1205,11 +1210,12 @@ Same for the housekeeping genes:
 ```{r, eval=FALSE, message=FALSE, warning=FALSE}
 # This script has been run for each Station.
 # We will use the resulting tables in the next code chunk
+
 # read coverages
-cov <- read_tsv("St2_housekeeping-GENE-COVERAGES.txt", show_col_types = FALSE)
+cov <- read_tsv("St3_housekeeping-GENE-COVERAGES.txt", show_col_types = FALSE)
 
 # read detection
-det <- read_tsv("St2_housekeeping-GENE-DETECTION.txt", show_col_types = FALSE)
+det <- read_tsv("St3_housekeeping-GENE-DETECTION.txt", show_col_types = FALSE)
 
 # convert wide -> long
 cov_long <- cov %>%
@@ -1228,22 +1234,23 @@ det_long <- det %>%
 
 target_gene_ids <- unique(cov_long$gene_callers_id)
 
-functions_ko_target <- functions %>%
-  filter(gene_callers_id %in% target_gene_ids) %>%
-  filter(grepl("^K\\d+", accession)) %>%
-  select(gene_callers_id, KO_ID = accession, `function`) %>%
-  distinct()
+functions_hk_target <- functions %>%
+  dplyr::filter(gene_callers_id %in% target_gene_ids) %>%
+  dplyr::filter(source == "KOfam") %>%
+  dplyr::filter(accession %in% c("K03043", "K02470")) %>%
+  dplyr::select(gene_callers_id, KO_ID = accession, `function`) %>%
+  dplyr::distinct()
 
 # merge everything
 final_table <- cov_long %>%
   left_join(det_long, by = c("gene_callers_id", "sample")) %>%
-  left_join(functions_ko_target, by = "gene_callers_id", relationship = "many-to-many") %>%
+  left_join(functions_hk_target, by = "gene_callers_id") %>%
   select(gene_callers_id, KO_ID, `function`, sample, coverage, detection)
 
 # write_tsv(final_table, "St2_housekeeping_final_table.tsv")
 ```
 
-```{r, eval=FALSE, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 
 # files
@@ -1284,10 +1291,6 @@ housekeeping_summary <- housekeeping %>%
   ) %>%
   select(station, sample, rpoB_cov, gyrB_cov, hk_geom)
 
-# inspect whether any samples are missing one housekeeping gene
-housekeeping_summary %>%
-  filter(is.na(rpoB_cov) | is.na(gyrB_cov))
-
 normalized_targets <- targets %>%
   left_join(housekeeping_summary, by = c("station", "sample")) %>%
   mutate(
@@ -1296,11 +1299,437 @@ normalized_targets <- targets %>%
 ```
 
 
-```{r, eval=FALSE, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE}
 
-St2_cov <- read_tsv("data/St2_housekeeping_final_table.tsv", show_col_types = FALSE)
+ko_expression <- normalized_targets %>%
+  group_by(station, sample, pathway, KO_ID, `function`) %>%
+  summarise(
+    total_expression = sum(normalized_coverage, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+ko_labels <- c(
+  K00368 = "nirK",
+  K15864 = "nirS",
+  K00370 = "narG",
+  K00371 = "narH",
+  K00374 = "narI",
+  K00376 = "nosZ",
+  K02305 = "norC",
+  K02567 = "napA",
+  K02568 = "napB",
+  K04561 = "norB",
+  K20932 = "hzsA",
+  K20934 = "hzsB"
+)
+
+ko_expression$KO_label <- ko_labels[ko_expression$KO_ID]
+
+ko_expression$KO_label <- factor(
+  ko_expression$KO_label,
+  levels = c("narG","narH","narI","napA","napB",
+             "nirK","nirS","norB","norC","nosZ",
+             "hzsA","hzsB")
+)
+
+ggplot(ko_expression,
+       aes(x = KO_label, y = total_expression, fill = pathway)) +
+  geom_boxplot(outlier.shape = NA, alpha = 0.8) +
+  scale_y_log10() +
+  labs(
+    x = "Gene",
+    y = "Normalized expression (relative to housekeeping)",
+    fill = "Pathway", title = "Overall Relative Expression of Denitrification and Anammox Genes"
+  ) +
+  theme_bw(base_size = 12) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    panel.grid.minor = element_blank()
+  )
+
+```
+```{r, message=FALSE, warning=FALSE}
+ggplot(ko_expression,
+       aes(x = sample, y = total_expression, color = KO_label, group = KO_label)) +
+  geom_line() +
+  geom_point() +
+  theme_bw()
+```
+  
+#### Heatmap of normalized denitrification gene expression across stations and depths.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
+library(dplyr)
+library(tidyr)
+library(tibble)
+library(pheatmap)
+library(grid)
+
+# denitrification only
+heatmap_df <- ko_expression %>%
+  filter(pathway == "denitrification") %>%
+  select(KO_ID, sample, total_expression) %>%
+  pivot_wider(names_from = sample, values_from = total_expression)
+
+heatmap_df[is.na(heatmap_df)] <- 0
+
+heatmap_matrix <- heatmap_df %>%
+  column_to_rownames("KO_ID") %>%
+  as.matrix()
+
+# # log-transform
+# heatmap_matrix <- log10(heatmap_matrix + 1)
+
+# order rows
+ko_order <- c(
+  "K00370",  # narG
+  "K00371",  # narH
+  "K00374",  # narI
+  "K02567",  # napA
+  "K02568",  # napB
+  "K00368",  # nirK
+  "K15864",  # nirS
+  "K04561",  # norB
+  "K02305",  # norC
+  "K00376"   # nosZ
+)
+
+ko_order_present <- ko_order[ko_order %in% rownames(heatmap_matrix)]
+heatmap_matrix <- heatmap_matrix[ko_order_present, , drop = FALSE]
+
+# replace KO IDs with gene names
+ko_labels <- c(
+  K00370 = "narG",
+  K00371 = "narH",
+  K00374 = "narI",
+  K02567 = "napA",
+  K02568 = "napB",
+  K00368 = "nirK",
+  K15864 = "nirS",
+  K04561 = "norB",
+  K02305 = "norC",
+  K00376 = "nosZ"
+)
+
+rownames(heatmap_matrix) <- ko_labels[rownames(heatmap_matrix)]
+
+# order columns
+sample_order <- c(
+  "St1_S4S", "St1_S4M", "St1_S4B",
+  "St2_S13M", "St2_S13B",
+  "St3_S14S", "St3_S14M", "St3_S14B"
+)
+
+sample_order_present <- sample_order[sample_order %in% colnames(heatmap_matrix)]
+heatmap_matrix <- heatmap_matrix[, sample_order_present, drop = FALSE]
+
+# row annotations
+gene_annotation <- data.frame(
+  Step = c(
+    "Nitrate reduction",
+    "Nitrate reduction",
+    "Nitrate reduction",
+    "Nitrate reduction",
+    "Nitrate reduction",
+    "Nitrite reduction",
+    "Nitrite reduction",
+    "NO reduction",
+    "NO reduction",
+    "N2O reduction"
+  )[match(ko_order_present, ko_order)]
+)
+
+rownames(gene_annotation) <- rownames(heatmap_matrix)
+
+gene_annotation$Step <- factor(
+  gene_annotation$Step,
+  levels = c("Nitrate reduction", "Nitrite reduction", "NO reduction", "N2O reduction")
+)
+
+ann_colors <- list(
+  Step = c(
+    "Nitrate reduction" = "#d97ce8",
+    "Nitrite reduction" = "#00c98b",
+    "NO reduction"      = "#22b7e8",
+    "N2O reduction"     = "#f28e8e"
+  )
+)
+
+# define max
+max_val <- max(heatmap_matrix, na.rm = TRUE)
+
+# breaks (include 0 explicitly)
+breaks <- c(
+  0,
+  seq(1e-6, max_val, length.out = 99)  # small offset to separate zero
+)
+
+# color palette: first color = grey (for zero), rest = gradient
+colors <- c(
+  "white",  # zero values
+  colorRampPalette(c("lightgrey", "yellow", "orange", "red"))(99)
+)
+
+number_matrix <- matrix(
+  ifelse(
+    heatmap_matrix == 0,
+    "N.D.",
+    ifelse(
+      heatmap_matrix < 0.01,
+      "<0.01",
+      sprintf("%.2f", heatmap_matrix)
+    )
+  ),
+  nrow = nrow(heatmap_matrix)
+)
+
+rownames(number_matrix) <- rownames(heatmap_matrix)
+colnames(number_matrix) <- colnames(heatmap_matrix)
+
+pheatmap(
+  heatmap_matrix,
+  cluster_rows = FALSE,
+  cluster_cols = FALSE,
+  annotation_row = gene_annotation,
+  annotation_colors = ann_colors,
+  border_color = "white",
+  cellwidth = 42,
+  cellheight = 26,
+  fontsize = 11,
+  fontsize_row = 11,
+  fontsize_col = 10,
+  angle_col = 315,
+  gaps_col = c(3, 5),
+  legend = TRUE,
+  breaks = breaks,
+  color = colors,
+  display_numbers = number_matrix,
+  number_color = "black",
+  main = "Normalized expression of denitrification genes"
+)
+
 ```
 
+::: {.callout-note title="Discussion"}
+
+**Context and normalization approach**
+
+To assess the relative expression of denitrification genes across samples, gene coverages derived from metatranscriptomic data were normalized against housekeeping genes. Specifically, coverage values for each gene were divided by the geometric mean of the coverage of rpoB (K03043) and gyrB (K02470), two conserved single-copy genes involved in core cellular processes. This approach accounts for differences in sequencing depth and overall transcriptional activity, allowing gene expression to be interpreted relative to baseline cellular function. Normalized coverages were then summed per KEGG Orthology (KO) identifier within each sample to estimate the total community-level expression of each enzymatic step in the denitrification pathway. The resulting values were log-transformed to facilitate comparison across genes and samples with different expression magnitudes.
+
+**Interpretation of denitrification gene expression patterns**
+The heatmap reveals that denitrification activity is dominated by the nitrite reduction step, with nirK (K00368) showing consistently higher normalized expression than other genes, particularly in mid-depth samples such as St3_S14M. In contrast, genes involved in nitrate reduction (nar and nap complexes) exhibit moderate and more uniform expression across samples, suggesting that upstream substrate availability may not be limiting. Notably, expression of nosZ (K00376), responsible for the final reduction of N₂O to N₂, is consistently low or absent, indicating that denitrification may be incomplete and potentially leading to the accumulation of nitrous oxide. Overall, the observed patterns suggest that denitrification is actively expressed in the studied water column, with pronounced variability across depths and stations, and a potential imbalance between upstream and downstream steps of the pathway.
+:::
+
+### Final figure: functional classification
+
+Let's use discret values instead of a continuous gradient of normailsed expression.
+
+- Values around 0.1–1 → very strong expression
+- Values around 0.01–0.1 → moderate 
+- Values <0.001 → low but detectable 
+- Values ≈0 → absent / negligible
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
+heatmap_cat <- heatmap_matrix
+
+heatmap_cat[heatmap_matrix == 0] <- "Absent"
+heatmap_cat[heatmap_matrix > 0 & heatmap_matrix < 1e-2] <- "Low"
+heatmap_cat[heatmap_matrix >= 1e-2 & heatmap_matrix < 1e-1] <- "Moderate"
+heatmap_cat[heatmap_matrix >= 1e-1] <- "High"
+
+expr_colors <- c(
+  "Absent"   = "#f0f0f0",  # light grey
+  "Low"      = "#74add1",  # blue
+  "Moderate" = "#fdae61",  # orange
+  "High"     = "#d73027"   # red
+)
+
+heatmap_num <- matrix(
+  as.numeric(factor(heatmap_cat, levels = c("Absent","Low","Moderate","High"))),
+  nrow = nrow(heatmap_cat),
+  dimnames = dimnames(heatmap_cat)
+)
+
+pheatmap(
+  heatmap_num,
+  cluster_rows = FALSE,
+  cluster_cols = FALSE,
+  annotation_row = gene_annotation,
+  annotation_colors = ann_colors,
+  border_color = "white",
+  cellwidth = 42,
+  cellheight = 26,
+  fontsize = 11,
+  fontsize_row = 11,
+  fontsize_col = 10,
+  angle_col = 315,
+  gaps_col = c(3, 5),
+  color = expr_colors,
+  breaks = c(0.5, 1.5, 2.5, 3.5, 4.5),
+  legend_breaks = c(1,2,3,4),
+  legend_labels = c("Absent","Low","Moderate","High"),
+  main = "Categorized expression of denitrification genes"
+)
+
+```
+
+
+Expression levels were categorized into four classes based on normalized coverage: absent (0), low (<0.1%), moderate (10⁻²–10⁻¹), and high (>10⁻¹), allowing visualization of relative transcriptional activity across denitrification steps.
+
+#### Heatmap of normalized anammox gene expression across stations and depths.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
+library(dplyr)
+library(tidyr)
+library(tibble)
+library(pheatmap)
+library(grid)
+
+# anammox only
+heatmap_df <- ko_expression %>%
+  filter(pathway == "anammox") %>%
+  select(KO_ID, sample, total_expression) %>%
+  pivot_wider(names_from = sample, values_from = total_expression)
+
+heatmap_df[is.na(heatmap_df)] <- 0
+
+heatmap_matrix <- heatmap_df %>%
+  column_to_rownames("KO_ID") %>%
+  as.matrix()
+
+# # log-transform
+# heatmap_matrix <- log10(heatmap_matrix + 1)
+
+# order rows
+ko_order <- c(
+  "K00368",  # nirK
+  "K15864",  # nirS
+  "K20932",  # hzsA
+  "K20933",  # hzsB
+  "K20934",  # hzsC
+  "K20935"   # hdh
+)
+
+missing_kos <- setdiff(ko_order, rownames(heatmap_matrix))
+
+if(length(missing_kos) > 0){
+  zero_rows <- matrix(
+    0,
+    nrow = length(missing_kos),
+    ncol = ncol(heatmap_matrix),
+    dimnames = list(missing_kos, colnames(heatmap_matrix))
+  )
+  
+  heatmap_matrix <- rbind(heatmap_matrix, zero_rows)
+}
+
+ko_order_present <- ko_order[ko_order %in% rownames(heatmap_matrix)]
+heatmap_matrix <- heatmap_matrix[ko_order_present, , drop = FALSE]
+
+# replace KO IDs with gene names
+ko_labels <- c(
+  K00368 = "nirK",
+  K15864 = "nirS",
+  K20932 = "hzsA",
+  K20933 = "hzsB",
+  K20934 = "hzsC",
+  K20935 = "hdh"
+)
+
+rownames(heatmap_matrix) <- ko_labels[rownames(heatmap_matrix)]
+
+# order columns
+sample_order <- c(
+  "St1_S4S", "St1_S4M", "St1_S4B",
+  "St2_S13M", "St2_S13B",
+  "St3_S14S", "St3_S14M", "St3_S14B"
+)
+
+sample_order_present <- sample_order[sample_order %in% colnames(heatmap_matrix)]
+heatmap_matrix <- heatmap_matrix[, sample_order_present, drop = FALSE]
+
+# row annotation
+gene_annotation <- data.frame(
+  Step = c(
+    "Nitrite reduction",
+    "Nitrite reduction",
+    "Hydrazine synthesis",
+    "Hydrazine synthesis",
+    "Hydrazine synthesis",
+    "Hydrazine oxidation"
+  )[match(ko_order_present, ko_order)]
+)
+
+rownames(gene_annotation) <- rownames(heatmap_matrix)
+
+gene_annotation$Step <- factor(
+  gene_annotation$Step,
+  levels = c("Nitrite reduction", "Hydrazine synthesis", "Hydrazine oxidation")
+)
+
+ann_colors <- list(
+  Step = c(
+    "Nitrite reduction"   = "#00c98b",
+    "Hydrazine synthesis" = "#8c6cff",
+    "Hydrazine oxidation" = "#f28e2b"
+  )
+)
+
+# define max
+max_val <- max(heatmap_matrix, na.rm = TRUE)
+
+# breaks (include 0 explicitly)
+breaks <- c(
+  0,
+  seq(1e-6, max_val, length.out = 99)  # small offset to separate zero
+)
+
+# color palette: first color = grey (for zero), rest = gradient
+colors <- c(
+  "white",  # zero values
+  colorRampPalette(c("lightgrey", "yellow", "orange", "red"))(99)
+)
+
+number_matrix <- matrix(
+  ifelse(
+    heatmap_matrix == 0,
+    "N.D.",
+    ifelse(
+      heatmap_matrix < 0.01,
+      "<0.01",
+      sprintf("%.2f", heatmap_matrix)
+    )
+  ),
+  nrow = nrow(heatmap_matrix)
+)
+
+rownames(number_matrix) <- rownames(heatmap_matrix)
+colnames(number_matrix) <- colnames(heatmap_matrix)
+
+pheatmap(
+  heatmap_matrix,
+  cluster_rows = FALSE,
+  cluster_cols = FALSE,
+  annotation_row = gene_annotation,
+  annotation_colors = ann_colors,
+  border_color = "white",
+  cellwidth = 42,
+  cellheight = 26,
+  fontsize = 11,
+  fontsize_row = 11,
+  fontsize_col = 10,
+  angle_col = 315,
+  gaps_col = c(3, 5),
+  legend = TRUE,
+  breaks = breaks,
+  color = colors,
+  display_numbers = number_matrix,
+  number_color = "black",
+  main = "Normalized expression of anammox genes"
+)
+
+```
 
 ## Mapping transcripts to genomes of potential denitrifiers
 
@@ -1318,6 +1747,255 @@ The reference genomes listed in this table represent marine prokaryotes that are
 
 Mapping our RNA transcripts to the reference genomes of these marine prokarotes was not significant suggesting that these species were not abundant and/or active and/or detected. 
 
+## Looking at nitrification gene expression
+
+```{bash}
+#| eval: false   
+#| echo: true
+NITRIFICATION_KOS='K28504|K10944|K10945|K10946|K10535|K00368|K00370|K00371'
+
+awk -F'\t' -v kos="$NITRIFICATION_KOS" \
+'($3 ~ kos){print $1}' St1_gene_functions.tsv \
+| sort -u > nitrification_genes.ids
+
+anvi-export-gene-coverage-and-detection \
+-p St1_MERGED/PROFILE.db \
+-c St1_contigs.db \
+--genes-of-interest nitrification_genes.ids \
+-O St1_nitrification
+```
+
+```{r, eval=FALSE, message=FALSE, warning=FALSE}
+# This script has been run for each Station and for denitrification and anammox data.
+# We will use the resulting tables in the next code chunk
+
+# read function annotations
+functions <- read_tsv("St1_gene_functions.tsv", show_col_types = FALSE)
+
+# read coverages
+cov <- read_tsv("St1_nitrification-GENE-COVERAGES.txt", show_col_types = FALSE)
+
+# read detection
+det <- read_tsv("St1_nitrification-GENE-DETECTION.txt", show_col_types = FALSE)
+
+# convert wide -> long
+cov_long <- cov %>%
+  pivot_longer(
+    cols = -gene_callers_id,
+    names_to = "sample",
+    values_to = "coverage"
+  )
+
+det_long <- det %>%
+  pivot_longer(
+    cols = -gene_callers_id,
+    names_to = "sample",
+    values_to = "detection"
+  )
+
+target_gene_ids <- unique(cov_long$gene_callers_id)
+
+functions_ko_target <- functions %>%
+  dplyr::filter(gene_callers_id %in% target_gene_ids) %>%
+  dplyr::filter(source == "KOfam") %>%
+  dplyr::filter(accession %in% c(
+    "K28504", "K10945", "K10946",  # amoA, amoB, amoC
+    "K10944",                      # pmoA-amoA
+    "K10535",                      # hao
+    "K00368",                      # nirK
+    "K00370", "K00371"             # nxrA / nxrB
+  )) %>%
+  dplyr::select(gene_callers_id, KO_ID = accession, `function`) %>%
+  dplyr::distinct()
+
+# merge everything
+final_table <- cov_long %>%
+  left_join(det_long, by = c("gene_callers_id", "sample")) %>%
+  left_join(functions_ko_target, by = "gene_callers_id") %>%
+  distinct(gene_callers_id, sample, KO_ID, .keep_all = TRUE) %>%
+  select(gene_callers_id, KO_ID, `function`, sample, coverage, detection)
+
+write_tsv(final_table, "St1_nitrification_final_table.tsv")
+```
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+
+all_tables <- list.files(
+  "data/",
+  pattern = "_nitrification|housekeeping",
+  full.names = TRUE
+) %>%
+  map_dfr(~ read_tsv(.x, show_col_types = FALSE) %>%
+    mutate(
+      file = basename(.x),
+      station = str_extract(file, "^St[0-9]+"),
+      pathway = str_extract(file, "nitrification|housekeeping")
+    )
+  )
+
+housekeeping_summary <- all_tables %>%
+  filter(pathway == "housekeeping", KO_ID %in% c("K03043", "K02470")) %>%
+  group_by(station, sample, KO_ID) %>%
+  summarise(coverage = sum(coverage, na.rm = TRUE), .groups = "drop") %>%
+  pivot_wider(names_from = KO_ID, values_from = coverage) %>%
+  transmute(
+    station,
+    sample,
+    hk_geom = sqrt(K03043 * K02470)
+  )
+
+normalized_nitrification <- all_tables %>%
+  filter(pathway == "nitrification") %>%
+  left_join(housekeeping_summary, by = c("station", "sample")) %>%
+  mutate(normalized_coverage = coverage / hk_geom)
+```
+
+#### Heatmap of normalized denitrification gene expression across stations and depths.
+
+```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
+library(tidyverse)
+library(pheatmap)
+library(tibble)
+
+normalized_nitrification <- normalized_nitrification %>%
+  distinct(gene_callers_id, sample, KO_ID, .keep_all = TRUE)
+
+# summarize normalized expression
+ko_expression <- normalized_nitrification %>%
+  group_by(sample, KO_ID) %>%
+  summarise(total_expression = sum(normalized_coverage, na.rm = TRUE),
+            .groups = "drop")
+
+ko_labels <- c(
+  K10944 = "amoA",
+  K10945 = "amoB",
+  K10946 = "amoC",
+  K10535 = "hao",
+  K00368 = "nirK",
+  K00370 = "nxrA",
+  K00371 = "nxrB"
+)
+
+ko_order <- names(ko_labels)
+
+heatmap_matrix <- ko_expression %>%
+  pivot_wider(names_from = sample, values_from = total_expression) %>%
+  mutate(across(-KO_ID, ~replace_na(., 0))) %>%
+  column_to_rownames("KO_ID") %>%
+  as.matrix()
+
+heatmap_matrix <- heatmap_matrix[ko_order[ko_order %in% rownames(heatmap_matrix)], , drop = FALSE]
+
+rownames(heatmap_matrix) <- ko_labels[rownames(heatmap_matrix)]
+
+# order columns
+sample_order <- c(
+  "St1_S4S", "St1_S4M", "St1_S4B",
+  "St2_S13M", "St2_S13B",
+  "St3_S14S", "St3_S14M", "St3_S14B"
+)
+
+heatmap_matrix <- heatmap_matrix[, sample_order[sample_order %in% colnames(heatmap_matrix)], drop = FALSE]
+
+# pathway annotations
+gene_annotation <- data.frame(
+  Step = c(
+    "Ammonia oxidation",
+    "Ammonia oxidation",
+    "Ammonia oxidation",
+    "Hydroxylamine oxidation",
+    "NO production",
+    "Nitrite oxidation",
+    "Nitrite oxidation"
+  )
+)
+
+rownames(gene_annotation) <- rownames(heatmap_matrix)
+
+ann_colors <- list(
+  Step = c(
+    "Ammonia oxidation"      = "#00c98b",
+    "Hydroxylamine oxidation" = "#8c6cff",
+    "NO production"          = "#f28e2b",
+    "Nitrite oxidation"      = "#22b7e8"
+  )
+)
+
+# colors
+max_val <- max(heatmap_matrix)
+
+breaks <- c(0, seq(1e-6, max_val, length.out = 99))
+
+colors <- c(
+  "white",
+  colorRampPalette(c("lightgrey", "yellow", "orange", "red"))(99)
+)
+
+# labels inside cells
+number_matrix <- ifelse(
+  heatmap_matrix == 0, "N.D.",
+  ifelse(heatmap_matrix < 0.01, "<0.01",
+         sprintf("%.2f", heatmap_matrix))
+)
+
+# heatmap
+pheatmap(
+  heatmap_matrix,
+  cluster_rows = FALSE,
+  cluster_cols = FALSE,
+  annotation_row = gene_annotation,
+  annotation_colors = ann_colors,
+  border_color = "white",
+  color = colors,
+  breaks = breaks,
+  display_numbers = number_matrix,
+  number_color = "black",
+  cellwidth = 42,
+  cellheight = 26,
+  fontsize = 11,
+  angle_col = 315,
+  gaps_col = c(3,5),
+  main = "Normalized expression of nitrification genes"
+)
+```
+
+```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
+
+library(tidyverse)
+
+plot_df <- normalized_nitrification %>%
+  filter(KO_ID %in% c("K10944", "K00368")) %>%
+  group_by(sample, KO_ID) %>%
+  summarise(total_norm_cov = sum(normalized_coverage, na.rm = TRUE), .groups = "drop") %>%
+  pivot_wider(names_from = KO_ID, values_from = total_norm_cov) %>%
+  rename(
+    amoA = K10944,
+    nirK = K00368
+  ) %>%
+  mutate(
+    station = str_extract(sample, "^St[0-9]+")
+  )
+
+ggplot(plot_df, aes(x = amoA, y = nirK, color = station, label = sample)) +
+  geom_point(size = 3) +
+  geom_text(nudge_y = 0.15, size = 3, show.legend = FALSE) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 0.8, color = "black") +
+  labs(
+    x = "Normalized coverage of amoA",
+    y = "Normalized coverage of nirK",
+    title = "Relationship between amoA and nirK normalized coverage"
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+```{r, message=FALSE, warning=FALSE}
+cor.test(plot_df$amoA, plot_df$nirK, method = "spearman")
+```
+
+amoA and nirK normalized expression were strongly positively correlated across samples (Spearman’s ρ = 0.83, p = 0.015), suggesting that nirK expression may covary with ammonia oxidation activity. However, interpretation is limited by small sample size (n = 8) and potential spatial dependence among samples.
+
+This result suggests that nirK expression is linked to nitrifying archaea rather than classical denitrifiers
 
 
 ## Extraction of the community profile
@@ -1604,7 +2282,108 @@ ggplot(br_plot, aes(x = sample, y = rel_abund, fill = taxon)) +
 ```
 
 
+### All stations together
 
+```{r, fig.width=10, fig.height=8}
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(forcats)
+library(scales)
+library(purrr)
+
+my_colors <- c(
+  "#FF6666", "#8DD3C7", "#377EB8", "#4DAF4A",
+  "#984EA3", "#A6D854", "#FFFF33", "#FF7F00",
+  "#F781BF", "#999999", "#66C2A5", "#FC8D62",
+  "#8DA0CB", "#E78AC3", "#FFD92F", "#E5C494",
+  "#B3B3B3", "#A65628", "#FFFFB3", "#BEBADA",
+  "#FB8072", "#80B1D3", "#FDB462"
+)
+
+top_n <- 10
+
+# All samples from all 3 stations
+sample_info <- tibble(
+  sample = c("1-S4S", "2-S4M", "3-S4B",
+             "5-S13M", "6-S13B",
+             "7-S14S", "8-S14M", "9-S14B"),
+  station = c("Station 4", "Station 4", "Station 4",
+              "Station 13", "Station 13",
+              "Station 14", "Station 14", "Station 14"),
+  depth = c("Surface", "Mid-water", "Bottom",
+            "Mid-water", "Bottom",
+            "Surface", "Mid-water", "Bottom")
+)
+
+# Order depths left-to-right within each station
+depth_levels <- c("Surface", "Mid-water", "Bottom")
+station_levels <- c("Station 4", "Station 13", "Station 14")
+
+read_bracken <- function(sample, station, depth) {
+  file.path("data", paste0(sample, ".bracken.F")) %>%
+    read_tsv(show_col_types = FALSE) %>%
+    filter(taxonomy_id != 9604) %>%   # remove host at family level
+    mutate(
+      sample = sample,
+      station = station,
+      depth = depth
+    ) %>%
+    group_by(sample) %>%
+    mutate(rel_abund = new_est_reads / sum(new_est_reads)) %>%
+    ungroup()
+}
+
+br_all <- pmap_dfr(sample_info, read_bracken)
+
+# Global top 20 taxa across ALL samples
+top_taxa <- br_all %>%
+  group_by(name) %>%
+  summarise(total = sum(rel_abund), .groups = "drop") %>%
+  arrange(desc(total)) %>%
+  slice_head(n = top_n) %>%
+  pull(name)
+
+br_plot <- br_all %>%
+  mutate(taxon = if_else(name %in% top_taxa, name, "Other")) %>%
+  group_by(station, depth, taxon) %>%
+  summarise(rel_abund = sum(rel_abund), .groups = "drop")
+
+# Legend order by overall abundance across all stations
+taxon_levels <- br_plot %>%
+  group_by(taxon) %>%
+  summarise(total = sum(rel_abund), .groups = "drop") %>%
+  arrange(desc(total)) %>%
+  pull(taxon)
+
+taxon_levels <- c(setdiff(taxon_levels, "Other"), "Other")
+
+br_plot <- br_plot %>%
+  mutate(
+    station = factor(station, levels = station_levels),
+    depth = factor(depth, levels = depth_levels),
+    taxon = factor(taxon, levels = taxon_levels)
+  )
+
+palette_vals <- setNames(
+  c(my_colors[1:(length(taxon_levels) - 1)], "grey80"),
+  c(setdiff(taxon_levels, "Other"), "Other")
+)
+
+ggplot(br_plot, aes(x = depth, y = rel_abund, fill = taxon)) +
+  geom_col(width = 0.7) +
+  facet_wrap(~ station, nrow = 1) +
+  scale_fill_manual(values = palette_vals) +
+  scale_y_continuous(labels = percent_format(accuracy = 1)) +
+  labs(
+    x = NULL,
+    y = "Relative abundance (Bracken; classified reads)",
+    fill = "Family"
+  ) +
+  theme_bw() +
+    theme(
+      legend.position = "bottom")
+```
 
 
 
