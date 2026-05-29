@@ -1981,19 +1981,44 @@ plot_df <- normalized_nitrification %>%
     nirK = K00368
   ) %>%
   mutate(
-    station = str_extract(sample, "^St[0-9]+")
+    station = str_extract(sample, "^St[0-9]+"),
+    depth = case_when(
+      str_detect(sample, "S$") ~ "Surface",
+      str_detect(sample, "M$") ~ "Mid-water",
+      str_detect(sample, "B$") ~ "Bottom",
+      TRUE ~ NA_character_
+    ),
+    station = factor(station),
+    depth = factor(depth, levels = c("Surface", "Mid-water", "Bottom"))
   )
 
-ggplot(plot_df, aes(x = amoA, y = nirK, color = station, label = sample)) +
-  geom_point(size = 3) +
-  geom_text(nudge_y = 0.15, size = 3, show.legend = FALSE) +
-  geom_smooth(method = "lm", se = FALSE, linewidth = 0.8, color = "black") +
-  labs(
-    x = "Normalized coverage of amoA",
-    y = "Normalized coverage of nirK",
-    title = "Relationship between amoA and nirK normalized coverage"
+ggplot(plot_df, aes(x = amoA, y = nirK)) +
+  geom_point(aes(shape = station, colour = depth), size = 3.5, stroke = 1) +
+  geom_smooth(method = "lm", se = TRUE, linewidth = 0.8,
+              colour = "black", fill = "grey80") +
+  scale_colour_manual(
+    values = c(
+      "Surface" = "#1B9E77",
+      "Mid-water" = "#7570B3",
+      "Bottom" = "#D95F02"
+    )
   ) +
-  theme_minimal(base_size = 12)
+  labs(
+    x = expression("Normalised coverage of " * italic(amoA)),
+    y = expression("Normalised coverage of " * italic(nirK)),
+    colour = "Depth",
+    shape = "Station"
+  ) +
+  theme_bw(base_size = 12) +
+  theme(
+    panel.grid.minor = element_blank(),
+    panel.grid.major = element_line(linewidth = 0.3, colour = "grey85"),
+    legend.position = "right",
+    axis.title = element_text(size = 12),
+    axis.text = element_text(size = 11),
+    legend.title = element_text(size = 11),
+    legend.text = element_text(size = 10)
+  )
 ```
 
 ```{r, message=FALSE, warning=FALSE}
@@ -2391,6 +2416,23 @@ ggplot(br_plot, aes(x = depth, y = rel_abund, fill = taxon)) +
   theme_bw() +
     theme(
       legend.position = "bottom")
+```
+
+#### percentage of Nitrosopumilaceae + Pelagibacteraceae
+
+```{r, message=FALSE, warning=FALSE}
+combined_dominant <- br_all %>%
+  filter(name %in% c("Nitrosopumilaceae",
+                     "Candidatus Pelagibacteraceae")) %>%
+  group_by(sample, station, depth) %>%
+  summarise(
+    combined_rel_abund = sum(rel_abund),
+    combined_percent = round(combined_rel_abund * 100, 1),
+    .groups = "drop"
+  ) %>%
+  arrange(station, depth)
+
+combined_dominant
 ```
 
 ### Investigating correlation between nirK and Nitrosopumilaceae
